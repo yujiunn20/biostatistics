@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import Shell from "../../components/Shell.astro";
+import { chapters, chapterTitle, locales, ui, type Locale } from "../../lib/site";
+export function getStaticPaths(){ return locales.map(locale => ({ params:{locale} })); }
+const locale = Astro.params.locale as Locale;
+const t = ui[locale];
+const alternates = Object.fromEntries(locales.map(lang => [lang, `/${lang}/`])) as Record<Locale,string>;
+---
+<Base locale={locale} title={t.site} description={t.intro} alternates={alternates}>
+  <Shell locale={locale}>
+    <section class="hero">
+      <p class="eyebrow">BIOSTATISTICS · STUDY NOTES</p><h1>{t.hero}</h1><p>{t.intro}</p>
+      <div><a class="primary" href={`/${locale}/chapter/01/`}>{t.start} →</a><a href="#chapters">{t.all}</a></div>
+      <figure aria-hidden="true">{[8,22,52,82,100,82,52,22,8].map(height => <i style={`height:${height}%`}></i>)}</figure>
+    </section>
+    <section class="gallery" id="chapters">
+      <header><div><p class="eyebrow">LEARNING PATH</p><h2>{t.chapters}</h2></div><span>{locale === "zh-Hant" ? "依原始學習筆記整理" : "9 structured topics"}</span></header>
+      <div>{chapters.map((chapter,index) => <a class="card" href={`/${locale}/chapter/${chapter.id}/`}><em>{chapter.id}</em><small>{index<3?"FOUNDATIONS":index<6?"INFERENCE":"MODELING"}</small><h3>{chapterTitle(chapter,locale)}</h3>{locale === "zh-Hant" && <ul>{chapter.blocks.filter(block => block.type === "heading").slice(0,3).map(block => <li>{"text" in block ? block.text : ""}</li>)}</ul>}<b>↗</b></a>)}</div>
+    </section>
+    <aside class="notice">{t.notice}</aside>
+  </Shell>
+</Base>

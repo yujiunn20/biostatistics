@@ -1,0 +1,7 @@
+---
+interface Props { block: { type: string; text?: string; rows?: string[][] } }
+const { block } = Astro.props;
+---
+{block.type === "heading" && <h2>{block.text}</h2>}
+{block.type === "paragraph" && <p>{block.text}</p>}
+{block.type === "table" && block.rows && <div class="tablewrap"><table><tbody>{block.rows.map(row => <tr>{row.map(cell => <td>{cell}</td>)}</tr>)}</tbody></table></div>}

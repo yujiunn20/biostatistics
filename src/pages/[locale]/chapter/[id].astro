@@ -1,0 +1,35 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Shell from "../../../components/Shell.astro";
+import ArticleBlock from "../../../components/ArticleBlock.astro";
+import { chapters, chapterTitle, locales, ui, type Locale } from "../../../lib/site";
+export function getStaticPaths(){ return locales.flatMap(locale => chapters.map(chapter => ({ params: { locale, id: chapter.id } }))); }
+const locale = Astro.params.locale as Locale;
+const id = Astro.params.id!;
+const index = chapters.findIndex(chapter => chapter.id === id);
+const chapter = chapters[index];
+const t = ui[locale];
+const title = chapterTitle(chapter, locale);
+const alternates = Object.fromEntries(locales.map(lang => [lang, `/${lang}/chapter/${id}/`])) as Record<Locale,string>;
+const headings = chapter.blocks.filter(block => block.type === "heading");
+const previous = index > 0 ? chapters[index - 1] : undefined;
+const next = index < chapters.length - 1 ? chapters[index + 1] : undefined;
+---
+<Base locale={locale} title={`${title} | ${t.site}`} description={`${title} — ${t.tag}`} alternates={alternates}>
+  <Shell locale={locale} activeId={id}>
+    {locale === "zh-Hant" && <article>
+      <header class="article-head"><p class="eyebrow">CHAPTER {chapter.id}</p><h1>{chapter.title}</h1><p>{chapter.titleEn}</p></header>
+      {headings.length > 1 && <details open><summary>{t.chapters}</summary><ol>{headings.map(block => <li>{"text" in block ? block.text : ""}</li>)}</ol></details>}
+      <section class="prose">{chapter.blocks.map(block => <ArticleBlock block={block} />)}</section>
+      <nav class="pager">
+        {previous && <a href={`/zh-Hant/chapter/${previous.id}/`}><small>{t.prev}</small><b>← {previous.title}</b></a>}
+        {!previous && <span></span>}
+        {next && <a href={`/zh-Hant/chapter/${next.id}/`}><small>{t.next}</small><b>{next.title} →</b></a>}
+        {!next && <span></span>}
+      </nav>
+    </article>}
+    {locale !== "zh-Hant" && <section class="pending"><p class="eyebrow">CHAPTER {chapter.id}</p><h1>{title}</h1><div><b>文</b><h2>{t.pending}</h2><p>{t.notice}</p><a class="primary" href={`/zh-Hant/chapter/${chapter.id}/`}>{t.readZh} →</a></div></section>}
+  </Shell>
+</Base>
+
+

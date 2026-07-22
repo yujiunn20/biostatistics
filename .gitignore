@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Astro generated files
+.astro/
+dist/
+
+# Local tooling and logs
+.wrangler/
+*.log
+
+# Environment files
+.env
+.env.*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

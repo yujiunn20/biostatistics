@@ -1,0 +1,20 @@
+---
+import "../styles/global.css";
+import type { Locale } from "../lib/site";
+interface Props { locale: Locale; title: string; description: string; alternates?: Record<Locale,string>; }
+const { locale, title, description, alternates } = Astro.props;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#205d49" />
+    <title>{title}</title>
+    {alternates && Object.entries(alternates).map(([lang, href]) => <link rel="alternate" hreflang={lang} href={href} />)}
+    {alternates && <link rel="alternate" hreflang="x-default" href={alternates["zh-Hant"]} />}
+  </head>
+  <body><slot /></body>
+</html>
