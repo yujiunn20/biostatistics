@@ -12,9 +12,11 @@ const { locale, title, description, alternates } = Astro.props;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#205d49" />
+    <link rel="icon" type="image/png" href="/biostatistics-logo.png" />
     <title>{title}</title>
     {alternates && Object.entries(alternates).map(([lang, href]) => <link rel="alternate" hreflang={lang} href={href} />)}
     {alternates && <link rel="alternate" hreflang="x-default" href={alternates["zh-Hant"]} />}
   </head>
   <body><slot /></body>
 </html>
+
