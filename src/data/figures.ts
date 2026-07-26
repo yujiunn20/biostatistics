@@ -16,6 +16,14 @@ export interface FigureDefinition {
  * image with `{ type: "image", imageId: "data-types-overview" }`.
  */
 export const figures: Record<string, FigureDefinition> = {
+  "abc-inventory-analysis": {
+    src: "/media/notes/chapter-01/data-types/abc-inventory-analysis.png",
+    alt: "ABC 庫存分析圖：品項依價值由高至低排列，並以累積價值百分比區分 A、B、C 類",
+    caption: "ABC 分析將品項由高價值排到低價值，再依累積價值百分比分類；圖中界線為示意。",
+    credit: "本站製作",
+    width: 1536,
+    height: 1024,
+  },
   "skewness-negative-positive": {
     src: "/media/notes/chapter-01/descriptive-statistics/skewness-negative-positive.png",
     alt: "負偏態與正偏態分布比較：負偏態的長尾朝左，正偏態的長尾朝右",
@@ -29,4 +37,5 @@ export const figures: Record<string, FigureDefinition> = {
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
 
