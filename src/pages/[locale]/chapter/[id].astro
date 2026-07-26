@@ -1,35 +1,31 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import Shell from "../../../components/Shell.astro";
-import ArticleBlock from "../../../components/ArticleBlock.astro";
+import { sectionsForChapter } from "../../../lib/content";
 import { chapters, chapterTitle, locales, ui, type Locale } from "../../../lib/site";
 export function getStaticPaths(){ return locales.flatMap(locale => chapters.map(chapter => ({ params: { locale, id: chapter.id } }))); }
 const locale = Astro.params.locale as Locale;
 const id = Astro.params.id!;
 const index = chapters.findIndex(chapter => chapter.id === id);
 const chapter = chapters[index];
+const sections = sectionsForChapter(id);
 const t = ui[locale];
 const title = chapterTitle(chapter, locale);
 const alternates = Object.fromEntries(locales.map(lang => [lang, `/${lang}/chapter/${id}/`])) as Record<Locale,string>;
-const headings = chapter.blocks.filter(block => block.type === "heading");
 const previous = index > 0 ? chapters[index - 1] : undefined;
 const next = index < chapters.length - 1 ? chapters[index + 1] : undefined;
 ---
 <Base locale={locale} title={`${title} | ${t.site}`} description={`${title} — ${t.tag}`} alternates={alternates}>
   <Shell locale={locale} activeId={id}>
-    {locale === "zh-Hant" && <article>
+    {locale === "zh-Hant" && <article class="chapter-overview">
       <header class="article-head"><p class="eyebrow">CHAPTER {chapter.id}</p><h1>{chapter.title}</h1><p>{chapter.titleEn}</p></header>
-      {headings.length > 1 && <details open><summary>{t.chapters}</summary><ol>{headings.map(block => <li>{"text" in block ? block.text : ""}</li>)}</ol></details>}
-      <section class="prose">{chapter.blocks.map(block => <ArticleBlock block={block} />)}</section>
-      <nav class="pager">
-        {previous && <a href={`/zh-Hant/chapter/${previous.id}/`}><small>{t.prev}</small><b>← {previous.title}</b></a>}
-        {!previous && <span></span>}
-        {next && <a href={`/zh-Hant/chapter/${next.id}/`}><small>{t.next}</small><b>{next.title} →</b></a>}
-        {!next && <span></span>}
+      <section class="chapter-intro"><div><p class="eyebrow">LEARNING PATH</p><h2>本章主題</h2><p>依照主題分篇閱讀；每篇保留原筆記中的完整段落、公式與表格。</p></div><span><b>{sections.length}</b> 篇主題文章</span></section>
+      <ol class="topic-grid">{sections.map((section, sectionIndex) => <li><a href={`/zh-Hant/chapter/${id}/${section.slug}/`}><span>{String(sectionIndex + 1).padStart(2, "0")}</span><div><h2>{section.title}</h2><p>{section.summary}</p><small>{section.blocks.length} 個內容區塊</small></div><b aria-hidden="true">→</b></a></li>)}</ol>
+      <nav class="pager chapter-pager">
+        {previous ? <a href={`/zh-Hant/chapter/${previous.id}/`}><small>{t.prev}</small><b>← {previous.title}</b></a> : <span></span>}
+        {next ? <a href={`/zh-Hant/chapter/${next.id}/`}><small>{t.next}</small><b>{next.title} →</b></a> : <span></span>}
       </nav>
     </article>}
     {locale !== "zh-Hant" && <section class="pending"><p class="eyebrow">CHAPTER {chapter.id}</p><h1>{title}</h1><div><b>文</b><h2>{t.pending}</h2><p>{t.notice}</p><a class="primary" href={`/zh-Hant/chapter/${chapter.id}/`}>{t.readZh} →</a></div></section>}
   </Shell>
 </Base>
-
-

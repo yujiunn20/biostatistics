@@ -1,0 +1,35 @@
+---
+import Base from "../../../../layouts/Base.astro";
+import Shell from "../../../../components/Shell.astro";
+import ArticleBlock from "../../../../components/ArticleBlock.astro";
+import { allTopicSections, sectionsForChapter } from "../../../../lib/content";
+import { chapters, ui, type Locale } from "../../../../lib/site";
+export function getStaticPaths(){ return allTopicSections.map(section => ({ params: { locale: "zh-Hant", id: section.chapterId, section: section.slug } })); }
+const locale = Astro.params.locale as Locale;
+const id = Astro.params.id!;
+const slug = Astro.params.section!;
+const chapter = chapters.find(item => item.id === id)!;
+const sections = sectionsForChapter(id);
+const sectionIndex = sections.findIndex(item => item.slug === slug);
+const section = sections[sectionIndex];
+const previous = sectionIndex > 0 ? sections[sectionIndex - 1] : undefined;
+const next = sectionIndex < sections.length - 1 ? sections[sectionIndex + 1] : undefined;
+const internalHeadings = section.blocks.filter(block => block.type === "heading");
+const t = ui[locale];
+---
+<Base locale={locale} title={`${section.title} | ${chapter.title} | ${t.site}`} description={section.summary}>
+  <Shell locale={locale} activeId={id}>
+    <article class="topic-article">
+      <nav class="breadcrumbs" aria-label="麵包屑"><a href="/">首頁</a><span>/</span><a href={`/zh-Hant/chapter/${id}/`}>{chapter.title}</a><span>/</span><span>{section.title}</span></nav>
+      <header class="article-head"><p class="eyebrow">CHAPTER {chapter.id} · TOPIC {String(sectionIndex + 1).padStart(2, "0")}</p><h1>{section.title}</h1><p>{section.summary}</p></header>
+      <div class="topic-layout">
+        <aside class="topic-toc"><p>本章主題</p><nav>{sections.map((item, index) => <a class={item.slug === slug ? "active" : ""} href={`/zh-Hant/chapter/${id}/${item.slug}/`}><span>{String(index + 1).padStart(2, "0")}</span>{item.title}</a>)}</nav></aside>
+        <div>{internalHeadings.length > 0 && <details class="on-page-toc"><summary>本頁內容</summary><ol>{internalHeadings.map(block => <li>{"text" in block ? block.text : ""}</li>)}</ol></details>}<section class="prose">{section.blocks.map(block => <ArticleBlock block={block} />)}</section></div>
+      </div>
+      <nav class="pager">
+        {previous ? <a href={`/zh-Hant/chapter/${id}/${previous.slug}/`}><small>上一篇</small><b>← {previous.title}</b></a> : <a href={`/zh-Hant/chapter/${id}/`}><small>返回</small><b>← {chapter.title}</b></a>}
+        {next ? <a href={`/zh-Hant/chapter/${id}/${next.slug}/`}><small>下一篇</small><b>{next.title} →</b></a> : <a href={`/zh-Hant/chapter/${id}/`}><small>完成本章</small><b>回到章節目錄 →</b></a>}
+      </nav>
+    </article>
+  </Shell>
+</Base>

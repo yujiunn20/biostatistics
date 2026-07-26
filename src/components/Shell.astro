@@ -59,11 +59,10 @@ const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/
     const query = input.value.trim().toLocaleLowerCase(); results.innerHTML = ''; if (!query) return;
     indexData ||= await fetch('/search-index.json').then(response => response.json());
     indexData.filter(item => item.text.toLocaleLowerCase().includes(query)).slice(0,18).forEach(item => {
-      const link = document.createElement('a'); link.href = `/${locale}/chapter/${item.id}/`;
-      const strong = document.createElement('b'); strong.textContent = `${item.id} · ${item.title}`;
+      const link = document.createElement('a'); link.href = `/${locale}/chapter/${item.id}/${item.slug}/`;
+      const strong = document.createElement('b'); strong.textContent = `${item.id} · ${item.chapter} · ${item.title}`;
       const span = document.createElement('span'); span.textContent = item.text;
       link.append(strong, span); results.append(link);
     });
   });
 </script>
-
