@@ -48,11 +48,19 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1400,
     height: 900,
   },
-};
+  "t-df-normal-comparison": {
+    src: "/media/notes/chapter-02/t-distribution/t-df-normal-comparison.svg",
+    alt: "自由度為 1、2、3、5、10 與 100 的 t 分配密度曲線，並與標準常態分配比較；自由度增加時 t 分配逐漸接近標準常態分配",
+    caption: "自由度較低時，t 分配的中央較低、尾端較厚；自由度增加後，曲線逐漸接近標準常態分配 N(0,1)。",
+    credit: "本站依 t 分配密度函數製作",
+    width: 1400,
+    height: 900,
+  },};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
 
 
 
