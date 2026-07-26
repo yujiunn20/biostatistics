@@ -32,11 +32,20 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1869,
     height: 842,
   },
-};
+  "density-greater-than-one": {
+    src: "/media/notes/chapter-02/random-variables/density-greater-than-one.svg",
+    alt: "均勻分布的機率密度示意圖：密度高度為 2、區間寬度為 0.5，曲線下的矩形面積為 1",
+    caption: "密度高度為 2 並不代表機率大於 1；真正的機率是曲線下的面積，此處為 2 × 0.5 = 1。",
+    credit: "本站製作",
+    width: 1200,
+    height: 720,
+  },};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
+
 
 
 

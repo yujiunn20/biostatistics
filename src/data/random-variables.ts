@@ -2,11 +2,11 @@ export const randomVariables = [
   { type: "paragraph", text: "機率模型用來描述隨機現象可能出現哪些結果，以及各種結果有多大的機會發生。為了用數學處理這些結果，我們會利用隨機變數把試驗結果轉換成數值。" },
   { type: "heading", text: "什麼是隨機變數？" },
   { type: "paragraph", text: "隨機變數（random variable）是把隨機試驗的每一個可能結果對應成數值的函數。由於試驗結果在發生前尚未確定，因此隨機變數最後會取得哪一個數值，也具有不確定性。" },
-  { type: "callout", tone: "intuition", label: "常見數學格言", text: "「在數學中，發明一套好的符號，就等於打贏了一半的戰爭。」（Half the battle in mathematics is the invention of a good notation.）確切出處待考。" },
   { type: "heading", text: "為什麼需要隨機變數？" },
   { type: "paragraph", text: "現實中的隨機結果可能是事件、狀態或文字描述，不一定能直接進行計算。隨機變數會先選定我們關心的特徵，再用符號表示，並建立一套把每個可能結果對應成數值的規則。完成這個轉換後，才能為這些數值建立機率分配，進一步計算平均數、變異數及其他統計量。" },
   { type: "callout", tone: "intuition", label: "符號本身還不夠", text: "X 只是名稱；真正使它成為數學工具的，是清楚說明 X 代表什麼，以及每一種試驗結果要如何轉換成 X 的數值。換句話說，需要的是「符號＋明確定義＋對應規則」。" },
   { type: "list", ordered: true, items: ["觀察一個具有不確定性的現象。", "選擇其中真正關心的特徵。", "以 X 等符號表示這個特徵。", "定義每一種可能結果如何對應成數值。", "根據這些數值與機率，進一步建立分配並進行計算。"] },
+  { type: "callout", tone: "intuition", label: "從這個角度理解數學格言", text: "「在數學中，發明一套好的符號，就等於打贏了一半的戰爭。」（Half the battle in mathematics is the invention of a good notation.）隨機變數正體現了這個想法：把現實中的隨機結果轉換成定義清楚、可以運算的數值。這句格言的確切出處待考。" },
   { type: "callout", tone: "forward", label: "本筆記的共同思路", text: "後面介紹的 t、χ²、F、OR 與存活函數，也都在做相似的事：先把現實問題轉換成定義清楚、可以運算的統計對象，再利用它們進行比較與推論。" },
   { type: "heading", text: "以擲硬幣為例" },
   { type: "paragraph", text: "假設連續擲兩次硬幣，可能結果為正正、正反、反正與反反。若定義 X 為正面出現的次數，這四種結果就會分別對應到 2、1、1 與 0。" },
@@ -31,6 +31,7 @@ export const randomVariables = [
   { type: "heading", text: "為什麼密度可以大於 1？" },
   { type: "paragraph", text: "機率一定介於 0 與 1 之間，但機率密度的高度可以大於 1。只要密度曲線下的總面積等於 1，它仍然是合法的機率密度函數。" },
   { type: "paragraph", text: "例如 X 均勻分布在 0 到 0.5 之間。因為整段寬度只有 0.5，密度高度可以是 2；此時總面積仍然是 0.5×2=1。" },
+  { type: "image", imageId: "density-greater-than-one" },
   { type: "formulaGroup", formulas: [{ label: "密度函數", latex: "f(x)=2,\\quad 0\\le x\\le 0.5", fallback: "f(x) = 2，0 ≤ x ≤ 0.5" }, { label: "整段範圍的機率", latex: "P(0\\le X\\le 0.5)=\\int_0^{0.5}2\\,dx=1", fallback: "P(0 ≤ X ≤ 0.5) = ∫₀⁰·⁵ 2 dx = 1" }, { label: "其中一小段的機率", latex: "P(0\\le X\\le 0.1)=\\int_0^{0.1}2\\,dx=0.2", fallback: "P(0 ≤ X ≤ 0.1) = ∫₀⁰·¹ 2 dx = 0.2" }] },
   { type: "table", rows: [["符號", "代表意義"], ["f(x)=2", "這段範圍的機率密度高度為 2；它不是單一點的機率"], ["0.5、0.1", "所計算區間的寬度"], ["∫", "把指定區間內的密度累積成曲線下面積"], ["1、0.2", "積分後得到的區間機率"]] },
   { type: "formulaGroup", formulas: [{ label: "單一點的機率", latex: "P(X=x)=0", fallback: "P(X = x) = 0" }, { label: "區間內的機率", latex: "P(a\\le X\\le b)=\\int_a^b f(x)\\,dx", fallback: "P(a ≤ X ≤ b) = ∫ₐᵇ f(x) dx" }, { label: "整條密度曲線下的面積", latex: "\\int_{-\\infty}^{\\infty}f(x)\\,dx=1", fallback: "∫ f(x) dx = 1" }] },
@@ -45,5 +46,7 @@ export const randomVariables = [
   { type: "table", rows: [["隨機變數類型", "常見分配"], ["離散型", "二項分配（binomial）、卜瓦松分配（Poisson）、超幾何分配（hypergeometric）"], ["連續型", "常態分配（normal）、均勻分配（uniform）、指數分配（exponential）"]] },
   { type: "callout", tone: "forward", label: "本章接下來的方向", text: "後續會依序認識常態、t、F、指數、二項與卜瓦松分配，並說明它們如何描述不同的隨機變數，以及在統計推論中扮演什麼角色。" },
 ];
+
+
 
 
