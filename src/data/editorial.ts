@@ -1,3 +1,5 @@
+import { descriptiveStatistics } from "./descriptive-statistics";
+
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
     introduction: [
@@ -126,7 +128,7 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     ],
     "data-types": [
       { type: "paragraph", text: "選擇統計方法之前，首先要了解資料的型態。不同型態的資料可以進行的運算不同，適合的摘要方式、圖表與統計方法也會不同。" },
-      { type: "callout", tone: "intuition", label: "簡單來說", text: "先確認資料代表「類別」還是「數量」，再判斷它有沒有順序、能不能計算差距，以及 0 是否代表完全沒有。這些特性會影響後續能使用哪些統計方法。" },
+      { type: "callout", tone: "intuition", label: "簡單來說", text: "先確認資料代表「類別」還是「數量」，再判斷它有沒有順序、能不能計算差距，以及零點是否代表完全沒有。這些特性會影響後續能使用哪些統計方法。" },
       { type: "heading", text: "依資料性質分類" },
       { type: "paragraph", text: "依照觀察值所表達的意義，資料可以先分為類別資料與數值資料。" },
       { type: "heading", text: "類別資料" },
@@ -138,11 +140,14 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
       { type: "list", items: ["離散型資料（discrete data）：由計數得到，通常只能取分開的數值，例如住院次數、病例數或子女數", "連續型資料（continuous data）：由測量得到，在一定範圍內可以取任意精細的數值，例如身高、體重、血壓或體溫"] },
       { type: "callout", tone: "intuition", label: "判斷方式", text: "「有幾個」通常是離散型資料；「有多高、多重、多長」通常是連續型資料。" },
       { type: "heading", text: "依測量尺度分類" },
-      { type: "paragraph", text: "除了依資料性質分類，也可以依測量尺度區分為名目、次序、區間與比例尺度。這套分類關心的是資料能否排序、差距是否相等，以及 0 是否具有絕對意義。" },
-      { type: "table", rows: [["測量尺度", "是否有順序", "差距是否可比較", "0 的意義", "例子"], ["名目尺度", "否", "否", "不適用", "血型、國籍"], ["次序尺度", "是", "不一定相等", "不適用", "疼痛等級、疾病分期"], ["區間尺度", "是", "相等", "相對零點", "攝氏溫度"], ["比例尺度", "是", "相等", "絕對零點", "身高、體重、時間"]] },
-      { type: "callout", tone: "intuition", label: "區間尺度與比例尺度的差別", text: "攝氏 0 度不代表完全沒有溫度，因此不能說 20°C 是 10°C 的兩倍熱；體重 0 公斤則代表沒有重量，所以 80 公斤可以說是 40 公斤的兩倍。" },
+      { type: "paragraph", text: "除了依資料性質分類，也可以依測量尺度區分為名目、次序、區間與比例尺度。這套分類關心的是資料能否排序、差距是否相等，以及零點是否具有絕對意義。" },
+      { type: "table", rows: [["測量尺度", "是否有順序", "差距是否可比較", "零點的意義", "例子"], ["名目尺度", "否", "否", "不適用", "血型、國籍"], ["次序尺度", "是", "不一定相等", "不適用", "疼痛等級、疾病分期"], ["區間尺度", "是", "相等", "相對零點", "攝氏溫度"], ["比例尺度", "是", "相等", "絕對零點", "身高、體重、時間"]] },
+      { type: "callout", tone: "intuition", label: "區間尺度與比例尺度的差別", text: "攝氏零度不代表完全沒有溫度，因此不能說 20°C 是 10°C 的兩倍熱；體重零公斤則代表沒有重量，所以 80 公斤可以說是 40 公斤的兩倍。" },
       { type: "heading", text: "為什麼資料型態很重要？" },
       { type: "paragraph", text: "資料型態會影響我們如何呈現資料、選擇代表性的統計量，以及使用哪一種統計方法。例如，類別資料常以次數與比例摘要；連續型資料則可能使用平均數、標準差、中位數或四分位距。" },
       { type: "callout", tone: "forward", label: "後面會再次用到", text: "後續選擇 t 檢定、卡方檢定、ANOVA 或無母數方法時，都要先判斷依變數與分組變數的資料型態，並進一步考慮資料分布及樣本之間是否獨立。" },
-    ],  },
+    ],
+    "descriptive-statistics": descriptiveStatistics,
+  },
 };
+
