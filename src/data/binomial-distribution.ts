@@ -47,18 +47,54 @@ export const binomialDistribution = [
       { label: "變異數", latex: "\\operatorname{Var}(X)=\\sum_{i=1}^{n}\\operatorname{Var}(I_i)=np(1-p)", fallback: "Var(X)=ΣVar(Iᵢ)=np(1-p)" }
     ] }
   ] },
-  { type: "details", label: "補充：依原公式推導 E(X) 與 Var(X)", children: [
-    { type: "heading", text: "期望值的推導" },
-    { type: "paragraph", text: "從二項機率質量函數直接計算期望值，利用 x C(n,x)=np C(n-1,x-1)/p 的組合關係，把剩餘總和辨認成參數 n-1、p 的完整二項機率和，因此其值為 1。" },
-    { type: "formula", latex: "E(X)=\\sum_{x=1}^{n}x\\binom{n}{x}p^x(1-p)^{n-x}", fallback: "E(X)=ΣxC(n,x)p^x(1-p)^(n-x)" },
-    { type: "formula", latex: "E(X)=np\\sum_{x=1}^{n}\\binom{n-1}{x-1}p^{x-1}(1-p)^{(n-1)-(x-1)}=np", fallback: "E(X)=np乘上一個完整二項機率和=np" },
-    { type: "heading", text: "變異數的推導" },
-    { type: "paragraph", text: "先計算階乘動差 E[X(X-1)]，再利用 X²=X(X-1)+X 得到 E(X²)，最後代入 Var(X)=E(X²)-[E(X)]²。" },
+  { type: "details", label: "補充：依原公式完整推導 E(X) 與 Var(X)", children: [
+    { type: "callout", tone: "intuition", label: "這段推導真正使用的技巧", text: "重點不是硬把每一項算完，而是用組合恆等式消去求和式前面的 x 或 x(x−1)，再透過換元把剩餘部分辨認成一個完整的二項分配。完整機率和等於 1，因此看似複雜的總和便能直接化簡。" },
+    { type: "heading", text: "第一部分：推導 E(X)=np" },
+    { type: "paragraph", text: "從離散型隨機變數的期望值定義開始。因為 x=0 的那一項等於 0，所以總和可從 x=1 開始。" },
+    { type: "formula", latex: "E(X)=\\sum_{x=1}^{n}x\\binom{n}{x}p^x(1-p)^{n-x}", fallback: "E(X)=從 x=1 到 n 的 xC(n,x)p^x(1-p)^(n-x) 總和" },
+    { type: "paragraph", text: "接著使用第一個組合恆等式。它的作用，是把前面的 x 吸收到組合數中，並將 n 次選 x 個位置改寫成先固定一個成功位置，再從其餘 n−1 個位置選 x−1 個。" },
     { type: "formulaGroup", formulas: [
-      { label: "第二階階乘動差", latex: "E[X(X-1)]=n(n-1)p^2", fallback: "E[X(X-1)]=n(n-1)p²" },
-      { label: "二次動差", latex: "E(X^2)=n(n-1)p^2+np", fallback: "E(X²)=n(n-1)p²+np" },
-      { label: "整理變異數", latex: "\\operatorname{Var}(X)=E(X^2)-[E(X)]^2=np(1-p)", fallback: "Var(X)=E(X²)-[E(X)]²=np(1-p)" }
-    ] }
+      { label: "組合恆等式", latex: "x\\binom{n}{x}=n\\binom{n-1}{x-1}", fallback: "xC(n,x)=nC(n-1,x-1)" },
+      { label: "同時從 p 的次方提出一個 p", latex: "p^x=p\\,p^{x-1}", fallback: "p^x=p·p^(x-1)" }
+    ] },
+    { type: "paragraph", text: "代回期望值後，可以把與 x 無關的 n 與 p 提到總和外面。" },
+    { type: "formula", latex: "E(X)=np\\sum_{x=1}^{n}\\binom{n-1}{x-1}p^{x-1}(1-p)^{n-x}", fallback: "E(X)=np乘上從 x=1 到 n 的 C(n-1,x-1)p^(x-1)(1-p)^(n-x) 總和" },
+    { type: "paragraph", text: "令 j=x−1。當 x 從 1 走到 n 時，j 便從 0 走到 n−1；而 n−x=(n−1)−j。換元後，總和正好是參數 n−1、p 的所有二項機率之和。" },
+    { type: "formulaGroup", formulas: [
+      { label: "換元", latex: "j=x-1,\\qquad j=0,1,\\ldots,n-1", fallback: "令 j=x-1，則 j=0,1,…,n-1" },
+      { label: "完整二項機率和", latex: "\\sum_{j=0}^{n-1}\\binom{n-1}{j}p^j(1-p)^{(n-1)-j}=[p+(1-p)]^{n-1}=1", fallback: "所有 Binomial(n-1,p) 機率相加為 1" },
+      { label: "得到期望值", latex: "E(X)=np\\times1=np", fallback: "E(X)=np" }
+    ] },
+    { type: "heading", text: "第二部分：先求 E[X(X−1)]" },
+    { type: "paragraph", text: "若直接計算 E(X²)，組合數前會留下 x²，不容易立即化簡。原文採用的技巧是先計算第二階階乘動差 E[X(X−1)]；因為 x=0、1 的項都等於 0，所以總和從 x=2 開始。" },
+    { type: "formula", latex: "E[X(X-1)]=\\sum_{x=2}^{n}x(x-1)\\binom{n}{x}p^x(1-p)^{n-x}", fallback: "E[X(X-1)]=從 x=2 到 n 的 x(x-1)C(n,x)p^x(1-p)^(n-x) 總和" },
+    { type: "paragraph", text: "這次使用第二個組合恆等式，把 x(x−1) 吸收到組合數中；同時從 p^x 提出 p²。" },
+    { type: "formulaGroup", formulas: [
+      { label: "第二個組合恆等式", latex: "x(x-1)\\binom{n}{x}=n(n-1)\\binom{n-2}{x-2}", fallback: "x(x-1)C(n,x)=n(n-1)C(n-2,x-2)" },
+      { label: "從成功機率提出 p²", latex: "p^x=p^2p^{x-2}", fallback: "p^x=p²p^(x-2)" }
+    ] },
+    { type: "formula", latex: "E[X(X-1)]=n(n-1)p^2\\sum_{x=2}^{n}\\binom{n-2}{x-2}p^{x-2}(1-p)^{n-x}", fallback: "E[X(X-1)]=n(n-1)p²乘上一個剩餘總和" },
+    { type: "paragraph", text: "再令 j=x−2。換元後的總和是參數 n−2、p 的完整二項機率和，因此仍然等於 1。" },
+    { type: "formulaGroup", formulas: [
+      { label: "第二次換元", latex: "j=x-2,\\qquad j=0,1,\\ldots,n-2", fallback: "令 j=x-2，則 j=0,1,…,n-2" },
+      { label: "剩餘機率和等於 1", latex: "\\sum_{j=0}^{n-2}\\binom{n-2}{j}p^j(1-p)^{(n-2)-j}=1", fallback: "所有 Binomial(n-2,p) 機率相加為 1" },
+      { label: "得到階乘動差", latex: "E[X(X-1)]=n(n-1)p^2", fallback: "E[X(X-1)]=n(n-1)p²" }
+    ] },
+    { type: "heading", text: "第三部分：由階乘動差得到 Var(X)" },
+    { type: "paragraph", text: "利用 X²=X(X−1)+X，把剛才求得的階乘動差與 E(X)=np 組合起來，先得到 E(X²)。" },
+    { type: "formulaGroup", formulas: [
+      { label: "代數關係", latex: "X^2=X(X-1)+X", fallback: "X²=X(X-1)+X" },
+      { label: "二次動差", latex: "E(X^2)=E[X(X-1)]+E(X)=n(n-1)p^2+np", fallback: "E(X²)=n(n-1)p²+np" }
+    ] },
+    { type: "paragraph", text: "最後代入變異數定義並逐步整理。" },
+    { type: "formulaGroup", formulas: [
+      { label: "變異數定義", latex: "\\operatorname{Var}(X)=E(X^2)-[E(X)]^2", fallback: "Var(X)=E(X²)-[E(X)]²" },
+      { label: "代入已知結果", latex: "\\operatorname{Var}(X)=n(n-1)p^2+np-(np)^2", fallback: "Var(X)=n(n-1)p²+np-(np)²" },
+      { label: "展開並消去共同項", latex: "=n^2p^2-np^2+np-n^2p^2", fallback: "=n²p²-np²+np-n²p²" },
+      { label: "得到變異數", latex: "\\operatorname{Var}(X)=np-np^2=np(1-p)", fallback: "Var(X)=np-np²=np(1-p)" }
+    ] },
+    { type: "callout", tone: "intuition", label: "為什麼先算 X(X−1) 很巧妙？", text: "X(X−1) 可以理解成：從 X 次成功中，依序挑出兩次不同成功的方式數。它正好與 n(n−1) 的結構配合，使二項係數降低成 C(n−2,x−2)。這就是階乘動差在計數型分配中特別好用的原因。" },
+    { type: "table", rows: [["符號或技巧", "在推導中的作用"], ["xC(n,x)=nC(n−1,x−1)", "消去期望值總和前的 x"], ["x(x−1)C(n,x)=n(n−1)C(n−2,x−2)", "消去階乘動差總和前的 x(x−1)"], ["j=x−1 或 j=x−2", "重新設定求和索引，使總和從 0 開始"], ["完整二項機率和=1", "將剩餘總和直接化簡"], ["X²=X(X−1)+X", "由階乘動差轉回二次動差"]] }
   ] },
   { type: "heading", text: "二項分配何時接近常態分配？" },
   { type: "paragraph", text: "你原本的直覺是正確的：n 越大，而且 p 不太靠近 0 或 1 時，二項分配通常越接近鐘形的常態分配。只用「n 至少 20」仍可能不夠，因為 p 很小或很大時，成功或失敗的預期次數可能仍然太少。" },
@@ -73,4 +109,5 @@ export const binomialDistribution = [
   { type: "list", items: ["伯努利分配：n=1 的二項分配就是一次成功／失敗試驗", "多項分配：當每次試驗不只兩種結果時，可視為二項分配向多類別的推廣", "卜瓦松分配：n 很大、p 很小且 np 保持適中時，可用參數 λ=np 的卜瓦松分配近似", "常態分配：np 與 n(1-p) 足夠大時，可用平均數 np、變異數 np(1-p) 的常態分配近似"] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配會成為二項檢定、兩比例比較及部分 2×2 表方法的基礎；常態近似與連續性校正則會在大樣本檢定中再次出現。" },
 ];
+
 

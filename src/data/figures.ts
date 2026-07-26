@@ -72,11 +72,21 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1400,
     height: 900,
   },
+  "poisson-lambda-distributions": {
+    src: "/media/notes/chapter-02/poisson-distribution/poisson-lambda-distributions.svg",
+    alt: "參數 λ 分別為 0.5、2、5 與 10 的 Poisson 分配機率圖；λ 增加時分布中心向右移動並逐漸較為對稱",
+    caption: "Poisson 分配只能取非負整數。λ 較小時明顯右偏；λ 增加後，中心向右移、範圍變寬，形狀也逐漸較為對稱。連線僅協助辨認同一組分布。",
+    credit: "本站依 Poisson 機率質量函數製作",
+    width: 1400,
+    height: 900,
+  },
 };
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
+
 
 
 
