@@ -11,8 +11,7 @@ export const descriptiveStatistics = [
   { type: "heading", text: "中位數" },
   { type: "paragraph", text: "中位數（median）是將資料由小到大排列後，位於中間位置的數值。若資料數量為奇數，取正中央的觀察值；若為偶數，通常取中間兩個觀察值的平均。" },
   { type: "formula", latex: "\\text{奇數筆資料的位置}=\\frac{n+1}{2}", fallback: "奇數筆資料的位置 = (n + 1) / 2" },
-  { type: "formula", latex: "\\text{偶數筆資料的中間位置}=\\frac{n}{2}\\text{ 與 }\\left(\\frac{n}{2}+1\\right)", fallback: "偶數筆資料的中間位置 = 第 n/2 筆與第 (n/2 + 1) 筆" },
-  { type: "formula", latex: "\\operatorname{Median}=\\frac{x_{(n/2)}+x_{(n/2+1)}}{2}", fallback: "Median = [x₍ₙ⁄₂₎ + x₍ₙ⁄₂₊₁₎] / 2" },
+  { type: "formulaGroup", formulas: [{ label: "第一步：找出中間兩個位置", latex: "\\frac{n}{2}\\text{ 與 }\\left(\\frac{n}{2}+1\\right)", fallback: "第 n/2 筆與第 (n/2 + 1) 筆" }, { label: "第二步：取中間兩個觀察值的平均", latex: "\\operatorname{Median}=\\frac{x_{(n/2)}+x_{(n/2+1)}}{2}", fallback: "Median = [x₍ₙ⁄₂₎ + x₍ₙ⁄₂₊₁₎] / 2" }] },
   { type: "table", rows: [["中位數公式的符號", "代表意義"], ["n", "資料的總筆數"], ["x₍ₖ₎", "資料由小到大排列後，第 k 個位置的觀察值"], ["Median", "中位數；偶數筆資料時為中央兩個觀察值的平均"]] },
   { type: "callout", tone: "intuition", label: "計算前先排序", text: "不論資料筆數是奇數或偶數，都必須先將資料由小到大排列。偶數筆資料沒有單一正中央觀察值，因此要找出中間兩筆，再取兩者的平均數。" },
   { type: "paragraph", text: "中位數較不容易受到極端值影響，因此當分布明顯偏斜或存在離群值時，通常比平均數更能代表典型位置。不過，中位數沒有充分利用每個觀察值的實際大小，在某些統計推論中也不如平均數方便。" },
@@ -24,8 +23,7 @@ export const descriptiveStatistics = [
   { type: "heading", text: "修剪平均數與幾何平均數" },
   { type: "paragraph", text: "修剪平均數（trimmed mean）會先依大小排序，再從兩端各移除固定比例的觀察值後計算平均。它不是先判定哪些值是錯誤的離群值再刪除，而是在平均數與中位數之間取得對極端值較穩健的摘要。" },
   { type: "paragraph", text: "幾何平均數（geometric mean）適合描述正值資料的乘法變化，例如成長倍數、比率或對數常態資料。對於明顯右偏且數值皆為正的資料，常會先取自然對數（ln）；取 ln 後，較大的數值會被壓縮，資料可能變得較為對稱，並可能更接近常態分布，方便進行後續分析。若資料包含零或負值，便不能直接使用一般的對數轉換與幾何平均數。" },
-  { type: "formula", latex: "G=\\left(\\prod_{i=1}^{n}x_i\\right)^{1/n},\\quad x_i>0", fallback: "G = (x₁ × x₂ × ⋯ × xₙ)^(1/n)，且 xᵢ > 0" },
-  { type: "formula", latex: "G=\\exp\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n}\\ln x_i\\right)", fallback: "G = exp[(1/n) Σ ln(xᵢ)]" },
+  { type: "formulaGroup", formulas: [{ label: "連乘形式", latex: "G=\\left(\\prod_{i=1}^{n}x_i\\right)^{1/n},\\quad x_i>0", fallback: "G = (x₁ × x₂ × ⋯ × xₙ)^(1/n)，且 xᵢ > 0" }, { label: "等價的對數形式", latex: "G=\\exp\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n}\\ln x_i\\right)", fallback: "G = exp[(1/n) Σ ln(xᵢ)]" }] },
   { type: "table", rows: [["幾何平均數公式的符號", "代表意義"], ["G", "幾何平均數"], ["xᵢ", "第 i 筆觀察值，且每一筆都必須大於 0"], ["n", "資料的總筆數"], ["Π", "連乘符號；把第 1 筆到第 n 筆觀察值全部相乘"], ["Σ", "求和符號；此處是把每筆資料取 ln 後全部相加"], ["ln", "自然對數"], ["exp", "ln 的反函數，用來把結果轉回原始尺度"]] },
   { type: "callout", tone: "intuition", label: "為什麼取 ln？", text: "右偏資料常由少數很大的數值拉出長尾。取 ln 會壓縮較大的數值，使分布可能變得較對稱。接著在對數尺度上計算算術平均數，再轉回原尺度，就會得到幾何平均數。" },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "『先取 ln，讓分布較對稱或較接近常態，再進行分析』是後續的重要技巧。比值資料、OR、RR、部分生物測量值與迴歸分析都可能使用對數轉換；後面遇到時會再說明為什麼要轉換，以及結果如何轉回原本尺度解讀。" },
@@ -38,8 +36,7 @@ export const descriptiveStatistics = [
   { type: "paragraph", text: "全距只使用最大值與最小值，因此容易受到極端值影響。四分位距（interquartile range, IQR）描述中間 50% 資料的範圍，對極端值較穩健，特別適合與中位數一起報告。" },
   { type: "heading", text: "變異數與標準差" },
   { type: "paragraph", text: "變異數以每個觀察值和平均數之間的平方距離衡量分散程度；標準差是變異數的平方根，因此與原始資料具有相同單位，通常更容易解讀。" },
-  { type: "formula", latex: "\\sigma^2=\\frac{1}{N}\\sum_{i=1}^{N}(x_i-\\mu)^2,\\qquad \\sigma=\\sqrt{\\sigma^2}", fallback: "母體變異數 σ² = Σ(xᵢ − μ)²/N；母體標準差 σ = √σ²" },
-  { type: "formula", latex: "s^2=\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})^2,\\qquad s=\\sqrt{s^2}", fallback: "樣本變異數 s² = Σ(xᵢ − x̄)²/(n−1)；樣本標準差 s = √s²" },
+  { type: "formulaGroup", formulas: [{ label: "母體的變異數與標準差", latex: "\\sigma^2=\\frac{1}{N}\\sum_{i=1}^{N}(x_i-\\mu)^2,\\qquad \\sigma=\\sqrt{\\sigma^2}", fallback: "母體變異數 σ² = Σ(xᵢ − μ)²/N；母體標準差 σ = √σ²" }, { label: "樣本的變異數與標準差", latex: "s^2=\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})^2,\\qquad s=\\sqrt{s^2}", fallback: "樣本變異數 s² = Σ(xᵢ − x̄)²/(n−1)；樣本標準差 s = √s²" }] },
   { type: "paragraph", text: "這兩組公式先計算每筆資料離平均數有多遠，再將距離平方後加總。結果愈大，表示資料愈分散；最後開平方得到標準差，使單位回到與原始資料相同。" },
   { type: "table", rows: [["變異數與標準差的符號", "代表意義"], ["N、n", "母體大小與樣本筆數"], ["xᵢ", "第 i 筆觀察值"], ["μ、x̄", "母體平均數與樣本平均數"], ["σ²、s²", "母體變異數與樣本變異數"], ["σ、s", "母體標準差與樣本標準差"], ["Σ", "將每筆資料與平均數之間的平方距離全部加總"], ["n−1", "樣本變異數使用的自由度"]] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "樣本變異數使用 n−1 作為分母，與自由度及母體變異數的不偏估計有關；後續談抽樣分配、t 檢定與 ANOVA 時會再次使用這個概念。" },
@@ -63,6 +60,7 @@ export const descriptiveStatistics = [
   { type: "list", ordered: true, items: ["先辨認資料型態與測量尺度。", "類別資料報告次數與百分比。", "數值資料同時報告中心位置與變異程度。", "查看分布圖與離群值，再決定使用平均數與標準差，或中位數與四分位距。", "必要時補充偏度、峰度與適合的圖形，但不要只靠單一統計量判斷分布。"] },
   { type: "callout", tone: "forward", label: "與後續章節的連結", text: "敘述統計不只是研究結果的第一張表。它也是選擇檢定方法、檢查模型假設與正確解讀推論結果之前的重要步驟。" },
 ];
+
 
 
 

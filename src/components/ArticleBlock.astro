@@ -6,7 +6,8 @@ import Formula from "./Formula.astro";
 import RichText from "./RichText.astro";
 interface RichPart { type: "text" | "inlineFormula"; text?: string; latex?: string; fallback?: string }
 interface TableCell { text?: string; parts?: RichPart[] }
-interface Props { block: { type: string; text?: string; label?: string; tone?: string; ordered?: boolean; items?: string[]; latex?: string; fallback?: string; parts?: RichPart[]; rows?: (string | TableCell)[][]; imageId?: string; src?: string; alt?: string; caption?: string; credit?: string; sourceUrl?: string; license?: string; width?: number; height?: number } }
+interface FormulaItem { label?: string; latex: string; fallback?: string }
+interface Props { block: { type: string; text?: string; label?: string; tone?: string; ordered?: boolean; items?: string[]; latex?: string; fallback?: string; formulas?: FormulaItem[]; parts?: RichPart[]; rows?: (string | TableCell)[][]; imageId?: string; src?: string; alt?: string; caption?: string; credit?: string; sourceUrl?: string; license?: string; width?: number; height?: number } }
 const { block } = Astro.props;
 const ListTag = block.ordered ? "ol" : "ul";
 let figure: FigureDefinition | undefined;
@@ -33,5 +34,7 @@ if (block.type === "image") {
 {block.type === "list" && block.items && <ListTag class="article-list">{block.items.map(item => <li>{item}</li>)}</ListTag>}
 {block.type === "callout" && <aside class:list={["article-callout", block.tone]}><strong>{block.label}</strong><p>{block.text}</p></aside>}
 {block.type === "formula" && block.latex && <div class="formula-block"><Formula latex={block.latex} fallback={block.fallback} display /></div>}
+{block.type === "formulaGroup" && block.formulas && <div class="formula-block formula-group">{block.formulas.map(item => <div class="formula-group__item">{item.label && <strong>{item.label}</strong>}<Formula latex={item.latex} fallback={item.fallback} display /></div>)}</div>}
 {block.type === "table" && block.rows && <div class="tablewrap"><table><tbody>{block.rows.map(row => <tr>{row.map(cell => <td>{typeof cell === "string" ? cell : cell.parts ? <RichText parts={cell.parts} /> : cell.text}</td>)}</tr>)}</tbody></table></div>}
 {block.type === "image" && figure && <figure class="article-figure"><img src={figure.src} alt={figure.alt} width={figure.width} height={figure.height} loading="lazy" decoding="async" />{(figure.caption || figure.credit) && <figcaption><span>{figure.caption}</span>{figure.credit && <small>{figure.sourceUrl ? <a href={figure.sourceUrl} target="_blank" rel="noopener noreferrer">來源：{figure.credit}</a> : `來源：${figure.credit}`}{figure.license && ` · ${figure.license}`}</small>}</figcaption>}</figure>}
+
