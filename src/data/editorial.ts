@@ -4,6 +4,8 @@ import { degreesOfFreedom } from "./degrees-of-freedom";
 import { normalDistribution } from "./normal-distribution";
 import { chiSquareDistribution } from "./chi-square-distribution";
 import { tDistribution } from "./t-distribution";
+import { fDistribution } from "./f-distribution";
+import { exponentialDistribution } from "./exponential-distribution";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -160,8 +162,12 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "normal-distribution": normalDistribution,
     "chi-square-distribution": chiSquareDistribution,
     "t-distribution": tDistribution,
+    "f-distribution": fDistribution,
+    "exponential-distribution": exponentialDistribution,
   },
 };
+
+
 
 
 

@@ -55,11 +55,33 @@ export const figures: Record<string, FigureDefinition> = {
     credit: "本站依 t 分配密度函數製作",
     width: 1400,
     height: 900,
-  },};
+  },
+  "f-df-curves": {
+    src: "/media/notes/chapter-02/f-distribution/f-df-curves.svg",
+    alt: "分子與分母自由度分別為 2 與 4、4 與 6、9 與 9、12 與 12 的 F 分配密度曲線",
+    caption: "F 分配通常右偏；分子與分母自由度增加時，曲線逐漸更集中在 F=1 附近。圖例依序標示分子、分母自由度。",
+    credit: "本站依 F 分配密度函數製作",
+    width: 1400,
+    height: 900,
+  },
+  "exponential-rate-curves": {
+    src: "/media/notes/chapter-02/exponential-distribution/exponential-rate-curves.svg",
+    alt: "發生率 λ 分別為 0.5、1.0 與 1.5 的指數分配密度曲線；λ 越大，曲線起點越高且下降越快",
+    caption: "λ 越大，事件平均發生得越頻繁，等待時間越集中在靠近 0 的位置；三條曲線下的總面積都等於 1。",
+    credit: "本站依指數分配密度函數製作",
+    width: 1400,
+    height: 900,
+  },
+};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
+
+
+
+
 
 
 
