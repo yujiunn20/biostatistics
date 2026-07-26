@@ -1,4 +1,5 @@
 import { editorialSections } from "../data/editorial";
+import { enhanceFormulaPresentation } from "../data/formula-enhancements";
 import { chapters } from "./site";
 
 type SectionDefinition = {
@@ -111,7 +112,7 @@ export function sectionsForChapter(chapterId: string): TopicSection[] {
       ? [...chapter.blocks.slice(0, start), ...chapter.blocks.slice(contentStart, contentEnd)]
       : chapter.blocks.slice(contentStart, contentEnd);
     const editedBlocks = editorialSections[chapterId]?.[definition.slug];
-    const finalBlocks = (editedBlocks ?? blocks) as ContentBlock[];
+    const finalBlocks = enhanceFormulaPresentation((editedBlocks ?? blocks) as ContentBlock[], chapterId, definition.slug) as ContentBlock[];
     const summaryBlock = finalBlocks.find(block => block.type === "paragraph" && textOf(block));
 
     return {
@@ -128,3 +129,5 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
+
+
