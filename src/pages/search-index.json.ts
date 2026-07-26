@@ -3,6 +3,7 @@ import { chapters } from "../lib/site";
 function blockText(block: any) {
   if (typeof block.text === "string") return block.text;
   if (Array.isArray(block.parts)) return block.parts.map((part: any) => part.text ?? part.fallback ?? part.latex ?? "").join("");
+  if (Array.isArray(block.items)) return block.items.join(" ");
   if (block.type === "formula") return block.fallback ?? block.latex ?? "";
   return "";
 }

@@ -1,3 +1,4 @@
+import { editorialSections } from "../data/editorial";
 import { chapters } from "./site";
 
 type SectionDefinition = {
@@ -109,12 +110,14 @@ export function sectionsForChapter(chapterId: string): TopicSection[] {
     const blocks = definitionIndex === 0 && start > 0
       ? [...chapter.blocks.slice(0, start), ...chapter.blocks.slice(contentStart, contentEnd)]
       : chapter.blocks.slice(contentStart, contentEnd);
-    const summaryBlock = blocks.find(block => block.type === "paragraph" && textOf(block));
+    const editedBlocks = editorialSections[chapterId]?.[definition.slug];
+    const finalBlocks = (editedBlocks ?? blocks) as ContentBlock[];
+    const summaryBlock = finalBlocks.find(block => block.type === "paragraph" && textOf(block));
 
     return {
       ...definition,
       chapterId,
-      blocks,
+      blocks: finalBlocks,
       summary: summaryBlock ? textOf(summaryBlock).slice(0, 120) : `閱讀${definition.title}的重點概念、公式與實務判讀。`,
     };
   });
@@ -125,4 +128,3 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
-

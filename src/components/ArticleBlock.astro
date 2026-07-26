@@ -3,12 +3,15 @@ import Formula from "./Formula.astro";
 import RichText from "./RichText.astro";
 interface RichPart { type: "text" | "inlineFormula"; text?: string; latex?: string; fallback?: string }
 interface TableCell { text?: string; parts?: RichPart[] }
-interface Props { block: { type: string; text?: string; latex?: string; fallback?: string; parts?: RichPart[]; rows?: (string | TableCell)[][]; src?: string; alt?: string; caption?: string } }
+interface Props { block: { type: string; text?: string; label?: string; tone?: string; ordered?: boolean; items?: string[]; latex?: string; fallback?: string; parts?: RichPart[]; rows?: (string | TableCell)[][]; src?: string; alt?: string; caption?: string } }
 const { block } = Astro.props;
+const ListTag = block.ordered ? "ol" : "ul";
 ---
 {block.type === "heading" && <h2>{block.parts ? <RichText parts={block.parts} /> : block.text}</h2>}
 {block.type === "paragraph" && <p>{block.text}</p>}
 {block.type === "richText" && block.parts && <p><RichText parts={block.parts} /></p>}
+{block.type === "list" && block.items && <ListTag class="article-list">{block.items.map(item => <li>{item}</li>)}</ListTag>}
+{block.type === "callout" && <aside class:list={["article-callout", block.tone]}><strong>{block.label}</strong><p>{block.text}</p></aside>}
 {block.type === "formula" && block.latex && <div class="formula-block"><Formula latex={block.latex} fallback={block.fallback} display /></div>}
 {block.type === "table" && block.rows && <div class="tablewrap"><table><tbody>{block.rows.map(row => <tr>{row.map(cell => <td>{typeof cell === "string" ? cell : cell.parts ? <RichText parts={cell.parts} /> : cell.text}</td>)}</tr>)}</tbody></table></div>}
 {block.type === "image" && block.src && <figure class="article-figure"><img src={block.src} alt={block.alt ?? ""} loading="lazy" />{block.caption && <figcaption>{block.caption}</figcaption>}</figure>}
