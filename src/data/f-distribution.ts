@@ -52,7 +52,29 @@ export const fDistribution = [
     { label: "臨界值關係", latex: "F_{1,\\nu;1-\\alpha}=t_{\\nu;1-\\alpha/2}^{\\,2}", fallback: "F(1,ν) 的右尾 α 臨界值 = tν 的雙尾 α 臨界值平方" }
   ] },
   { type: "callout", tone: "intuition", label: "不是任何機率都直接乘以 2", text: "兩倍來自 t 分配的左右對稱尾端被平方後合併。它特別對應雙尾 t 檢定與右尾 F 檢定；若做的是單尾 t 檢定，就不能直接套用相同的兩倍說法。" },
-  { type: "heading", text: "F 可以看成 t 的推廣嗎？" },
+  { type: "details", label: "補充：由密度函數推導 T² 服從 F 分配", children: [
+    { type: "heading", text: "第一步：將 F 分配的分子自由度設為 1" },
+    { type: "paragraph", text: "從 F 分配的密度函數出發，令分子自由度 ν₁=1、分母自由度 ν₂=ν。利用 Γ(1/2)=√π 整理後，可得到自由度為 (1,ν) 的 F 密度。" },
+    { type: "formula", latex: "f_{F_{1,\\nu}}(y)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}y^{-1/2}\\left(1+\\frac{y}{\\nu}\\right)^{-(\\nu+1)/2},\\quad y>0", fallback: "F(1,ν) 的密度函數，包含 y^(-1/2) 修正因子" },
+    { type: "heading", text: "第二步：和 t 分配的密度比較" },
+    { type: "paragraph", text: "自由度為 ν 的 t 分配密度如下。若把其中的 t² 換成 y，除了 y^(-1/2) 之外，其餘部分正好與 F(1,ν) 的密度相同。這個額外因子不是任意補上的常數，而是平方轉換改變橫軸尺度後產生的 Jacobian 修正。" },
+    { type: "formula", latex: "f_{T_\\nu}(t)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}\\left(1+\\frac{t^2}{\\nu}\\right)^{-(\\nu+1)/2}", fallback: "自由度 ν 的 t 分配密度函數" },
+    { type: "heading", text: "第三步：平方轉換會把兩個 t 值映到同一個 F 值" },
+    { type: "paragraph", text: "令 Y=T²。對每個 y>0，都有 t=√y 與 t=−√y 兩個來源；因此 Y 的密度必須同時收集 t 分配左右兩側的機率。反向轉換 t=±√y 的導數絕對值都是 1/(2√y)。" },
+    { type: "formulaGroup", formulas: [
+      { label: "平方轉換與兩個反函數", latex: "Y=T^2,\\qquad t_1=\\sqrt{y},\\quad t_2=-\\sqrt{y}", fallback: "Y=T²；t=√y 或 −√y" },
+      { label: "橫軸尺度的修正", latex: "\\left|\\frac{dt_1}{dy}\\right|=\\left|\\frac{dt_2}{dy}\\right|=\\frac{1}{2\\sqrt{y}}", fallback: "|dt/dy|=1/(2√y)" },
+      { label: "平方後的密度", latex: "f_Y(y)=\\frac{f_T(\\sqrt{y})+f_T(-\\sqrt{y})}{2\\sqrt{y}}", fallback: "fY(y)=[fT(√y)+fT(−√y)]/(2√y)" }
+    ] },
+    { type: "paragraph", text: "因為 t 分配左右對稱，f_T(−√y)=f_T(√y)，兩側相加產生的 2，會和導數中的 2 抵消，最後留下 1/√y=y^(-1/2)。" },
+    { type: "formulaGroup", formulas: [
+      { label: "利用 t 分配的對稱性", latex: "f_Y(y)=\\frac{2f_T(\\sqrt{y})}{2\\sqrt{y}}=f_T(\\sqrt{y})y^{-1/2}", fallback: "fY(y)=fT(√y)y^(-1/2)" },
+      { label: "代入 t 密度後", latex: "f_Y(y)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}y^{-1/2}\\left(1+\\frac{y}{\\nu}\\right)^{-(\\nu+1)/2}=f_{F_{1,\\nu}}(y)", fallback: "平方後的密度等於 F(1,ν) 的密度" },
+      { label: "推導結果", latex: "T\\sim t_\\nu\\quad\\Longrightarrow\\quad T^2\\sim F_{1,\\nu}", fallback: "若 T~tν，則 T²~F(1,ν)" }
+    ] },
+    { type: "callout", tone: "intuition", label: "對應你原本的『翻面、重疊、拉長』", text: "左右兩側相加，就是把 t 曲線左半邊翻到右側重疊；1/(2√y) 則描述平方轉換後橫軸間距被重新拉伸。原文提到的兩倍機率與修正項，其實正是變數轉換公式中的兩個部分。" },
+    { type: "table", rows: [["符號", "在推導中的意義"], ["T", "自由度為 ν 的 t 隨機變數"], ["Y=T²", "平方轉換後的非負隨機變數"], ["fT", "t 分配的機率密度函數"], ["fY", "平方後 Y 的機率密度函數"], ["1/(2√y)", "由 t=±√y 對 y 微分得到的 Jacobian 修正"], ["F(1,ν)", "分子自由度 1、分母自由度 ν 的 F 分配"]] }
+  ] },  { type: "heading", text: "F 可以看成 t 的推廣嗎？" },
   { type: "paragraph", text: "在分子自由度為 1 時，F 統計量確實就是某個 t 統計量的平方，因此 F 檢定可視為把這個雙尾 t 檢定改寫成只看正值的右尾檢定。更一般的 F 分配允許分子自由度大於 1，可以同時檢定多個效果；從這個角度，可把 F 檢定看成平方 t 檢定往多個自由度的推廣，但不能說所有 F 分配都等同於某個 t 分配。" },
   { type: "table", rows: [["比較方式", "回答的問題", "保留的資訊"], ["整體 F 檢定", "多組平均數是否至少有一組不同？", "判斷整體差異，但不直接指出哪幾組不同"], ["兩組 t 檢定", "指定的兩組平均數是否不同？", "可保留差異方向並提供該組對的細部資訊"], ["事後成對比較", "整體 F 顯著後，差異出現在哪些組別？", "進一步比較多個組對，但需要校正多重比較造成的第一類錯誤膨脹"]] },
   { type: "paragraph", text: "因此，多組資料可以先用 F 檢定回答「整體是否存在差異」，再用成對 t 型比較或其他事後比較找出「哪些組不同」。你原文所說反覆挑兩組比較可以取得更詳細資訊，核心是對的；需要補上的條件是不能直接做許多未校正的 t 檢定，通常要使用 Tukey、Bonferroni、Holm 等多重比較方法控制整體錯誤率。" },
@@ -61,6 +83,7 @@ export const fDistribution = [
   { type: "list", items: ["比較兩個母體變異數", "ANOVA 中比較組間變異與組內變異", "檢定迴歸模型整體是否具有解釋力", "比較巢狀模型增加參數後是否顯著改善配適", "建立部分變異數相關的信賴區間或檢定"] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "第六章的 ANOVA 會把組間均方放在分子、組內均方放在分母形成 F 統計量；第七章的迴歸分析也會利用相同的變異分解與比值概念。" },
 ];
+
 
 
 

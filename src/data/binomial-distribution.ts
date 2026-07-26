@@ -13,9 +13,12 @@ export const binomialDistribution = [
   ] },
   { type: "table", rows: [["符號", "代表意義"], ["X", "n 次試驗中的成功總次數"], ["x", "X 的某個可能取值"], ["n", "固定的試驗總次數"], ["p", "每一次試驗的成功機率"], ["q", "每一次試驗的失敗機率，q=1-p"]] },
   { type: "heading", text: "剛好成功 x 次的機率" },
-  { type: "paragraph", text: "一個指定順序中若有 x 次成功與 n-x 次失敗，其機率為 p^x(1-p)^{n-x}。但成功可以出現在不同位置；從 n 次試驗中挑出 x 個成功位置共有組合數 C(n,x) 種，因此要將這些相同機率的排列加總。" },
-  { type: "formula", latex: "P(X=x)=\\binom{n}{x}p^x(1-p)^{n-x},\\qquad x=0,1,\\ldots,n", fallback: "P(X=x)=C(n,x)p^x(1-p)^(n-x)" },
-  { type: "formula", latex: "\\binom{n}{x}=\\frac{n!}{x!(n-x)!}", fallback: "C(n,x)=n!/[x!(n-x)!]" },
+  { type: "paragraph", text: "先指定一種成功與失敗的排列：其中有 x 次成功、n-x 次失敗，其機率等於各次試驗機率的乘積。但成功可以出現在不同位置，因此還要乘上從 n 個位置選出 x 個成功位置的組合數。" },
+  { type: "formulaGroup", formulas: [
+    { label: "一個指定排列的機率", latex: "p^x(1-p)^{n-x}", fallback: "p^x(1-p)^(n-x)" },
+    { label: "剛好成功 x 次的總機率", latex: "P(X=x)=\\binom{n}{x}p^x(1-p)^{n-x},\\qquad x=0,1,\\ldots,n", fallback: "P(X=x)=C(n,x)p^x(1-p)^(n-x)" },
+    { label: "成功位置的組合數", latex: "\\binom{n}{x}=\\frac{n!}{x!(n-x)!}", fallback: "C(n,x)=n!/[x!(n-x)!]" }
+  ] },
   { type: "table", rows: [["公式部分", "代表意義"], ["p^x", "指定排列中的 x 次成功"], ["(1-p)^(n-x)", "指定排列中的 n-x 次失敗"], ["C(n,x)", "x 次成功可安排在 n 個位置中的方式數"], ["P(X=x)", "所有可能排列加總後，剛好成功 x 次的機率"]] },
   { type: "callout", tone: "intuition", label: "為什麼一定要乘組合數？", text: "以 3 次試驗成功 2 次為例，成功可能排列成「成功、成功、失敗」、「成功、失敗、成功」或「失敗、成功、成功」。三種排列的成功次數相同，所以機率必須全部加起來。" },
   { type: "heading", text: "累積機率怎麼算？" },
@@ -70,3 +73,4 @@ export const binomialDistribution = [
   { type: "list", items: ["伯努利分配：n=1 的二項分配就是一次成功／失敗試驗", "多項分配：當每次試驗不只兩種結果時，可視為二項分配向多類別的推廣", "卜瓦松分配：n 很大、p 很小且 np 保持適中時，可用參數 λ=np 的卜瓦松分配近似", "常態分配：np 與 n(1-p) 足夠大時，可用平均數 np、變異數 np(1-p) 的常態分配近似"] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配會成為二項檢定、兩比例比較及部分 2×2 表方法的基礎；常態近似與連續性校正則會在大樣本檢定中再次出現。" },
 ];
+
