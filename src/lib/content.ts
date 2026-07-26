@@ -25,7 +25,6 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "exponential-distribution", title: "指數分配", startsAt: "指數分配" },
     { slug: "binomial-distribution", title: "二項分配", startsAt: "二項分配" },
     { slug: "poisson-distribution", title: "卜瓦松分配", startsAt: "卜瓦松分配(Poisson distribution)" },
-    { slug: "distribution-relationships", title: "常見機率分配之間的關係", startsAt: "補充一：常態分配與卡方分配；t分配與F分配之間的關係" },
   ],
   "03": [
     { slug: "sampling", title: "抽樣與抽樣分配", startsAt: "抽樣(Sampling)" },
@@ -130,6 +129,7 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
+
 
 
 

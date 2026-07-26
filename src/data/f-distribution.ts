@@ -54,8 +54,12 @@ export const fDistribution = [
   { type: "callout", tone: "intuition", label: "不是任何機率都直接乘以 2", text: "兩倍來自 t 分配的左右對稱尾端被平方後合併。它特別對應雙尾 t 檢定與右尾 F 檢定；若做的是單尾 t 檢定，就不能直接套用相同的兩倍說法。" },
   { type: "details", label: "補充：由密度函數推導 T² 服從 F 分配", children: [
     { type: "heading", text: "第一步：將 F 分配的分子自由度設為 1" },
-    { type: "paragraph", text: "從 F 分配的密度函數出發，令分子自由度 ν₁=1、分母自由度 ν₂=ν。利用 Γ(1/2)=√π 整理後，可得到自由度為 (1,ν) 的 F 密度。" },
-    { type: "formula", latex: "f_{F_{1,\\nu}}(y)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}y^{-1/2}\\left(1+\\frac{y}{\\nu}\\right)^{-(\\nu+1)/2},\\quad y>0", fallback: "F(1,ν) 的密度函數，包含 y^(-1/2) 修正因子" },
+    { type: "paragraph", text: "從 F 分配的密度函數出發，令分子自由度 ν₁=1、分母自由度 ν₂=ν。先直接代入，再使用 Γ(1/2)=√π 與 (1/ν)^(1/2)=1/√ν 整理係數。" },
+    { type: "formulaGroup", formulas: [
+      { label: "F 分配的一般密度", latex: "f_{F_{\\nu_1,\\nu_2}}(y)=\\frac{\\Gamma((\\nu_1+\\nu_2)/2)}{\\Gamma(\\nu_1/2)\\Gamma(\\nu_2/2)}\\left(\\frac{\\nu_1}{\\nu_2}\\right)^{\\nu_1/2}y^{\\nu_1/2-1}\\left(1+\\frac{\\nu_1}{\\nu_2}y\\right)^{-(\\nu_1+\\nu_2)/2}", fallback: "F(ν₁,ν₂) 的一般密度函數" },
+      { label: "代入 ν₁=1、ν₂=ν", latex: "f_{F_{1,\\nu}}(y)=\\frac{\\Gamma((\\nu+1)/2)}{\\Gamma(1/2)\\Gamma(\\nu/2)}\\left(\\frac{1}{\\nu}\\right)^{1/2}y^{-1/2}\\left(1+\\frac{y}{\\nu}\\right)^{-(\\nu+1)/2}", fallback: "在 F 一般密度中代入分子自由度 1、分母自由度 ν" },
+      { label: "使用 Γ(1/2)=√π 化簡", latex: "f_{F_{1,\\nu}}(y)=\\frac{\\Gamma((\\nu+1)/2)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}y^{-1/2}\\left(1+\\frac{y}{\\nu}\\right)^{-(\\nu+1)/2},\\quad y>0", fallback: "化簡後得到 F(1,ν) 的密度，包含 y^(-1/2)" }
+    ] },
     { type: "heading", text: "第二步：和 t 分配的密度比較" },
     { type: "paragraph", text: "自由度為 ν 的 t 分配密度如下。若把其中的 t² 換成 y，除了 y^(-1/2) 之外，其餘部分正好與 F(1,ν) 的密度相同。這個額外因子不是任意補上的常數，而是平方轉換改變橫軸尺度後產生的 Jacobian 修正。" },
     { type: "formula", latex: "f_{T_\\nu}(t)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\pi\\nu}\\,\\Gamma(\\nu/2)}\\left(1+\\frac{t^2}{\\nu}\\right)^{-(\\nu+1)/2}", fallback: "自由度 ν 的 t 分配密度函數" },
@@ -83,6 +87,7 @@ export const fDistribution = [
   { type: "list", items: ["比較兩個母體變異數", "ANOVA 中比較組間變異與組內變異", "檢定迴歸模型整體是否具有解釋力", "比較巢狀模型增加參數後是否顯著改善配適", "建立部分變異數相關的信賴區間或檢定"] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "第六章的 ANOVA 會把組間均方放在分子、組內均方放在分母形成 F 統計量；第七章的迴歸分析也會利用相同的變異分解與比值概念。" },
 ];
+
 
 
 

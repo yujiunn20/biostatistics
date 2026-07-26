@@ -51,6 +51,15 @@ export const chiSquareDistribution = [
       { label: "化簡後", latex: "f_U(u)=\\frac{1}{\\sqrt{2\\pi u}}e^{-u/2},\\qquad u>0", fallback: "fᵤ(u)=e^(−u/2)/√(2πu)，u>0" }
     ] },
     { type: "paragraph", text: "其中 |dz/du| 是變數轉換的 Jacobian 修正。它反映平方會拉伸或壓縮數值間距，因此不能只把常態曲線左右兩側的高度直接相加。這個結果就是自由度為 1 的卡方密度。" },
+    { type: "heading", text: "依原文方式：把卡方自由度代 1 與標準常態比較" },
+    { type: "paragraph", text: "也可以從兩個已知密度反向核對。先將一般常態分配標準化為 μ=0、σ=1，再把卡方密度的自由度 ν 設為 1。" },
+    { type: "formulaGroup", formulas: [
+      { label: "一般常態密度", latex: "f_X(x)=\\frac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\left[-\\frac12\\left(\\frac{x-\\mu}{\\sigma}\\right)^2\\right]", fallback: "一般常態分配密度" },
+      { label: "代入 μ=0、σ=1", latex: "\\phi(x)=\\frac{1}{\\sqrt{2\\pi}}e^{-x^2/2}", fallback: "標準常態密度 φ(x)=e^(-x²/2)/√(2π)" },
+      { label: "一般卡方密度", latex: "f_{\\chi^2_\\nu}(u)=\\frac{1}{2^{\\nu/2}\\Gamma(\\nu/2)}u^{\\nu/2-1}e^{-u/2}", fallback: "自由度 ν 的卡方密度" },
+      { label: "代入 ν=1 並使用 Γ(1/2)=√π", latex: "f_{\\chi^2_1}(u)=\\frac{1}{\\sqrt{2\\pi}}e^{-u/2}u^{-1/2}", fallback: "fχ²₁(u)=e^(-u/2)u^(-1/2)/√(2π)" }
+    ] },
+    { type: "paragraph", text: "令 u=x² 後，卡方密度中的指數部分 e^(−u/2) 就對應標準常態密度中的 e^(−x²/2)；多出的 u^(−1/2) 正是平方轉換留下的尺度修正。這就是原文所說「把 χ² 換成 x² 後，還差一個修正項」的完整對照。" },
     { type: "heading", text: "第二步：推廣到 ν 個獨立平方項" },
     { type: "paragraph", text: "令 U=Z₁²+⋯+Zν²。直接反覆計算密度的摺積會很繁瑣，因此可以使用動差生成函數（moment-generating function, MGF）：獨立隨機變數相加時，總和的 MGF 等於各自 MGF 的乘積。" },
     { type: "formulaGroup", formulas: [
@@ -63,6 +72,7 @@ export const chiSquareDistribution = [
   ] },
   { type: "callout", tone: "forward", label: "後面會如何使用？", text: "卡方分配除了用來推論變異數，也會出現在類別資料的適合度檢定與獨立性檢定；兩者使用的統計量與自由度來源並不完全相同，後續章節會再分別說明。" },
 ];
+
 
 
 
