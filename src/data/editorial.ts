@@ -1,4 +1,5 @@
 import { descriptiveStatistics } from "./descriptive-statistics";
+import { randomVariables } from "./random-variables";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -149,5 +150,9 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     ],
     "descriptive-statistics": descriptiveStatistics,
   },
+  "02": {
+    "random-variables": randomVariables,
+  },
 };
+
 

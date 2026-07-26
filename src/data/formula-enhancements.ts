@@ -89,7 +89,7 @@ function groupAndExplain(blocks: any[], slug: string) {
     if (formulas.length === 1) output.push(formulas[0]);
     else output.push({ type: "formulaGroup", formulas: formulas.map((item, index) => ({ label: `推導步驟 ${index + 1}`, latex: item.latex, fallback: item.fallback })) });
     const rows = symbolRows(latex, slug);
-    if (rows.length) output.push({ type: "table", rows: [["符號", "在這組公式中的意義"], ...rows] });
+    if (rows.length && blocks[i]?.type !== "table") output.push({ type: "table", rows: [["符號", "在這組公式中的意義"], ...rows] });
   }
   return output;
 }
@@ -100,4 +100,5 @@ export function enhanceFormulaPresentation(blocks: any[], chapterId = "", slug =
   if (start >= 0) return [...groupAndExplain(blocks.slice(0, start), slug), ...binomialDerivation];
   return groupAndExplain(blocks, slug);
 }
+
 
