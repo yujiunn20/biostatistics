@@ -19,6 +19,7 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "random-variables", title: "隨機變數與機率密度函數", startsAt: "隨機變數(random variable)" },
     { slug: "degrees-of-freedom", title: "自由度", startsAt: "自由度" },
     { slug: "normal-distribution", title: "常態分配與 Z 分配", startsAt: "常態分配(又稱Z分配)" },
+    { slug: "chi-square-distribution", title: "卡方分配", startsAt: "χ²分配(卡方分配)" },
     { slug: "t-distribution", title: "t 分配", startsAt: "t分配(t-distribution)" },
     { slug: "f-distribution", title: "F 分配", startsAt: "F分配(F-distribution)" },
     { slug: "exponential-distribution", title: "指數分配", startsAt: "指數分配" },
@@ -129,5 +130,6 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
+
 
 
