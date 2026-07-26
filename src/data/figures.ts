@@ -18,8 +18,8 @@ export interface FigureDefinition {
 export const figures: Record<string, FigureDefinition> = {
   "abc-inventory-analysis": {
     src: "/media/notes/chapter-01/data-types/abc-inventory-analysis.png",
-    alt: "ABC 庫存分析圖：品項依價值由高至低排列，並以累積價值百分比區分 A、B、C 類",
-    caption: "ABC 分析將品項由高價值排到低價值，再依累積價值百分比分類；圖中界線為示意。",
+    alt: "ABC 分析圖：分析對象依指標貢獻度由高至低排列，並以累積百分比區分 A、B、C 類",
+    caption: "ABC 分析將對象依貢獻度由高至低排列，再按照累積百分比分類；圖中界線為示意。",
     credit: "本站製作",
     width: 1536,
     height: 1024,
@@ -37,5 +37,6 @@ export const figures: Record<string, FigureDefinition> = {
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
 
 
