@@ -17,10 +17,20 @@ export const tDistribution = [
   { type: "heading", text: "什麼時候會用到 t 分配？" },
   { type: "list", items: ["利用單一樣本平均數推論母體平均數", "比較兩組獨立樣本的平均數", "比較成對或重複測量資料的平均差", "檢定迴歸係數或相關係數", "建立母體平均數或迴歸係數的信賴區間"] },
   { type: "callout", tone: "forward", label: "使用前仍要確認條件", text: "t 分配的精確推導以常態母體及相關獨立性條件為基礎。實際使用 t 方法時，還要依研究設計確認觀察值是否獨立、資料是否有嚴重偏態或極端值，以及使用的是單一樣本、配對樣本或獨立樣本方法。" },
-  { type: "details", label: "補充：t 分配的機率密度函數", children: [
-    { type: "paragraph", text: "t 分配的密度函數包含 Gamma 函數。初次學習不必靠密度公式計算，先掌握它的來源、對稱性、厚尾與自由度即可。" },
-    { type: "formula", latex: "f(t)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\nu\\pi}\\,\\Gamma\\!\\left(\\nu/2\\right)}\\left(1+\\frac{t^2}{\\nu}\\right)^{-(\\nu+1)/2}", fallback: "t 分配的機率密度函數" },
-    { type: "paragraph", text: "Gamma 函數可視為階乘概念向非整數延伸；在這裡主要用來使整條密度曲線下的面積等於 1。" }
+  { type: "heading", text: "t 分配的機率密度函數" },
+  { type: "paragraph", text: "自由度為 ν 的 t 分配具有以下機率密度函數。公式以 0 為中心且只含 t²，因此正負相同大小的 t 值具有相同密度，這正對應到 t 分配左右對稱的特性。" },
+  { type: "formula", latex: "f(t)=\\frac{\\Gamma\\!\\left((\\nu+1)/2\\right)}{\\sqrt{\\nu\\pi}\\,\\Gamma\\!\\left(\\nu/2\\right)}\\left(1+\\frac{t^2}{\\nu}\\right)^{-(\\nu+1)/2},\\qquad -\\infty<t<\\infty", fallback: "t 分配的機率密度函數，−∞<t<∞" },
+  { type: "table", rows: [["符號", "代表意義"], ["f(t)", "t 分配在 t 位置的機率密度"], ["t", "t 隨機變數的可能值，可為任意實數"], ["ν", "t 分配的自由度"], ["Γ", "Gamma 函數；階乘概念的延伸"], ["π", "圓周率"]] },
+  { type: "details", label: "補充：Gamma 函數是什麼？", children: [
+    { type: "paragraph", text: "Gamma 函數（Gamma function）把階乘的概念延伸到正整數以外的數值。對正整數 n 而言，Γ(n)=(n−1)!；因此它可以在含有半數自由度等非整數參數的密度函數中，扮演類似階乘的角色。" },
+    { type: "formulaGroup", formulas: [
+      { label: "Gamma 函數的定義", latex: "\\Gamma(a)=\\int_0^{\\infty}x^{a-1}e^{-x}\\,dx,\\qquad a>0", fallback: "Γ(a)=∫₀∞x^(a−1)e^(−x)dx，a>0" },
+      { label: "遞迴關係", latex: "\\Gamma(a+1)=a\\,\\Gamma(a)", fallback: "Γ(a+1)=aΓ(a)" },
+      { label: "與階乘的關係", latex: "\\Gamma(n)=(n-1)!,\\qquad n=1,2,3,\\ldots", fallback: "Γ(n)=(n−1)!" },
+      { label: "常見的半整數值", latex: "\\Gamma\\!\\left(\\frac12\\right)=\\sqrt{\\pi}", fallback: "Γ(1/2)=√π" }
+    ] },
+    { type: "paragraph", text: "在 t 分配的密度函數中，Gamma 函數主要出現在前方的常數係數，用來依自由度調整曲線，並確保整條密度曲線下的總面積等於 1。理解 t 分配時不必手動計算 Gamma 函數，但知道它的角色，就不會把 Γ 當成沒有意義的裝飾符號。" }
   ] },
   { type: "callout", tone: "forward", label: "後面會再次用到", text: "第四章會把這裡的分配概念放進實際檢定流程，分別介紹單一樣本 t 檢定、配對 t 檢定與兩獨立樣本 t 檢定。" },
 ];
+

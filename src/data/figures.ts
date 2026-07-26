@@ -39,11 +39,22 @@ export const figures: Record<string, FigureDefinition> = {
     credit: "本站製作",
     width: 1200,
     height: 720,
-  },};
+  },
+  "chi-square-df-curves": {
+    src: "/media/notes/chapter-02/chi-square-distribution/chi-square-df-curves.svg",
+    alt: "自由度為 1、2、4 與 8 的卡方分配密度曲線；自由度增加時，分配中心向右移動且相對偏斜程度下降",
+    caption: "卡方分配在低自由度時明顯右偏；自由度增加後，分配中心向右移動，外形也逐漸較為對稱。",
+    credit: "本站依卡方密度函數製作",
+    width: 1400,
+    height: 900,
+  },
+};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
+
 
 
 
