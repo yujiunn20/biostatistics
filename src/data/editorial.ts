@@ -6,6 +6,7 @@ import { chiSquareDistribution } from "./chi-square-distribution";
 import { tDistribution } from "./t-distribution";
 import { fDistribution } from "./f-distribution";
 import { exponentialDistribution } from "./exponential-distribution";
+import { binomialDistribution } from "./binomial-distribution";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -164,8 +165,10 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "t-distribution": tDistribution,
     "f-distribution": fDistribution,
     "exponential-distribution": exponentialDistribution,
+    "binomial-distribution": binomialDistribution,
   },
 };
+
 
 
 
