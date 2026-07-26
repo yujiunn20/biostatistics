@@ -1,0 +1,21 @@
+---
+import Formula from "./Formula.astro";
+
+interface Part {
+  type: "text" | "inlineFormula";
+  text?: string;
+  latex?: string;
+  fallback?: string;
+}
+
+interface Props {
+  parts: Part[];
+}
+
+const { parts } = Astro.props;
+---
+{parts.map(part =>
+  part.type === "inlineFormula"
+    ? <Formula latex={part.latex ?? ""} fallback={part.fallback} />
+    : part.text
+)}

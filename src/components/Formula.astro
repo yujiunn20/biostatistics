@@ -1,0 +1,28 @@
+---
+import katex from "katex";
+
+interface Props {
+  latex: string;
+  display?: boolean;
+  fallback?: string;
+}
+
+const { latex, display = false, fallback = latex } = Astro.props;
+let html = "";
+let failed = false;
+
+try {
+  html = katex.renderToString(latex, {
+    displayMode: display,
+    throwOnError: true,
+    strict: false,
+    output: "htmlAndMathml",
+  });
+} catch {
+  failed = true;
+}
+---
+{failed
+  ? <code class:list={["formula-fallback", { display }]}>{fallback}</code>
+  : <span class:list={["math", { display }]} set:html={html} />
+}

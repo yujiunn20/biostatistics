@@ -32,10 +32,42 @@ function Get-NodeText($node, $ns) {
   return (($parts -join '') -replace '\s+', ' ').Trim()
 }
 
+function Convert-OmmlToMathMl($node, $transform) {
+  $writer = [IO.StringWriter]::new([Globalization.CultureInfo]::InvariantCulture)
+  $settings = [Xml.XmlWriterSettings]::new()
+  $settings.OmitXmlDeclaration = $true
+  $settings.ConformanceLevel = [Xml.ConformanceLevel]::Fragment
+  $xmlWriter = [Xml.XmlWriter]::Create($writer, $settings)
+  try {
+    $transform.Transform($node.CreateNavigator(), $null, $xmlWriter)
+    $xmlWriter.Flush()
+    return $writer.ToString()
+  } finally {
+    $xmlWriter.Dispose()
+    $writer.Dispose()
+  }
+}
+
+function Get-RichParts($node, $ns, $transform) {
+  $parts = @()
+  $items = $node.SelectNodes('.//w:t[not(ancestor::m:oMath)] | .//m:oMath[not(ancestor::m:oMath)]', $ns)
+  foreach ($item in $items) {
+    if ($item.NamespaceURI -eq 'http://schemas.openxmlformats.org/wordprocessingml/2006/main') {
+      if ($item.InnerText) { $parts += @{ type = 'text'; text = $item.InnerText } }
+    } else {
+      $parts += @{ type = 'inlineFormula'; mathml = (Convert-OmmlToMathMl $item $transform); fallback = (Get-NodeText $item $ns) }
+    }
+  }
+  return $parts
+}
 function Normalize-Heading([string]$text) {
   return (($text -replace '^\d+\-\d+\s*', '') -replace '\s+', '').Trim()
 }
 
+$xslPath = 'C:\Program Files\Microsoft Office\root\Office16\OMML2MML.XSL'
+if (-not (Test-Path -LiteralPath $xslPath)) { throw "OMML2MML.XSL not found: $xslPath" }
+$ommlTransform = [Xml.Xsl.XslCompiledTransform]::new()
+$ommlTransform.Load($xslPath)
 $resolved = Resolve-Path $InputFile
 $zip = [IO.Compression.ZipFile]::OpenRead($resolved)
 try {
@@ -74,17 +106,37 @@ try {
         $normalized = Normalize-Heading $text
         $heading = $sectionTitles | Where-Object { (Normalize-Heading $_) -eq $normalized } | Select-Object -First 1
         if ($heading) {
-          $blocks += @{ type = 'heading'; text = $text }
+          $headingParts = @(Get-RichParts $node $ns $ommlTransform)
+          if (@($headingParts | Where-Object { $_.type -eq 'inlineFormula' }).Count -gt 0) { $blocks += @{ type = 'heading'; text = $text; parts = $headingParts } }
+          else { $blocks += @{ type = 'heading'; text = $text } }
         } elseif ($text -match '^補充[一二三四五六七八九十0-9]?' -and $text.Length -lt 90) {
-          $blocks += @{ type = 'heading'; text = $text }
+          $headingParts = @(Get-RichParts $node $ns $ommlTransform)
+          if (@($headingParts | Where-Object { $_.type -eq 'inlineFormula' }).Count -gt 0) { $blocks += @{ type = 'heading'; text = $text; parts = $headingParts } }
+          else { $blocks += @{ type = 'heading'; text = $text } }
         } else {
-          $blocks += @{ type = 'paragraph'; text = $text }
+          $parts = @(Get-RichParts $node $ns $ommlTransform)
+          $formulaParts = @($parts | Where-Object { $_.type -eq 'inlineFormula' })
+          $plainText = (($parts | Where-Object { $_.type -eq 'text' } | ForEach-Object { $_.text }) -join '').Trim()
+          if ($formulaParts.Count -eq 1 -and -not $plainText) {
+            $blocks += @{ type = 'formula'; mathml = $formulaParts[0].mathml; fallback = $formulaParts[0].fallback }
+          } elseif ($formulaParts.Count -gt 0) {
+            $blocks += @{ type = 'richText'; parts = $parts }
+          } else {
+            $blocks += @{ type = 'paragraph'; text = $text }
+          }
         }
       } else {
         $rows = @()
         foreach ($row in $node.SelectNodes('./w:tr', $ns)) {
           $cells = @()
-          foreach ($cell in $row.SelectNodes('./w:tc', $ns)) { $cells += (Get-NodeText $cell $ns) }
+          foreach ($cell in $row.SelectNodes('./w:tc', $ns)) {
+            $cellParts = @(Get-RichParts $cell $ns $ommlTransform)
+            if (@($cellParts | Where-Object { $_.type -eq 'inlineFormula' }).Count -gt 0) {
+              $cells += ,@{ text = (Get-NodeText $cell $ns); parts = $cellParts }
+            } else {
+              $cells += (Get-NodeText $cell $ns)
+            }
+          }
           if ($cells.Count -gt 0) { $rows += ,$cells }
         }
         if ($rows.Count -gt 0) { $blocks += @{ type = 'table'; rows = $rows } }
@@ -105,8 +157,9 @@ try {
     generatedAt = (Get-Date).ToString('yyyy-MM-dd')
     chapters = $chapters
   }
-  $result | ConvertTo-Json -Depth 12 | Set-Content -Encoding utf8 $OutputFile
+  $result | ConvertTo-Json -Depth 20 | Set-Content -Encoding utf8 $OutputFile
+  & node "scripts/convert-formulas.mjs" $OutputFile
+  if ($LASTEXITCODE -ne 0) { throw "Formula conversion failed." }
 } finally {
   $zip.Dispose()
 }
-
