@@ -61,15 +61,32 @@ export const sampling = [
   ] },
   { type: "table", rows: [["符號", "代表意義"], ["E(X̄)", "重複抽樣時，樣本平均數的長期平均"], ["Var(X̄)", "樣本平均數在不同樣本間的變異程度"], ["SE(X̄)", "樣本平均數抽樣分配的標準差"], ["σ", "個體觀察值在母體中的標準差"], ["n", "每一次抽樣的樣本數"]] },
   { type: "details", label: "補充一：隨機變數的線性組合", children: [
-    { type: "paragraph", text: "線性組合是把數個隨機變數分別乘上常數後再相加。樣本平均數本身就是一種線性組合，因此這套規則可以直接用來推導其平均數與標準誤。" },
+    { type: "paragraph", text: "隨機變數的線性組合（linear combination of random variables）是資料合併時會反覆用到的方法。設 X₁,…,Xₙ 為隨機變數，c₁,…,cₙ 為常數，則：" },
+    { type: "formula", latex: "L=c_1X_1+\\cdots+c_nX_n=\\sum_{i=1}^{n}c_iX_i", fallback: "L=c₁X₁+⋯+cₙXₙ=ΣcᵢXᵢ" },
+    { type: "heading", text: "和、差與平均都是線性組合" },
+    { type: "paragraph", text: "例如有兩個隨機變數 X₁、X₂，可以形成下列不同的線性組合：" },
     { type: "formulaGroup", formulas: [
-      { label: "一般形式", latex: "L=\\sum_{i=1}^{n}c_iX_i", fallback: "L=ΣcᵢXᵢ" },
-      { label: "期望值", latex: "E(L)=\\sum_{i=1}^{n}c_iE(X_i)", fallback: "E(L)=ΣcᵢE(Xᵢ)" },
-      { label: "一般的變異數", latex: "\\operatorname{Var}(L)=\\sum_{i=1}^{n}c_i^2\\operatorname{Var}(X_i)+2\\sum_{i<j}c_ic_j\\operatorname{Cov}(X_i,X_j)", fallback: "Var(L)=Σcᵢ²Var(Xᵢ)+2Σᵢ<ⱼcᵢcⱼCov(Xᵢ,Xⱼ)" },
-      { label: "彼此獨立時", latex: "\\operatorname{Var}(L)=\\sum_{i=1}^{n}c_i^2\\operatorname{Var}(X_i)", fallback: "獨立時 Var(L)=Σcᵢ²Var(Xᵢ)" }
+      { label: "相加", latex: "L_{\\mathrm{sum}}=X_1+X_2", fallback: "Lsum=X₁+X₂" },
+      { label: "相減", latex: "L_{\\mathrm{diff}}=X_1-X_2", fallback: "Ldiff=X₁−X₂" },
+      { label: "取平均", latex: "L_{\\mathrm{average}}=0.5X_1+0.5X_2=\\frac{X_1+X_2}{2}", fallback: "Laverage=0.5X₁+0.5X₂=(X₁+X₂)/2" }
     ] },
-    { type: "callout", tone: "intuition", label: "哪一步需要獨立？", text: "期望值即使在隨機變數不獨立時也能拆開；變異數只有在彼此獨立（更精確地說，協方差為 0）時，才能直接把各項變異數相加。這正是推導標準誤時必須交代抽樣獨立性的原因。" },
-    { type: "paragraph", text: "兩個隨機變數的和、差與平均，例如 X₁+X₂、X₁−X₂、(X₁+X₂)/2，也都是線性組合。後面的兩組平均數比較、迴歸與變異數分析會再次使用這個觀念。" }
+    { type: "callout", tone: "intuition", label: "和抽樣平均數的關係", text: "平均數可以看成線性組合。樣本平均數 X̄=(X₁+⋯+Xₙ)/n，就是令每一個係數都等於 1/n；後面的抽樣平均數標準誤正是利用這個形式推導。" },
+    { type: "heading", text: "1. 線性組合的期望值" },
+    { type: "formula", latex: "E(L)=E(c_1X_1+\\cdots+c_nX_n)", fallback: "E(L)=E(c₁X₁+⋯+cₙXₙ)" },
+    { type: "formula", latex: "=E(c_1X_1)+\\cdots+E(c_nX_n)", fallback: "=E(c₁X₁)+⋯+E(cₙXₙ)" },
+    { type: "formula", latex: "=c_1E(X_1)+\\cdots+c_nE(X_n)", fallback: "=c₁E(X₁)+⋯+cₙE(Xₙ)" },
+    { type: "formula", latex: "=\\sum_{i=1}^{n}c_iE(X_i)", fallback: "=ΣcᵢE(Xᵢ)" },
+    { type: "paragraph", text: "這裡先利用期望值對加法的線性性，再把常數 cᵢ 提到期望值之外。這一串等式不要求 X₁,…,Xₙ 彼此獨立。" },
+    { type: "heading", text: "2. 線性組合的變異數" },
+    { type: "paragraph", text: "依照你原文採用的獨立隨機變數情況，變異數可逐步寫成：" },
+    { type: "formula", latex: "\\operatorname{Var}(L)=\\operatorname{Var}(c_1X_1+\\cdots+c_nX_n)", fallback: "Var(L)=Var(c₁X₁+⋯+cₙXₙ)" },
+    { type: "formula", latex: "=\\operatorname{Var}(c_1X_1)+\\cdots+\\operatorname{Var}(c_nX_n)", fallback: "=Var(c₁X₁)+⋯+Var(cₙXₙ)" },
+    { type: "formula", latex: "=c_1^2\\operatorname{Var}(X_1)+\\cdots+c_n^2\\operatorname{Var}(X_n)", fallback: "=c₁²Var(X₁)+⋯+cₙ²Var(Xₙ)" },
+    { type: "formula", latex: "=\\sum_{i=1}^{n}c_i^2\\operatorname{Var}(X_i)", fallback: "=Σcᵢ²Var(Xᵢ)" },
+    { type: "callout", tone: "intuition", label: "第二個等號需要什麼條件？", text: "從 Var(c₁X₁+⋯+cₙXₙ) 拆成各項變異數相加，需要 X₁,…,Xₙ 彼此獨立，或至少任兩項的協方差都為 0；而 Var(cᵢXᵢ)=cᵢ²Var(Xᵢ)，所以係數在變異數中必須平方。" },
+    { type: "paragraph", text: "若隨機變數之間可能相關，就不能省略交叉的協方差項，完整形式為：" },
+    { type: "formula", latex: "\\operatorname{Var}(L)=\\sum_{i=1}^{n}c_i^2\\operatorname{Var}(X_i)+2\\sum_{i<j}c_ic_j\\operatorname{Cov}(X_i,X_j)", fallback: "Var(L)=Σcᵢ²Var(Xᵢ)+2Σᵢ<ⱼcᵢcⱼCov(Xᵢ,Xⱼ)" },
+    { type: "callout", tone: "intuition", label: "符號代表的是隨機變數", text: "這裡運算的是隨機變數 Xᵢ，而不是一次樣本中已經觀察到的固定數值 xᵢ。推導抽樣平均數的分配與標準誤時，必須先把每次可能抽到的結果視為隨機變數，才能使用上面的期望值與變異數運算。" }
   ] },
   { type: "details", label: "補充二：抽樣平均數的平均與標準誤完整推導", children: [
     { type: "heading", text: "法一：列出有限母體的所有可能樣本" },
@@ -103,7 +120,7 @@ export const sampling = [
     { type: "formula", latex: "E(\\bar X)=\\sum_{i=1}^{n}\\frac{1}{n}E(X_i)=\\sum_{i=1}^{n}\\frac{\\mu}{n}=\\mu", fallback: "E(X̄)=Σ(1/n)E(Xᵢ)=μ" },
     { type: "formula", latex: "\\operatorname{Var}(\\bar X)=\\sum_{i=1}^{n}\\frac{1}{n^2}\\operatorname{Var}(X_i)=\\sum_{i=1}^{n}\\frac{\\sigma^2}{n^2}=\\frac{\\sigma^2}{n}", fallback: "Var(X̄)=Σ(1/n²)Var(Xᵢ)=σ²/n" },
     { type: "formula", latex: "\\operatorname{SE}(\\bar X)=\\sqrt{\\operatorname{Var}(\\bar X)}=\\frac{\\sigma}{\\sqrt n}", fallback: "SE(X̄)=σ/√n" },
-    { type: "callout", tone: "intuition", label: "兩個證明的差異", text: "法一沒有跳過不放回抽樣造成的相依性，所以自然出現有限母體修正；法二利用獨立隨機變數快速推導，因此直接得到 σ/√n。兩者不是互相取代，而是對應不同抽樣條件。" }
+    { type: "callout", tone: "intuition", label: "為什麼法一仍然重要？", text: "法一按照有限母體不放回抽樣的實際過程計算：一個單位被抽中後不會再次被抽中，後續每次抽取面對的母體也會改變，因此各次抽取並非完全獨立。它把這種相依性與有限母體修正完整保留下來，是較嚴謹的精確推導。法二則利用 N≫n 的近似：母體遠大於樣本時，每抽走一個單位對剩餘母體的影響很小，重複抽到相同單位的可能性也可以忽略，於是把 X₁,…,Xₙ 近似看成彼此獨立的隨機變數，快速得到 SE(X̄)=σ/√n。法二較簡潔，正是因為它省略了法一明確處理的有限母體影響；它並沒有使法一變得多餘。" }
   ] },
   { type: "callout", tone: "intuition", label: "標準差和標準誤不同", text: "標準差描述個體彼此有多不同；標準誤描述如果重做研究，樣本統計量會有多不穩定。樣本數增加時，個體差異不會因此消失，但樣本平均數通常會更穩定。" },
   { type: "paragraph", text: "當 σ 未知時，實務上常以樣本標準差 s 估計，因此使用 s/√n 作為估計標準誤。若從有限母體中不放回抽樣，而且抽樣比例 n/N 不可忽略，還要加入有限母體修正。" },
@@ -140,3 +157,4 @@ export const sampling = [
   { type: "formula", latex: "\\operatorname{SE}(\\bar X)\\propto\\frac{1}{\\sqrt n}", fallback: "SE(X̄) 與 1/√n 成正比" },
   { type: "callout", tone: "forward", label: "後面為什麼需要抽樣分配？", text: "信賴區間、p 值與臨界值都需要知道統計量在重複抽樣下會如何分布。後續的 Z、t、卡方與 F 檢定，本質上都是先建立某個統計量在假設成立時的抽樣分配，再判斷目前觀察結果位於分布中的什麼位置。" },
 ];
+
