@@ -4,7 +4,7 @@
 <path d="M70 570 C130 568 165 552 215 495 C285 414 325 220 455 195 C585 220 625 414 695 495 C745 552 780 568 850 570" fill="none" stroke="#24342f" stroke-width="6"/>
 <path d="M350 570 C410 568 445 552 495 495 C565 414 605 220 735 195 C865 220 905 414 975 495 C1025 552 1060 568 1130 570" fill="none" stroke="#438b72" stroke-width="6"/>
 <path d="M350 570 C410 568 445 552 495 495 C548 434 584 310 650 243 L650 570 Z" fill="#31b7b2" fill-opacity=".78"/>
-<path d="M650 243 C694 322 728 455 850 570 L650 570 Z" fill="#ed6a65" fill-opacity=".82"/>
+<path d="M650 445 C666 466 681 484 695 495 C745 552 780 568 850 570 L650 570 Z" fill="#ed6a65" fill-opacity=".82"/>
 <path d="M70 570 H1130" fill="none" stroke="#70817a" stroke-width="3"/>
 <path d="M650 570 V175" fill="none" stroke="#26352f" stroke-width="4" stroke-dasharray="12 10"/>
 <text x="455" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#24342f">H₀ distribution</text>
@@ -15,3 +15,4 @@
 <text x="565" y="625" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#087f7b">Type II error</text>
 <text x="735" y="625" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#c74743">Type I error</text>
 </svg>
+

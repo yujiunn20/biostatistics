@@ -12,6 +12,7 @@ import { sampling } from "./sampling";
 import { screeningRoc } from "./screening-roc";
 import { hypothesisTesting } from "./hypothesis-testing";
 import { zTest } from "./z-test";
+import { tTestConcept } from "./t-test-concept";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -180,8 +181,10 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
   },
   "04": {
     "z-test": zTest,
+    "t-test": tTestConcept,
   },
 };
+
 
 
 

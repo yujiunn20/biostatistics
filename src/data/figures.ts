@@ -113,7 +113,7 @@ export const figures: Record<string, FigureDefinition> = {
     height: 700,
   },
   "z-alpha-beta-tradeoff": {
-    src: "/media/notes/chapter-04/z-test/alpha-beta-tradeoff.svg",
+    src: "/media/notes/chapter-04/z-test/alpha-beta-tradeoff-v2.svg",
     alt: "H₀ 與 H₁ 重疊圖：標示型一誤差 α、型二誤差 β 與檢定力 1−β",
     caption: "其他條件固定時，移動臨界值會使 α 與 β 反向變化；減少兩個分配的重疊則能提高 power。",
     credit: "本站依原始筆記圖重製",
@@ -124,6 +124,7 @@ export const figures: Record<string, FigureDefinition> = {
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
 
 
 

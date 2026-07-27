@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="t d">
+<title id="t">Alpha beta and power under two hypotheses</title>
+<desc id="d">The Type I error area is under the null distribution to the right of the critical value. The Type II error area is under the alternative distribution to the left.</desc>
+<rect width="1200" height="700" rx="28" fill="#f7faf8"/>
+<!-- beta: H1 area to the left of c -->
+<path d="M340 560 C400 558 445 535 500 462 C550 396 585 305 630 275 L630 560 Z" fill="#31b7b2" fill-opacity=".68"/>
+<!-- alpha: H0 area to the right of c -->
+<path d="M630 382 C655 420 680 448 710 462 C765 535 810 558 870 560 L630 560 Z" fill="#ed6a65" fill-opacity=".76"/>
+<!-- distribution outlines, drawn last -->
+<path d="M70 560 C130 558 175 535 230 462 C300 370 345 205 470 190 C595 205 640 370 710 462 C765 535 810 558 870 560" fill="none" stroke="#24342f" stroke-width="7"/>
+<path d="M340 560 C400 558 445 535 500 462 C570 370 615 205 740 190 C865 205 910 370 980 462 C1035 535 1080 558 1140 560" fill="none" stroke="#438b72" stroke-width="7"/>
+<path d="M70 560 H1140" fill="none" stroke="#70817a" stroke-width="3"/>
+<path d="M630 560 V145" fill="none" stroke="#26352f" stroke-width="5" stroke-dasharray="15 11"/>
+<path d="M470 560 V190 M740 560 V190" fill="none" stroke="#26352f" stroke-width="3"/>
+<circle cx="630" cy="382" r="7" fill="#c74743"/>
+<circle cx="630" cy="275" r="7" fill="#087f7b"/>
+<text x="470" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#24342f">μ₀</text>
+<text x="740" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#438b72">μ₁</text>
+<text x="630" y="110" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#24342f">Critical value c</text>
+<text x="545" y="505" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#087f7b">β</text>
+<text x="700" y="505" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#c74743">α</text>
+<text x="470" y="625" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#087f7b">Type II error under H₁</text>
+<text x="760" y="625" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#c74743">Type I error under H₀</text>
+<text x="965" y="305" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#438b72">Power = 1 − β</text>
+</svg>

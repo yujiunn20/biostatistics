@@ -4,7 +4,7 @@
 <path d="M70 560 C130 558 175 535 230 462 C300 370 345 205 470 190 C595 205 640 370 710 462 C765 535 810 558 870 560" fill="none" stroke="#24342f" stroke-width="7"/>
 <path d="M340 560 C400 558 445 535 500 462 C570 370 615 205 740 190 C865 205 910 370 980 462 C1035 535 1080 558 1140 560" fill="none" stroke="#438b72" stroke-width="7"/>
 <path d="M340 560 C400 558 445 535 500 462 C550 396 588 292 630 239 L630 560 Z" fill="#31b7b2" fill-opacity=".78"/>
-<path d="M630 239 C655 300 672 408 710 462 C765 535 810 558 870 560 L630 560 Z" fill="#ed6a65" fill-opacity=".82"/>
+<path d="M630 367 C653 405 681 443 710 462 C765 535 810 558 870 560 L630 560 Z" fill="#ed6a65" fill-opacity=".82"/>
 <path d="M70 560 H1140" fill="none" stroke="#70817a" stroke-width="3"/>
 <path d="M630 560 V155" fill="none" stroke="#26352f" stroke-width="5" stroke-dasharray="15 11"/>
 <path d="M470 560 V190 M740 560 V190" fill="none" stroke="#26352f" stroke-width="3"/>
@@ -17,3 +17,4 @@
 <text x="740" y="625" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#c74743">Type I error</text>
 <text x="945" y="305" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#438b72">Power = 1 − β</text>
 </svg>
+
