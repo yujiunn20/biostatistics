@@ -75,6 +75,41 @@ export const zTest = [
     { label: "單尾單一樣本的樣本數", latex: "n=\\left[\\frac{(z_{1-\\alpha}+z_{1-\\beta})\\sigma}{\\mu_1-\\mu_0}\\right]^2", fallback: "n={[(z₁₋α+z₁₋β)σ]/(μ₁−μ₀)}²" }
   ] },
   { type: "paragraph", text: "計算出的 n 若不是整數必須向上取整。這個公式適用於此處設定的單一樣本、單尾、已知 σ 的平均數 Z 檢定；雙尾規劃時，臨界值改為 z₁₋α⁄₂。" },
+  { type: "heading", text: "實際研究案例：要偵測多小的差異？" },
+  { type: "paragraph", text: "Hockett 等人研究早產兒與足月兒的髖關節超音波篩檢，比較兩組的 alpha angle。研究的 power analysis 使用母體標準差估計值 4.9°、雙尾顯著水準 5% 與 power 80%，分別規劃偵測 3° 與 2° 的組間差異。" },
+  { type: "callout", tone: "forward", label: "先注意：這是兩個獨立組別", text: "前面推導的是單一樣本平均數；本例比較 premature 與 full-term 兩組。若假設兩組具有相同變異數，且每組規劃相同樣本數 n，平均數差同時包含兩組的抽樣變異，因此樣本數公式會多出係數 2。" },
+  { type: "formulaGroup", formulas: [
+    { label: "兩組平均數差的標準誤", latex: "\\operatorname{SE}(\\bar X_1-\\bar X_2)=\\sqrt{\\frac{\\sigma^2}{n}+\\frac{\\sigma^2}{n}}=\\sigma\\sqrt{\\frac{2}{n}}", fallback: "SE(X̄₁−X̄₂)=√(σ²/n+σ²/n)=σ√(2/n)" },
+    { label: "兩獨立組別、雙尾檢定的每組樣本數", latex: "n=2\\left[\\frac{(z_{1-\\alpha/2}+z_{1-\\beta})\\sigma}{\\delta}\\right]^2", fallback: "n=2{[(z₁₋α⁄₂+z₁₋β)σ]/δ}²" },
+    { label: "以標準化效果量表示", latex: "d=\\frac{\\delta}{\\sigma},\\qquad n=2\\left(\\frac{z_{1-\\alpha/2}+z_{1-\\beta}}{d}\\right)^2", fallback: "d=δ/σ；n=2[(z₁₋α⁄₂+z₁₋β)/d]²" }
+  ] },
+  { type: "table", rows: [
+    ["輸入條件", "本研究設定"],
+    ["比較", "Premature vs full-term infants"],
+    ["母體標準差估計值 σ", "4.9°"],
+    ["顯著水準 α", "0.05，雙尾"],
+    ["Power 1−β", "0.80"],
+    ["標準常態分位數", "z₀.₉₇₅=1.96；z₀.₈₀≈0.842"]
+  ] },
+  { type: "heading", text: "希望偵測 3° 的差異" },
+  { type: "paragraph", text: "預期差異 δ=3°，相對於標準差 4.9°，標準化效果量約為 0.61。" },
+  { type: "formulaGroup", formulas: [
+    { label: "效果量", latex: "d=\\frac{3}{4.9}\\approx0.61", fallback: "d=3/4.9≈0.61" },
+    { label: "代入樣本數公式", latex: "n=2\\left[\\frac{(1.96+0.842)\\times4.9}{3}\\right]^2", fallback: "n=2{[(1.96+0.842)×4.9]/3}²" },
+    { label: "常態近似結果", latex: "n\\approx41.9\\quad\\Longrightarrow\\quad 42\\text{ hips per group}", fallback: "n≈41.9 → 每組約 42 hips" }
+  ] },
+  { type: "paragraph", text: "論文的 power analysis 報告每組需要 43 hips。以精確的 two-sample t power calculation 計算時，會因使用 t 分配與整數取整而比上述常態近似略多；兩者的結果一致。" },
+  { type: "heading", text: "希望偵測 2° 的差異" },
+  { type: "paragraph", text: "若希望連 2° 的較小差異也能被偵測，效果量降為約 0.41，因此需要更多樣本。" },
+  { type: "formulaGroup", formulas: [
+    { label: "效果量", latex: "d=\\frac{2}{4.9}\\approx0.41", fallback: "d=2/4.9≈0.41" },
+    { label: "代入樣本數公式", latex: "n=2\\left[\\frac{(1.96+0.842)\\times4.9}{2}\\right]^2", fallback: "n=2{[(1.96+0.842)×4.9]/2}²" },
+    { label: "常態近似結果", latex: "n\\approx94.2\\quad\\Longrightarrow\\quad 95\\text{ hips per group}", fallback: "n≈94.2 → 每組約 95 hips" }
+  ] },
+  { type: "paragraph", text: "論文的 power analysis 報告每組需要 96 hips，同樣與常態近似結果非常接近。" },
+  { type: "callout", tone: "intuition", label: "為什麼這個例子重要？", text: "研究最後納入 premature 58 hips 與 full-term 186 hips。較小組的 58 hips 超過偵測 3° 所需的 43 hips，卻少於偵測 2° 所需的 96 hips。因此研究有足夠 power 偵測 3° 的差異，但對 2° 差異的檢定力不足。『沒有顯著差異』不能直接解讀成任何大小的差異都不存在。" },
+  { type: "callout", tone: "forward", label: "研究設計提醒", text: "本例以 hips 作為報告單位，而 244 hips 來自 122 位受試者。同一嬰兒左右髖可能具有相關性；實際研究分析時，是否把 hip 視為獨立單位、是否處理受試者內相關性，必須依研究模型與原文方法判斷。這不影響本例示範樣本數與可偵測差異的關係，但不能忽略分析單位。" },
+  { type: "paragraph", text: "Reference: Hockett C, Mayfield LM, Gill CS, Kim HKW, Sucato DJ, Podeszwa DA, Jo CH, Morris WZ. Does screening ultrasound timing in developmental dysplasia of the hip need to be adjusted for moderate preterm and near-term infants: a prospective study. J Pediatr Orthop. 2024;44(1):e25–e29. doi:10.1097/BPO.0000000000002540. PubMed: https://pubmed.ncbi.nlm.nih.gov/37773040/" },
   { type: "heading", text: "從公式看樣本數的關係" },
   { type: "table", rows: [["條件改變", "所需 n", "原因"], ["α↓", "n↑", "要求更少的型一誤差，裁決門檻更嚴格"], ["β↓（power↑）", "n↑", "要求更少漏失真實差異，需要更多資訊"], ["σ↑", "n↑", "資料更分散，訊號較難從雜訊中辨認"], ["|μ₁−μ₀|↑", "n↓", "預計辨認的差異越大，越容易被發現"]] },
   { type: "heading", text: "由同一推導得到 power" },
@@ -91,3 +126,4 @@ export const zTest = [
   { type: "heading", text: "本頁公式的符號說明" },
   { type: "table", rows: [["符號", "代表意義"], ["zq", "標準常態分配的第 q 分位數，滿足 P(Z≤zq)=q"], ["α", "H₀ 為真時卻拒絕 H₀ 的機率（型一誤差）"], ["β", "指定的 H₁ 為真時卻未拒絕 H₀ 的機率（型二誤差）"], ["1−β", "統計檢定力；指定差異存在時成功拒絕 H₀ 的機率"], ["μ₁", "用來規劃或計算 power 的特定真實平均數"], ["c", "把拒絕區與不拒絕區分開的臨界樣本平均數"], ["Φ(z)", "標準常態分配在 z 左側的累積機率"], ["Δ₀", "兩樣本檢定中 H₀ 指定的平均數差"]] }
 ];
+
