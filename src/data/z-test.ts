@@ -76,7 +76,9 @@ export const zTest = [
   ] },
   { type: "paragraph", text: "計算出的 n 若不是整數必須向上取整。這個公式適用於此處設定的單一樣本、單尾、已知 σ 的平均數 Z 檢定；雙尾規劃時，臨界值改為 z₁₋α⁄₂。" },
   { type: "details", label: "補充案例：用真實研究理解樣本數與可偵測差異", children: [
-  { type: "paragraph", text: "Hockett 等人研究早產兒與足月兒的髖關節超音波篩檢，比較兩組的 alpha angle。研究的 power analysis 使用母體標準差估計值 4.9°、雙尾顯著水準 5% 與 power 80%，分別規劃偵測 3° 與 2° 的組間差異。" },
+  { type: "paragraph", text: "髖關節發育不良（developmental dysplasia of the hip, DDH）高風險嬰兒通常會在出生後約 6 週接受髖關節超音波篩檢。早產兒在相同出生後週數時，實際發育成熟度可能比足月兒低，因此 Hockett 等人想確認：中度早產或接近足月出生的嬰兒，是否需要依早產程度調整超音波篩檢時間。" },
+  { type: "paragraph", text: "研究將出生未滿 37 週的 premature cohort 與出生滿 37 週的 full-term cohort 比較，所有嬰兒都在未校正年齡 5–8 週接受超音波。主要比較包括 alpha angle、femoral head coverage、異常超音波比例與是否接受 Pavlik harness 治療；其中這個樣本數案例針對的是『兩組平均 alpha angle 相差多少度』。alpha angle 是超音波評估髖臼骨性覆蓋與髖關節成熟程度的量測指標，角度較小通常表示髖關節較不成熟。" },
+  { type: "paragraph", text: "研究的 power analysis 使用母體標準差估計值 4.9°、雙尾顯著水準 5% 與 power 80%，分別規劃偵測 premature 與 full-term 兩組平均 alpha angle 相差 3° 或 2° 時所需的樣本數。" },
   { type: "callout", tone: "forward", label: "先注意：這是兩個獨立組別", text: "前面推導的是單一樣本平均數；本例比較 premature 與 full-term 兩組。若假設兩組具有相同變異數，且每組規劃相同樣本數 n，平均數差同時包含兩組的抽樣變異，因此樣本數公式會多出係數 2。" },
   { type: "formulaGroup", formulas: [
     { label: "兩組平均數差的標準誤", latex: "\\operatorname{SE}(\\bar X_1-\\bar X_2)=\\sqrt{\\frac{\\sigma^2}{n}+\\frac{\\sigma^2}{n}}=\\sigma\\sqrt{\\frac{2}{n}}", fallback: "SE(X̄₁−X̄₂)=√(σ²/n+σ²/n)=σ√(2/n)" },
@@ -127,5 +129,6 @@ export const zTest = [
   { type: "heading", text: "本頁公式的符號說明" },
   { type: "table", rows: [["符號", "代表意義"], ["zq", "標準常態分配的第 q 分位數，滿足 P(Z≤zq)=q"], ["α", "H₀ 為真時卻拒絕 H₀ 的機率（型一誤差）"], ["β", "指定的 H₁ 為真時卻未拒絕 H₀ 的機率（型二誤差）"], ["1−β", "統計檢定力；指定差異存在時成功拒絕 H₀ 的機率"], ["μ₁", "用來規劃或計算 power 的特定真實平均數"], ["c", "把拒絕區與不拒絕區分開的臨界樣本平均數"], ["Φ(z)", "標準常態分配在 z 左側的累積機率"], ["Δ₀", "兩樣本檢定中 H₀ 指定的平均數差"]] }
 ];
+
 
 
