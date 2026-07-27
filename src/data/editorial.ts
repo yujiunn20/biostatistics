@@ -13,6 +13,9 @@ import { screeningRoc } from "./screening-roc";
 import { hypothesisTesting } from "./hypothesis-testing";
 import { zTest } from "./z-test";
 import { tTestConcept } from "./t-test-concept";
+import { oneSampleTTest } from "./one-sample-t-test";
+import { pairedTTest } from "./paired-t-test";
+import { independentTTest } from "./independent-t-test";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -182,11 +185,11 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
   "04": {
     "z-test": zTest,
     "t-test": tTestConcept,
+    "one-sample-t-test": oneSampleTTest,
+    "paired-t-test": pairedTTest,
+    "independent-t-test": independentTTest,
   },
 };
-
-
-
 
 
 
