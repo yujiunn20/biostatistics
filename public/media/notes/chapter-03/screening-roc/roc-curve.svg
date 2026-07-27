@@ -2,7 +2,7 @@
 <title id="title">ROC curve</title><desc id="desc">ROC curve plotting sensitivity against one minus specificity, with a diagonal no-discrimination reference and example threshold points.</desc>
 <rect width="1400" height="900" fill="#f8faf9"/><rect x="175" y="90" width="1040" height="680" rx="8" fill="#fff" stroke="#cad7d1" stroke-width="2"/>
 <g stroke="#dce5e1" stroke-width="2"><path d="M175 634H1215M175 498H1215M175 362H1215M175 226H1215"/><path d="M383 90V770M591 90V770M799 90V770M1007 90V770"/></g>
-<g stroke="#22332c" stroke-width="4"><path d="M175 90V770H1215"/></g>
+<g stroke="#22332c" stroke-width="4" fill="none"><path d="M175 90V770H1215"/></g>
 <path d="M175 770L1215 90" fill="none" stroke="#91a39b" stroke-width="4" stroke-dasharray="14 12"/>
 <path d="M175 770 C205 585 255 430 355 305 C455 190 600 145 770 119 C925 98 1070 92 1215 90" fill="none" stroke="#238766" stroke-width="9" stroke-linecap="round"/>
 <g fill="#fff" stroke="#238766" stroke-width="5"><circle cx="246" cy="472" r="10"/><circle cx="355" cy="305" r="10"/><circle cx="543" cy="162" r="10"/><circle cx="770" cy="119" r="10"/></g>
@@ -11,3 +11,4 @@
 <g font-family="Arial, Helvetica, sans-serif" font-size="22"><line x1="900" y1="655" x2="960" y2="655" stroke="#238766" stroke-width="8"/><text x="975" y="663" fill="#23342d">Classifier</text><line x1="900" y1="702" x2="960" y2="702" stroke="#91a39b" stroke-width="4" stroke-dasharray="12 9"/><text x="975" y="710" fill="#23342d">No discrimination</text></g>
 <text x="575" y="210" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#238766">Example thresholds</text>
 </svg>
+
