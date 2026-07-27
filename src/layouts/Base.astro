@@ -9,7 +9,7 @@ const { locale, title, description, alternates } = Astro.props;
 <html lang={locale}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#205d49" />
@@ -20,3 +20,4 @@ const { locale, title, description, alternates } = Astro.props;
   </head>
   <body><slot /></body>
 </html>
+

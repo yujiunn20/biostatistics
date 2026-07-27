@@ -9,10 +9,13 @@ const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/
   <button class="hamb" type="button" aria-label="Menu">☰</button>
   <a class="brand" href={`/${locale}/`}><img class="brand-logo" src="/biostatistics-logo.png" alt="" width="40" height="40" /><span><strong>{t.site}</strong><small>{t.tag}</small></span></a>
   <div class="actions">
-    <button class="search-trigger" type="button">⌕ <span>{t.search}</span></button>
-    <select class="language-select" aria-label="Language">
-      {locales.map(lang => <option value={languagePath(lang)} selected={lang === locale}>{localeLabels[lang]}</option>)}
-    </select>
+    <button class="search-trigger" type="button"><span class="action-icon" aria-hidden="true">⌕</span><span class="action-label">{t.search}</span></button>
+    <label class="language-control" aria-label="Language">
+      <span class="action-icon" aria-hidden="true">文</span>
+      <select class="language-select">
+        {locales.map(lang => <option value={languagePath(lang)} selected={lang === locale}>{localeLabels[lang]}</option>)}
+      </select>
+    </label>
     <button class="theme-toggle" type="button" aria-label="Theme">◐</button>
   </div>
 </header>
@@ -66,3 +69,4 @@ const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/
     });
   });
 </script>
+
