@@ -32,6 +32,14 @@ export const sampling = [
   { type: "callout", tone: "intuition", label: "例子", text: "先從台北市所有醫院中隨機抽取 A、B、C 三家，再納入這三家所有符合條件的癌症病人；若只在被抽中的醫院內再抽部分病人，則是兩階段抽樣。" },
   { type: "callout", tone: "intuition", label: "分層和群集不要混淆", text: "分層抽樣通常希望每一層都取到樣本；群集抽樣則只抽取部分群集。理想上，分層內部較相似、層與層不同；群集則希望每個群集都像母體的縮影，但現實中同一群集內常較相似，因此分析時要考慮群集相關性。" },
   { type: "table", rows: [["方法", "先做什麼？", "從哪裡抽？", "主要優點", "主要風險"], ["簡單隨機", "建立完整抽樣框", "整個母體名單", "概念與分析直接", "完整名單可能難以取得"], ["系統抽樣", "隨機起點並決定間隔 k", "每隔 k 個單位", "執行方便", "名單週期可能造成偏差"], ["分層抽樣", "依重要特徵分層", "每一層都抽", "確保子群體代表性", "不等比例抽樣時需權重"], ["群集抽樣", "建立自然群集", "只抽部分群集", "降低地理與執行成本", "群集內相似會降低有效資訊量"]] },
+  { type: "heading", text: "中央極限定理" },
+  { type: "paragraph", text: "中央極限定理（central limit theorem, CLT）說明：若觀察值彼此獨立、來自相同分布，且母體具有有限平均數 μ 與有限變異數 σ²，當 n 增加時，樣本平均數經過標準化後，其分布會逐漸接近標準常態分配。" },
+  { type: "formulaGroup", formulas: [
+    { label: "樣本平均數的近似分配", latex: "\\bar X\\approx N\\!\\left(\\mu,\\frac{\\sigma^2}{n}\\right)", fallback: "X̄ 約服從 N(μ,σ²/n)" },
+    { label: "標準化形式", latex: "\\frac{\\bar X-\\mu}{\\sigma/\\sqrt n}\\xrightarrow{d}N(0,1)\\qquad(n\\to\\infty)", fallback: "(X̄-μ)/(σ/√n) 隨 n 增加趨近 N(0,1)" }
+  ] },
+  { type: "callout", tone: "intuition", label: "不是說原始資料會變成常態", text: "中央極限定理描述的是『樣本平均數的抽樣分配』，不是說母體或單次樣本中的原始資料會因為 n 增加而變成常態。" },
+  { type: "paragraph", text: "若母體本身服從常態分配，無論 n 大小，樣本平均數都精確服從常態分配；若母體不是常態，則需要 n 足夠大才有良好近似。常見的 n≥30 只是經驗法則，不是普遍保證：母體越偏斜、尾端越厚或離群值越多，通常需要更大的樣本。" },
   { type: "heading", text: "從一次樣本走向所有可能樣本" },
   { type: "paragraph", text: "假設有限母體中共有 N 個單位，每次以簡單隨機方式、不放回地抽取 n 個單位，而且不考慮抽取順序，所有可能樣本數為 C(N,n)。每一個可能樣本都能算出一個樣本平均數。" },
   { type: "formulaGroup", formulas: [
@@ -63,27 +71,39 @@ export const sampling = [
     { type: "callout", tone: "intuition", label: "哪一步需要獨立？", text: "期望值即使在隨機變數不獨立時也能拆開；變異數只有在彼此獨立（更精確地說，協方差為 0）時，才能直接把各項變異數相加。這正是推導標準誤時必須交代抽樣獨立性的原因。" },
     { type: "paragraph", text: "兩個隨機變數的和、差與平均，例如 X₁+X₂、X₁−X₂、(X₁+X₂)/2，也都是線性組合。後面的兩組平均數比較、迴歸與變異數分析會再次使用這個觀念。" }
   ] },
-  { type: "details", label: "補充二：抽樣平均數的平均與標準誤推導", children: [
-    { type: "heading", text: "法一：從有限母體的所有可能樣本理解" },
-    { type: "paragraph", text: "設有限母體共有 N 個值 x₁,…,x_N，以簡單隨機方式不放回抽取 n 個且不計順序，共有 C(N,n) 個可能樣本。每個母體值 xᵢ 會出現在 C(N−1,n−1) 個樣本中，因此把所有可能樣本的平均數再取平均，可得母體平均數。" },
+  { type: "details", label: "補充二：抽樣平均數的平均與標準誤完整推導", children: [
+    { type: "heading", text: "法一：列出有限母體的所有可能樣本" },
+    { type: "paragraph", text: "設有限母體為 x₁,…,x_N，母體大小為 N；每次不放回抽出 n 個且不計順序，因此共有 C(N,n) 個可能樣本。以下保留原推導使用的技巧：先展開平方，再計算單項與交叉項在所有樣本中各出現幾次。為避免重複計數，交叉項一律記為 Σᵢ<ⱼxᵢxⱼ。" },
     { type: "formulaGroup", formulas: [
       { label: "母體平均數", latex: "\\mu=\\frac{1}{N}\\sum_{i=1}^{N}x_i", fallback: "μ=(1/N)Σxᵢ" },
-      { label: "所有樣本平均數的平均", latex: "E(\\bar X)=\\frac{\\binom{N-1}{n-1}\\sum_{i=1}^{N}x_i}{n\\binom{N}{n}}=\\frac{1}{N}\\sum_{i=1}^{N}x_i=\\mu", fallback: "E(X̄)=μ" }
+      { label: "先展開母體變異數", latex: "\\sigma^2=\\frac{1}{N}\\sum_{i=1}^{N}x_i^2-\\left(\\frac{1}{N}\\sum_{i=1}^{N}x_i\\right)^2", fallback: "σ²=(1/N)Σxᵢ²−[(1/N)Σxᵢ]²" },
+      { label: "把平均平方展開成單項與交叉項", latex: "\\sigma^2=\\frac{N-1}{N^2}\\sum_i x_i^2-\\frac{2}{N^2}\\sum_{i<j}x_ix_j", fallback: "σ²=[(N−1)/N²]Σxᵢ²−(2/N²)Σᵢ<ⱼxᵢxⱼ" }
     ] },
-    { type: "paragraph", text: "同樣計算所有可能樣本平均數的變異程度，可得到不放回抽樣的有限母體結果。當抽樣比例很小，修正項接近 1，便得到常用的 σ/√n。" },
+    { type: "heading", text: "第一步：所有樣本平均數的平均" },
+    { type: "paragraph", text: "固定一個 xᵢ 後，其餘 n−1 個位置可從另外 N−1 個母體值中選，所以每個 xᵢ 會出現在 C(N−1,n−1) 個樣本中。這個出現次數就是原推導的第一個組合計數技巧。" },
+    { type: "formula", latex: "E(\\bar X)=\\frac{1}{\\binom{N}{n}}\\sum_{\\text{所有樣本}}\\left(\\frac{1}{n}\\sum_{\\text{樣本內}}x_i\\right)=\\frac{\\binom{N-1}{n-1}\\sum_{i=1}^{N}x_i}{n\\binom{N}{n}}", fallback: "E(X̄)={C(N−1,n−1)Σxᵢ}/{nC(N,n)}" },
+    { type: "formula", latex: "\\frac{\\binom{N-1}{n-1}}{\\binom{N}{n}}=\\frac{n}{N}\\quad\\Longrightarrow\\quad E(\\bar X)=\\frac{1}{N}\\sum_{i=1}^{N}x_i=\\mu", fallback: "C(N−1,n−1)/C(N,n)=n/N，因此 E(X̄)=μ" },
+    { type: "heading", text: "第二步：先求 E(X̄²)，再扣掉 [E(X̄)]²" },
+    { type: "paragraph", text: "將每個樣本平均數平方後，會出現 xᵢ² 與 2xᵢxⱼ。固定一個 xᵢ 時，它出現 C(N−1,n−1) 次；固定一對 xᵢ、xⱼ 時，其餘 n−2 個位置可從 N−2 個值中選，所以這一對出現 C(N−2,n−2) 次。這就是原推導中交叉項係數的來源。" },
+    { type: "formula", latex: "E(\\bar X^2)=\\frac{\\binom{N-1}{n-1}\\sum_i x_i^2+2\\binom{N-2}{n-2}\\sum_{i<j}x_ix_j}{n^2\\binom{N}{n}}", fallback: "E(X̄²)=[C(N−1,n−1)Σxᵢ²+2C(N−2,n−2)Σᵢ<ⱼxᵢxⱼ]/[n²C(N,n)]" },
+    { type: "formula", latex: "\\operatorname{Var}(\\bar X)=E(\\bar X^2)-[E(\\bar X)]^2", fallback: "Var(X̄)=E(X̄²)−[E(X̄)]²" },
+    { type: "formula", latex: "=\\frac{\\binom{N-1}{n-1}\\sum_i x_i^2+2\\binom{N-2}{n-2}\\sum_{i<j}x_ix_j}{n^2\\binom{N}{n}}-\\frac{\\sum_i x_i^2+2\\sum_{i<j}x_ix_j}{N^2}", fallback: "代入 E(X̄²) 與 μ²" },
+    { type: "paragraph", text: "接著使用第二個組合化簡技巧：" },
     { type: "formulaGroup", formulas: [
-      { label: "有限母體、不放回抽樣", latex: "\\operatorname{Var}(\\bar X)=\\frac{\\sigma^2}{n}\\frac{N-n}{N-1}", fallback: "Var(X̄)=(σ²/n)[(N-n)/(N-1)]" },
-      { label: "相應的標準誤", latex: "\\operatorname{SE}(\\bar X)=\\frac{\\sigma}{\\sqrt n}\\sqrt{\\frac{N-n}{N-1}}", fallback: "SE(X̄)=(σ/√n)√[(N-n)/(N-1)]" }
+      { label: "單項係數", latex: "\\frac{\\binom{N-1}{n-1}}{\\binom{N}{n}}=\\frac{n}{N}", fallback: "C(N−1,n−1)/C(N,n)=n/N" },
+      { label: "成對交叉項係數", latex: "\\frac{\\binom{N-2}{n-2}}{\\binom{N}{n}}=\\frac{n(n-1)}{N(N-1)}", fallback: "C(N−2,n−2)/C(N,n)=n(n−1)/[N(N−1)]" }
     ] },
-    { type: "heading", text: "法二：把樣本平均數看成線性組合" },
-    { type: "paragraph", text: "若 X₁,…,Xₙ 是從同一母體獨立取得的隨機變數，而且每一個都有 E(Xᵢ)=μ、Var(Xᵢ)=σ²，則樣本平均數就是係數皆為 1/n 的線性組合。" },
-    { type: "formulaGroup", formulas: [
-      { label: "樣本平均數", latex: "\\bar X=\\frac{1}{n}\\sum_{i=1}^{n}X_i", fallback: "X̄=(1/n)ΣXᵢ" },
-      { label: "抽樣平均數的平均", latex: "E(\\bar X)=\\frac{1}{n}\\sum_{i=1}^{n}E(X_i)=\\frac{n\\mu}{n}=\\mu", fallback: "E(X̄)=μ" },
-      { label: "抽樣平均數的變異數", latex: "\\operatorname{Var}(\\bar X)=\\sum_{i=1}^{n}\\frac{1}{n^2}\\operatorname{Var}(X_i)=\\frac{n\\sigma^2}{n^2}=\\frac{\\sigma^2}{n}", fallback: "Var(X̄)=σ²/n" },
-      { label: "抽樣平均數的標準誤", latex: "\\operatorname{SE}(\\bar X)=\\sqrt{\\operatorname{Var}(\\bar X)}=\\frac{\\sigma}{\\sqrt n}", fallback: "SE(X̄)=σ/√n" }
-    ] },
-    { type: "callout", tone: "intuition", label: "兩種方法看的是同一件事", text: "法一直接列出所有可能樣本；法二把抽樣結果視為隨機變數，用線性組合快速推導。法二的 σ/√n 對應獨立抽樣；有限母體不放回抽樣時，各次抽取並非獨立，因此要加入有限母體修正。" }
+    { type: "formula", latex: "\\operatorname{Var}(\\bar X)=\\frac{N-n}{nN^2}\\sum_i x_i^2-\\frac{2(N-n)}{nN^2(N-1)}\\sum_{i<j}x_ix_j", fallback: "Var(X̄)=[(N−n)/(nN²)]Σxᵢ²−[2(N−n)/(nN²(N−1))]Σᵢ<ⱼxᵢxⱼ" },
+    { type: "formula", latex: "=\\frac{N-n}{n(N-1)}\\left(\\frac{N-1}{N^2}\\sum_i x_i^2-\\frac{2}{N^2}\\sum_{i<j}x_ix_j\\right)=\\frac{N-n}{n(N-1)}\\sigma^2", fallback: "Var(X̄)=[(N−n)/(n(N−1))]σ²" },
+    { type: "formula", latex: "\\operatorname{SE}(\\bar X)=\\sqrt{\\operatorname{Var}(\\bar X)}=\\frac{\\sigma}{\\sqrt n}\\sqrt{\\frac{N-n}{N-1}}", fallback: "SE(X̄)=(σ/√n)√[(N−n)/(N−1)]" },
+    { type: "paragraph", text: "當 N 相對於 n 很大時，有限母體修正 √[(N−n)/(N−1)] 接近 1，因此得到常用形式 SE(X̄)=σ/√n。" },
+    { type: "heading", text: "法二：利用隨機變數的線性組合" },
+    { type: "paragraph", text: "把 n 次抽樣看成取得 X₁,…,Xₙ；每個 Xᵢ 都有 E(Xᵢ)=μ、Var(Xᵢ)=σ²。若它們彼此獨立，樣本平均數就是係數皆為 1/n 的線性組合。" },
+    { type: "formula", latex: "\\bar X=\\frac{1}{n}X_1+\\cdots+\\frac{1}{n}X_n=\\sum_{i=1}^{n}\\frac{X_i}{n}", fallback: "X̄=(1/n)X₁+⋯+(1/n)Xₙ" },
+    { type: "formula", latex: "E(\\bar X)=\\sum_{i=1}^{n}\\frac{1}{n}E(X_i)=\\sum_{i=1}^{n}\\frac{\\mu}{n}=\\mu", fallback: "E(X̄)=Σ(1/n)E(Xᵢ)=μ" },
+    { type: "formula", latex: "\\operatorname{Var}(\\bar X)=\\sum_{i=1}^{n}\\frac{1}{n^2}\\operatorname{Var}(X_i)=\\sum_{i=1}^{n}\\frac{\\sigma^2}{n^2}=\\frac{\\sigma^2}{n}", fallback: "Var(X̄)=Σ(1/n²)Var(Xᵢ)=σ²/n" },
+    { type: "formula", latex: "\\operatorname{SE}(\\bar X)=\\sqrt{\\operatorname{Var}(\\bar X)}=\\frac{\\sigma}{\\sqrt n}", fallback: "SE(X̄)=σ/√n" },
+    { type: "callout", tone: "intuition", label: "兩個證明的差異", text: "法一沒有跳過不放回抽樣造成的相依性，所以自然出現有限母體修正；法二利用獨立隨機變數快速推導，因此直接得到 σ/√n。兩者不是互相取代，而是對應不同抽樣條件。" }
   ] },
   { type: "callout", tone: "intuition", label: "標準差和標準誤不同", text: "標準差描述個體彼此有多不同；標準誤描述如果重做研究，樣本統計量會有多不穩定。樣本數增加時，個體差異不會因此消失，但樣本平均數通常會更穩定。" },
   { type: "paragraph", text: "當 σ 未知時，實務上常以樣本標準差 s 估計，因此使用 s/√n 作為估計標準誤。若從有限母體中不放回抽樣，而且抽樣比例 n/N 不可忽略，還要加入有限母體修正。" },
@@ -98,24 +118,23 @@ export const sampling = [
     { label: "樣本標準差", latex: "s=\\sqrt{s^2}", fallback: "s=√s²" },
     { label: "不偏性", latex: "E(s^2)=\\sigma^2", fallback: "E(s²)=σ²" }
   ] },
-  { type: "details", label: "補充三：為什麼樣本變異數可以推估母體變異數？", children: [
-    { type: "paragraph", text: "若直接用 n 作分母，因為樣本平均數 X̄ 已經配合這批資料而位在資料中心，離差平方和平均而言會偏小。將分母改為 n−1，正好修正這個系統性的低估。" },
-    { type: "formulaGroup", formulas: [
-      { label: "離差平方和的期望值", latex: "E\\!\\left[\\sum_{i=1}^{n}(X_i-\\bar X)^2\\right]=(n-1)\\sigma^2", fallback: "E[Σ(Xᵢ−X̄)²]=(n−1)σ²" },
-      { label: "除以 n−1", latex: "E(s^2)=E\\!\\left[\\frac{1}{n-1}\\sum_{i=1}^{n}(X_i-\\bar X)^2\\right]=\\sigma^2", fallback: "E(s²)=σ²" }
-    ] },
-    { type: "paragraph", text: "因此真正具有不偏性的是樣本變異數 s²：反覆抽樣時，s² 的平均等於母體變異數 σ²。樣本標準差 s=√s² 雖然是常用估計量，但因平方根是非線性轉換，一般而言 E(s) 不會恰好等於 σ。" },
-    { type: "callout", tone: "intuition", label: "三個量要分清楚", text: "『抽樣變異數的平均推估母體變異數』應寫成 E(s²)=σ²；公式 s=√[Σ(Xᵢ−X̄)²/(n−1)] 則是在定義樣本標準差。兩者有關，但不是同一句公式。" }
+  { type: "details", label: "補充三：抽樣變異數的平均如何推估母體變異數（完整推導）", children: [
+    { type: "paragraph", text: "這裡沿用原文的有限母體列舉法。先令每個樣本以 n 為分母計算組內變異數 v；再把所有 C(N,n) 個可能樣本的 v 取平均。推導的關鍵仍是展開平方，以及計算 xᵢ² 與 xᵢxⱼ 在所有樣本中出現的次數。" },
+    { type: "formula", latex: "v=\\frac{1}{n}\\sum_{\\text{樣本內}}(x_i-\\bar x)^2=\\frac{n-1}{n^2}\\sum_{\\text{樣本內}}x_i^2-\\frac{2}{n^2}\\sum_{i<j,\\,\\text{樣本內}}x_ix_j", fallback: "v=(1/n)Σ(xᵢ−x̄)²=[(n−1)/n²]Σxᵢ²−(2/n²)Σᵢ<ⱼxᵢxⱼ" },
+    { type: "paragraph", text: "對所有樣本加總時，每個 xᵢ² 出現 C(N−1,n−1) 次；每一對 xᵢxⱼ 出現 C(N−2,n−2) 次。因此：" },
+    { type: "formula", latex: "E(v)=\\frac{1}{\\binom{N}{n}}\\left[\\frac{n-1}{n^2}\\binom{N-1}{n-1}\\sum_i x_i^2-\\frac{2}{n^2}\\binom{N-2}{n-2}\\sum_{i<j}x_ix_j\\right]", fallback: "E(v)=1/C(N,n){[(n−1)/n²]C(N−1,n−1)Σxᵢ²−[2/n²]C(N−2,n−2)Σᵢ<ⱼxᵢxⱼ}" },
+    { type: "formula", latex: "=\\frac{n-1}{Nn}\\sum_i x_i^2-\\frac{2(n-1)}{N(N-1)n}\\sum_{i<j}x_ix_j", fallback: "=[(n−1)/(Nn)]Σxᵢ²−[2(n−1)/(N(N−1)n)]Σᵢ<ⱼxᵢxⱼ" },
+    { type: "formula", latex: "=\\frac{n-1}{n}\\frac{N}{N-1}\\left(\\frac{N-1}{N^2}\\sum_i x_i^2-\\frac{2}{N^2}\\sum_{i<j}x_ix_j\\right)", fallback: "=[(n−1)/n][N/(N−1)]×母體變異數展開式" },
+    { type: "formula", latex: "E(v)=\\frac{n-1}{n}\\frac{N}{N-1}\\sigma^2", fallback: "E(v)=[(n−1)/n][N/(N−1)]σ²" },
+    { type: "paragraph", text: "因此若母體變異數 σ²採用分母 N 的定義，從有限母體不放回抽樣得到的精確修正為：" },
+    { type: "formula", latex: "\\sigma^2=\\frac{N-1}{N}\\frac{n}{n-1}E(v)", fallback: "σ²=[(N−1)/N][n/(n−1)]E(v)" },
+    { type: "paragraph", text: "實務上通常看不到所有可能樣本，只看到其中一個樣本。以該樣本的 v 代替 E(v)，並在 N 很大時令 (N−1)/N≈1，就得到熟悉的 n−1 修正：" },
+    { type: "formula", latex: "s^2=\\frac{n}{n-1}v=\\frac{1}{n-1}\\sum_{i=1}^{n}(X_i-\\bar X)^2", fallback: "s²=[n/(n−1)]v=Σ(Xᵢ−X̄)²/(n−1)" },
+    { type: "formula", latex: "s=\\sqrt{s^2}=\\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(X_i-\\bar X)^2}", fallback: "s=√{Σ(Xᵢ−X̄)²/(n−1)}" },
+    { type: "callout", tone: "intuition", label: "母體變異數的分母慣例", text: "若把有限母體變異數定義成 S²=Σ(xᵢ−μ)²/(N−1)，則 E(s²)=S² 是精確結果；若把它定義成 σ²=Σ(xᵢ−μ)²/N，便會多出 N/(N−1) 的有限母體差異。你原本推導中的 (N−1)/N 正是在處理這件事，不應被省略。" },
+    { type: "paragraph", text: "所以正文中的根號公式是樣本標準差 s；而推估母體變異數的核心是先證明樣本變異數 s²在相應定義下具有不偏性。" }
   ] },
   { type: "callout", tone: "forward", label: "和自由度頁的連結", text: "這裡的 n−1 不是額外規定，而是估計 X̄ 後產生一個線性限制。前面自由度頁提到的『限制後仍能獨立變動的資訊量』，在樣本變異數中正式出現。" },
-  { type: "heading", text: "中央極限定理" },
-  { type: "paragraph", text: "中央極限定理（central limit theorem, CLT）說明：若觀察值彼此獨立、來自相同分布，且母體具有有限平均數 μ 與有限變異數 σ²，當 n 增加時，樣本平均數經過標準化後，其分布會逐漸接近標準常態分配。" },
-  { type: "formulaGroup", formulas: [
-    { label: "樣本平均數的近似分配", latex: "\\bar X\\approx N\\!\\left(\\mu,\\frac{\\sigma^2}{n}\\right)", fallback: "X̄ 約服從 N(μ,σ²/n)" },
-    { label: "標準化形式", latex: "\\frac{\\bar X-\\mu}{\\sigma/\\sqrt n}\\xrightarrow{d}N(0,1)\\qquad(n\\to\\infty)", fallback: "(X̄-μ)/(σ/√n) 隨 n 增加趨近 N(0,1)" }
-  ] },
-  { type: "callout", tone: "intuition", label: "不是說原始資料會變成常態", text: "中央極限定理描述的是『樣本平均數的抽樣分配』，不是說母體或單次樣本中的原始資料會因為 n 增加而變成常態。" },
-  { type: "paragraph", text: "若母體本身服從常態分配，無論 n 大小，樣本平均數都精確服從常態分配；若母體不是常態，則需要 n 足夠大才有良好近似。常見的 n≥30 只是經驗法則，不是普遍保證：母體越偏斜、尾端越厚或離群值越多，通常需要更大的樣本。" },
   { type: "heading", text: "樣本數如何影響標準誤？" },
   { type: "paragraph", text: "標準誤和 √n 成反比，因此增加樣本數會讓樣本平均數的抽樣分配更集中，但改善並非線性。若希望把標準誤減半，樣本數必須增加為原來的四倍。" },
   { type: "formula", latex: "\\operatorname{SE}(\\bar X)\\propto\\frac{1}{\\sqrt n}", fallback: "SE(X̄) 與 1/√n 成正比" },
