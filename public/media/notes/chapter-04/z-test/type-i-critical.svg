@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="t d">
+<title id="t">Type I error under the null hypothesis</title><desc id="d">The right-tail area beyond the critical value is alpha.</desc>
+<rect width="1200" height="700" rx="28" fill="#f7faf8"/>
+<path d="M100 560 C180 558 235 525 300 425 C375 310 425 175 590 170 C755 175 805 310 880 425 C945 525 1000 558 1100 560" fill="none" stroke="#24342f" stroke-width="7"/>
+<path d="M820 350 C842 388 860 428 880 461 C945 535 1000 558 1100 560 L820 560 Z" fill="#ed6a65" fill-opacity=".86"/>
+<path d="M100 560 H1100" fill="none" stroke="#70817a" stroke-width="3"/>
+<path d="M820 560 V350" fill="none" stroke="#c74743" stroke-width="5"/>
+<text x="590" y="105" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#24342f">H₀ distribution</text>
+<text x="820" y="610" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#24342f">z₁₋α</text>
+<text x="925" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#c74743">α</text>
+<text x="925" y="515" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#c74743">Type I error</text>
+<text x="820" y="655" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#53665e">Critical value c</text>
+</svg>

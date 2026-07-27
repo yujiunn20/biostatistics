@@ -88,11 +88,43 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1400,
     height: 900,
   },
-};
+  "z-errors-overlap": {
+    src: "/media/notes/chapter-04/z-test/errors-overlap.svg",
+    alt: "H₀ 與 H₁ 的抽樣分配重疊圖：同一臨界值右側在 H₀ 下為型一誤差 α，左側在 H₁ 下為型二誤差 β",
+    caption: "α 與 β 使用同一條臨界線，卻分別是在 H₀ 與特定 H₁ 的抽樣分配下計算。",
+    credit: "本站依原始筆記圖重製",
+    width: 1200,
+    height: 700,
+  },
+  "z-type-i-critical": {
+    src: "/media/notes/chapter-04/z-test/type-i-critical.svg",
+    alt: "H₀ 抽樣分配右尾圖：臨界值右側面積為型一誤差 α",
+    caption: "右尾檢定中，先在 H₀ 分配上選擇臨界值，使其右側面積等於 α。",
+    credit: "本站依原始筆記圖重製",
+    width: 1200,
+    height: 700,
+  },
+  "z-type-ii-beta": {
+    src: "/media/notes/chapter-04/z-test/type-ii-beta.svg",
+    alt: "H₁ 抽樣分配左側圖：未越過同一臨界值的面積為型二誤差 β",
+    caption: "把同一臨界值放到 H₁ 分配中，左側未能拒絕 H₀ 的面積就是 β。",
+    credit: "本站依原始筆記圖重製",
+    width: 1200,
+    height: 700,
+  },
+  "z-alpha-beta-tradeoff": {
+    src: "/media/notes/chapter-04/z-test/alpha-beta-tradeoff.svg",
+    alt: "H₀ 與 H₁ 重疊圖：標示型一誤差 α、型二誤差 β 與檢定力 1−β",
+    caption: "其他條件固定時，移動臨界值會使 α 與 β 反向變化；減少兩個分配的重疊則能提高 power。",
+    credit: "本站依原始筆記圖重製",
+    width: 1200,
+    height: 700,
+  },};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
 
 
 

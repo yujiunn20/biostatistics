@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="t d">
+<title id="t">Type II error under the alternative hypothesis</title><desc id="d">The area to the left of the critical value under the alternative is beta.</desc>
+<rect width="1200" height="700" rx="28" fill="#f7faf8"/>
+<path d="M100 560 C180 558 235 525 300 425 C375 310 425 175 590 170 C755 175 805 310 880 425 C945 525 1000 558 1100 560" fill="none" stroke="#438b72" stroke-width="7"/>
+<path d="M100 560 C180 558 235 525 300 425 C350 348 390 260 455 210 L455 560 Z" fill="#31b7b2" fill-opacity=".82"/>
+<path d="M100 560 H1100" fill="none" stroke="#70817a" stroke-width="3"/>
+<path d="M455 560 V210" fill="none" stroke="#087f7b" stroke-width="5"/>
+<text x="590" y="105" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#438b72">H₁ distribution</text>
+<text x="455" y="610" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#24342f">zβ</text>
+<text x="320" y="455" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#087f7b">β</text>
+<text x="320" y="495" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#087f7b">Type II error</text>
+<text x="455" y="655" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#53665e">Same critical value c</text>
+</svg>

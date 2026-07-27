@@ -11,6 +11,7 @@ import { poissonDistribution } from "./poisson-distribution";
 import { sampling } from "./sampling";
 import { screeningRoc } from "./screening-roc";
 import { hypothesisTesting } from "./hypothesis-testing";
+import { zTest } from "./z-test";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -176,8 +177,10 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "sampling": sampling,
     "screening-test": screeningRoc,
     "hypothesis-testing": hypothesisTesting,
+    "z-test": zTest,
   },
 };
+
 
 
 
