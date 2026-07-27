@@ -28,8 +28,7 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
   ],
   "03": [
     { slug: "sampling", title: "抽樣與抽樣分配", startsAt: "抽樣(Sampling)" },
-    { slug: "screening-test", title: "篩檢試驗", startsAt: "Screening test" },
-    { slug: "roc-curve", title: "ROC 曲線", startsAt: "ROC CURVE" },
+    { slug: "screening-test", title: "篩檢試驗與 ROC 曲線", startsAt: "Screening test" },
     { slug: "hypothesis-testing", title: "假設檢定", startsAt: "假設檢定(hypothesis test)" },
     { slug: "standard-error", title: "標準誤與抽樣變異數", startsAt: "補充二：抽樣平均數的標準誤" },
   ],
@@ -129,6 +128,9 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
+
+
+
 
 
 

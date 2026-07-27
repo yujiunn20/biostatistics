@@ -61,7 +61,11 @@ export const sampling = [
   ] },
   { type: "table", rows: [["符號", "代表意義"], ["E(X̄)", "重複抽樣時，樣本平均數的長期平均"], ["Var(X̄)", "樣本平均數在不同樣本間的變異程度"], ["SE(X̄)", "樣本平均數抽樣分配的標準差"], ["σ", "個體觀察值在母體中的標準差"], ["n", "每一次抽樣的樣本數"]] },
   { type: "details", label: "補充一：隨機變數的線性組合", children: [
-    { type: "paragraph", text: "隨機變數的線性組合（linear combination of random variables）是資料合併時會反覆用到的方法。設 X₁,…,Xₙ 為隨機變數，c₁,…,cₙ 為常數，則：" },
+    { type: "paragraph", text: "隨機變數的線性組合（linear combination of random variables）是資料合併時會反覆用到的方法。在看公式以前，必須先分清楚公式中的符號代表什麼。" },
+    { type: "callout", tone: "forward", label: "核心觀念：先分清楚 Xᵢ 與 xᵢ", text: "大寫 Xᵢ 代表隨機變數：抽樣尚未發生時，第 i 次可能抽到什麼仍不確定，因此它具有機率分布，可以討論 E(Xᵢ)、Var(Xᵢ)，也可以研究多個隨機變數合併後的期望值、變異數與分布。小寫 xᵢ 則代表抽樣完成後實際觀察到的固定數值；它當然可以做加減與平均，但那只是這一次資料的數值運算，不再是隨機變數的機率運算。後面要推導的是『如果重新抽樣，結果會怎麼變』，所以公式中的對象必須是 Xᵢ，而不是已經觀察到的 xᵢ。" },
+    { type: "table", rows: [["抽樣階段", "符號", "代表什麼？", "可以回答什麼？"], ["抽樣以前／概念上重複抽樣", "Xᵢ（隨機變數）", "第 i 次抽樣可能得到的結果", "期望值、變異數與抽樣分配"], ["抽樣完成以後", "xᵢ（觀察值）", "這一次實際得到的固定數字", "這份樣本的加總、平均與其他描述值"]] },
+    { type: "callout", tone: "intuition", label: "一個具體例子", text: "擲骰子以前，用 X 表示『點數』，X 可能是 1 到 6，所以能談 E(X) 與 Var(X)；擲完後若得到 4，記作 x=4。此時 4 是固定結果，不再有自己的抽樣變異。抽樣平均數也是同樣道理：X̄ 是重複抽樣時會改變的隨機變數，x̄ 則是某一次樣本已經算出的平均數。" },
+    { type: "paragraph", text: "設 X₁,…,Xₙ 為隨機變數，c₁,…,cₙ 為常數，則：" },
     { type: "formula", latex: "L=c_1X_1+\\cdots+c_nX_n=\\sum_{i=1}^{n}c_iX_i", fallback: "L=c₁X₁+⋯+cₙXₙ=ΣcᵢXᵢ" },
     { type: "heading", text: "和、差與平均都是線性組合" },
     { type: "paragraph", text: "例如有兩個隨機變數 X₁、X₂，可以形成下列不同的線性組合：" },
@@ -86,7 +90,7 @@ export const sampling = [
     { type: "callout", tone: "intuition", label: "第二個等號需要什麼條件？", text: "從 Var(c₁X₁+⋯+cₙXₙ) 拆成各項變異數相加，需要 X₁,…,Xₙ 彼此獨立，或至少任兩項的協方差都為 0；而 Var(cᵢXᵢ)=cᵢ²Var(Xᵢ)，所以係數在變異數中必須平方。" },
     { type: "paragraph", text: "若隨機變數之間可能相關，就不能省略交叉的協方差項，完整形式為：" },
     { type: "formula", latex: "\\operatorname{Var}(L)=\\sum_{i=1}^{n}c_i^2\\operatorname{Var}(X_i)+2\\sum_{i<j}c_ic_j\\operatorname{Cov}(X_i,X_j)", fallback: "Var(L)=Σcᵢ²Var(Xᵢ)+2Σᵢ<ⱼcᵢcⱼCov(Xᵢ,Xⱼ)" },
-    { type: "callout", tone: "intuition", label: "符號代表的是隨機變數", text: "這裡運算的是隨機變數 Xᵢ，而不是一次樣本中已經觀察到的固定數值 xᵢ。推導抽樣平均數的分配與標準誤時，必須先把每次可能抽到的結果視為隨機變數，才能使用上面的期望值與變異數運算。" }
+    { type: "callout", tone: "forward", label: "再提醒一次：不是看到字母就能直接拆開", text: "這一節之所以能討論 E(L) 與 Var(L)，首先是因為 X₁,…,Xₙ 是隨機變數，而不是一次樣本中已確定的數值。進一步把 Var(c₁X₁+⋯+cₙXₙ) 直接拆成各項變異數相加，還需要彼此獨立或協方差為 0。也就是說，先辨認『它是不是隨機變數』，再檢查『這些隨機變數是否獨立』；兩個層次都不能跳過。" }
   ] },
   { type: "details", label: "補充二：抽樣平均數的平均與標準誤完整推導", children: [
     { type: "heading", text: "法一：列出有限母體的所有可能樣本" },

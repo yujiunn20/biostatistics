@@ -72,6 +72,14 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1400,
     height: 900,
   },
+  "screening-roc-curve": {
+    src: "/media/notes/chapter-03/screening-roc/roc-curve.svg",
+    alt: "ROC 曲線：橫軸為偽陽性率（1−特異度），縱軸為真陽性率（敏感度），並以對角虛線表示無辨別能力",
+    caption: "每個點代表一個判定閾值。曲線越靠近左上角，通常表示能在較低偽陽性率下取得較高敏感度。",
+    credit: "本站依 ROC 定義重製",
+    width: 1400,
+    height: 900,
+  },
   "poisson-lambda-distributions": {
     src: "/media/notes/chapter-02/poisson-distribution/poisson-lambda-distributions.svg",
     alt: "參數 λ 分別為 0.5、2、5 與 10 的 Poisson 分配機率圖；λ 增加時分布中心向右移動並逐漸較為對稱",
@@ -85,6 +93,8 @@ export const figures: Record<string, FigureDefinition> = {
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
+
+
 
 
 
