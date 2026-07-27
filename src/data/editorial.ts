@@ -8,6 +8,7 @@ import { fDistribution } from "./f-distribution";
 import { exponentialDistribution } from "./exponential-distribution";
 import { binomialDistribution } from "./binomial-distribution";
 import { poissonDistribution } from "./poisson-distribution";
+import { sampling } from "./sampling";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -169,7 +170,11 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "binomial-distribution": binomialDistribution,
     "poisson-distribution": poissonDistribution,
   },
+  "03": {
+    "sampling": sampling,
+  },
 };
+
 
 
 
