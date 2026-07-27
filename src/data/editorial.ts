@@ -177,9 +177,12 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "sampling": sampling,
     "screening-test": screeningRoc,
     "hypothesis-testing": hypothesisTesting,
+  },
+  "04": {
     "z-test": zTest,
   },
 };
+
 
 
 
