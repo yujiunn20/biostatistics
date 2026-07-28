@@ -16,6 +16,14 @@ import { tTestConcept } from "./t-test-concept";
 import { oneSampleTTest } from "./one-sample-t-test";
 import { pairedTTest } from "./paired-t-test";
 import { independentTTest } from "./independent-t-test";
+import { binomialTest } from "./binomial-test";
+import { varianceInference } from "./variance-inference";
+import { chiSquareGoodnessOfFit } from "./chi-square-goodness-of-fit";
+import { contingencyTable } from "./contingency-table";
+import { chiSquareIndependence } from "./chi-square-independence";
+import { yatesCorrection } from "./yates-correction";
+import { fishersExactTest } from "./fishers-exact-test";
+import { mcnemarsTest } from "./mcnemars-test";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -188,16 +196,18 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "one-sample-t-test": oneSampleTTest,
     "paired-t-test": pairedTTest,
     "independent-t-test": independentTTest,
+    "variance-inference": varianceInference,
+  },
+  "05": {
+    "binomial-test": binomialTest,
+    "chi-square-goodness-of-fit": chiSquareGoodnessOfFit,
+    "contingency-table": contingencyTable,
+    "chi-square-independence": chiSquareIndependence,
+    "yates-correction": yatesCorrection,
+    "fishers-exact-test": fishersExactTest,
+    "mcnemars-test": mcnemarsTest,
   },
 };
-
-
-
-
-
-
-
-
 
 
 

@@ -119,12 +119,20 @@ export const figures: Record<string, FigureDefinition> = {
     credit: "本站依原始筆記圖重製",
     width: 1200,
     height: 700,
-  },};
+  },
+  "yates-binomial-continuity-correction": {
+    src: "/media/notes/chapter-05/yates-correction/binomial-continuity-correction.svg",
+    alt: "二項分布與常態近似比較：離散事件 X 大於等於 8 經 0.5 連續性校正後，常態近似的界線移到 7.5",
+    caption: "以 X~Binomial(10,0.5) 為例，離散事件 X≥8 使用連續常態曲線近似時，積分界線由 8 移至 7.5，補回代表 X=8 的半格寬度。",
+    credit: "本站依原始筆記圖重製",
+    width: 1200,
+    height: 760,
+  },
+};
 
 export function getFigure(imageId: string) {
   return figures[imageId];
 }
-
 
 
 

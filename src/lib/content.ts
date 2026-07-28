@@ -6,6 +6,7 @@ type SectionDefinition = {
   slug: string;
   title: string;
   startsAt: string;
+  endsBefore?: string;
   occurrence?: number;
 };
 
@@ -37,6 +38,7 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "one-sample-t-test", title: "單一樣本 t 檢定", startsAt: "單一樣本t檢定" },
     { slug: "paired-t-test", title: "相依樣本 t 檢定", startsAt: "相依樣本t檢定(paired T test)" },
     { slug: "independent-t-test", title: "獨立樣本 t 檢定", startsAt: "獨立樣本t檢定(Two sample T test)" },
+    { slug: "variance-inference", title: "母體變異數的推論", startsAt: "單一母體變異數的推論(卡方檢定)" },
   ],
   "05": [
     { slug: "binomial-test", title: "二項分布檢定", startsAt: "二項分布檢定" },
@@ -45,7 +47,7 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "chi-square-independence", title: "卡方獨立性檢定", startsAt: "卡方獨立性檢定(CHI-SQUARE TEST OF INDEPENDENCE)" },
     { slug: "yates-correction", title: "Yates 連續性校正", startsAt: "葉茲連續校正(Yates corrected chi square static)" },
     { slug: "fishers-exact-test", title: "Fisher 精確檢定", startsAt: "費雪exact法(Fisher’s exact test)" },
-    { slug: "mcnemars-test", title: "McNemar 檢定", startsAt: "McNemar’s Test" },
+    { slug: "mcnemars-test", title: "McNemar 檢定", startsAt: "McNemar’s Test", endsBefore: "補充：資料轉換後求平均數及變異數(泰勒展開式一階近似)" },
   ],
   "06": [
     { slug: "one-way-anova", title: "單因子變異數分析", startsAt: "ANOVA(analysis of variance)單因子獨立樣本變異數分析" },
@@ -105,7 +107,11 @@ export function sectionsForChapter(chapterId: string): TopicSection[] {
     const nextDefinition = definitions[definitionIndex + 1];
     const next = nextDefinition ? headingIndex(nextDefinition) : chapter.blocks.length;
     const contentStart = start >= 0 ? start + 1 : 0;
-    const contentEnd = next >= 0 ? next : chapter.blocks.length;
+    const explicitEnd = definition.endsBefore
+      ? chapter.blocks.findIndex((block, index) =>
+          index > start && block.type === "heading" && textOf(block) === definition.endsBefore)
+      : -1;
+    const contentEnd = explicitEnd >= 0 ? Math.min(next, explicitEnd) : next >= 0 ? next : chapter.blocks.length;
     const blocks = definitionIndex === 0 && start > 0
       ? [...chapter.blocks.slice(0, start), ...chapter.blocks.slice(contentStart, contentEnd)]
       : chapter.blocks.slice(contentStart, contentEnd);
@@ -127,8 +133,6 @@ export const allTopicSections = chapters.flatMap(chapter => sectionsForChapter(c
 export function findTopicSection(chapterId: string, slug: string) {
   return sectionsForChapter(chapterId).find(section => section.slug === slug);
 }
-
-
 
 
 

@@ -60,15 +60,7 @@ export const independentTTest = [
     ["Pooled t", "假設 σ₁²=σ₂²", "√[sₚ²(1/n₁+1/n₂)]", "n₁+n₂−2"]
   ] },
 
-  { type: "heading", text: "變異數是否相同：F 檢定" },
-  { type: "paragraph", text: "在常態母體的假設下，可以用兩組樣本變異數的比值形成 F 統計量，檢定兩組母體變異數是否相同。" },
-  { type: "formulaGroup", formulas: [
-    { label: "變異數相等的假設", latex: "H_0:\\sigma_1^2=\\sigma_2^2,\\qquad H_1:\\sigma_1^2\\ne\\sigma_2^2", fallback: "H₀: σ₁²=σ₂²；H₁: σ₁²≠σ₂²" },
-    { label: "改寫成變異數比", latex: "H_0:\\frac{\\sigma_1^2}{\\sigma_2^2}=1,\\qquad H_1:\\frac{\\sigma_1^2}{\\sigma_2^2}\\ne1", fallback: "H₀: σ₁²/σ₂²=1；H₁: σ₁²/σ₂²≠1" },
-    { label: "F 統計量", latex: "F=\\frac{s_1^2}{s_2^2}\\sim F_{n_1-1,\\,n_2-1}\\qquad(H_0\\text{ 成立時})", fallback: "F=s₁²/s₂² ~ F(n₁−1,n₂−1)（H₀ 成立時）" }
-  ] },
-  { type: "paragraph", text: "得到 F 值後，可查 F 分配表或由電腦計算 p 值，再決定是否拒絕變異數相等的虛無假設。" },
-  { type: "callout", tone: "intuition", label: "實務上不一定要先做 F 檢定", text: "傳統流程會先檢定變異數是否相同，再選擇 pooled 或不等變異數公式；但 F 檢定對偏離常態相當敏感，而且先檢定再選方法會改變整體推論程序。現代實務常直接使用對變異數不等較穩健的 Welch t 檢定，除非研究模型有充分理由假設等變異。" },
+  { type: "callout", tone: "forward", label: "等變異假設如何判斷？", text: "兩個母體變異數的 F 檢定、它與卡方分配的關係，以及為什麼實務上常直接使用 Welch t，會在下一篇「母體變異數的推論」集中說明。" },
 
   { type: "heading", text: "檢定步驟" },
   { type: "list", ordered: true, items: [
@@ -80,29 +72,5 @@ export const independentTTest = [
 
   { type: "heading", text: "與單因子獨立樣本變異數分析的關係" },
   { type: "paragraph", text: "只有兩個獨立組別，且 t 檢定與單因子 ANOVA 採用相同的等變異模型時，兩者會得到一致的顯著性結論，統計量之間滿足：" },
-  { type: "formula", latex: "F=t^2", fallback: "F=t²" },
-
-  { type: "heading", text: "補充：單一母體變異數的卡方檢定" },
-  { type: "paragraph", text: "若研究問題不是比較兩組平均數，而是檢定一個常態母體的變異數是否等於指定值 σ₀²，則使用卡方檢定。例如生產產品時，希望變異數維持在較小範圍，使產品具有高度一致性；若產品差異過大，品質與消費者權益都可能受到影響。" },
-
-  { type: "heading", text: "母體變異數的假設" },
-  { type: "formulaGroup", formulas: [
-    { label: "雙尾檢定", latex: "H_0:\\sigma^2=\\sigma_0^2,\\qquad H_1:\\sigma^2\\ne\\sigma_0^2", fallback: "H₀: σ²=σ₀²；H₁: σ²≠σ₀²" },
-    { label: "左尾檢定", latex: "H_0:\\sigma^2\\geq\\sigma_0^2,\\qquad H_1:\\sigma^2<\\sigma_0^2", fallback: "H₀: σ²≥σ₀²；H₁: σ²<σ₀²" },
-    { label: "右尾檢定", latex: "H_0:\\sigma^2\\leq\\sigma_0^2,\\qquad H_1:\\sigma^2>\\sigma_0^2", fallback: "H₀: σ²≤σ₀²；H₁: σ²>σ₀²" }
-  ] },
-  { type: "paragraph", text: "實務上若目標是確認製程變異是否超過容許上限，通常關心右尾檢定；若只是確認變異是否偏離指定值，則使用雙尾檢定。" },
-
-  { type: "heading", text: "卡方統計量的由來" },
-  { type: "paragraph", text: "假設 X₁,…,Xₙ 為來自常態母體 N(μ,σ²) 的獨立樣本。母體平均數 μ 已知時，以 μ 為中心的標準化平方和有 n 個自由度；μ 未知而以 X̄ 估計後，會損失一個自由度。" },
-  { type: "formulaGroup", formulas: [
-    { label: "μ 已知時", latex: "\\frac{\\sum_{i=1}^{n}(X_i-\\mu)^2}{\\sigma^2}\\sim\\chi_n^2", fallback: "Σ(Xᵢ−μ)²/σ² ~ χ²(n)" },
-    { label: "以 X̄ 估計 μ 後", latex: "\\frac{\\sum_{i=1}^{n}(X_i-\\bar X)^2}{\\sigma^2}\\sim\\chi_{n-1}^2", fallback: "Σ(Xᵢ−X̄)²/σ² ~ χ²(n−1)" },
-    { label: "利用 (n−1)s²=Σ(Xᵢ−X̄)²", latex: "\\frac{(n-1)s^2}{\\sigma^2}\\sim\\chi_{n-1}^2", fallback: "(n−1)s²/σ² ~ χ²(n−1)" },
-    { label: "在 H₀ 下代入 σ₀²", latex: "\\chi_{\\mathrm{obs}}^2=\\frac{(n-1)s^2}{\\sigma_0^2}", fallback: "χ²obs=(n−1)s²/σ₀²" }
-  ] },
-
-  { type: "heading", text: "雙尾檢定的拒絕域" },
-  { type: "formula", latex: "\\chi_{\\mathrm{obs}}^2<\\chi_{\\alpha/2,\\,n-1}^2\\quad\\text{或}\\quad\\chi_{\\mathrm{obs}}^2>\\chi_{1-\\alpha/2,\\,n-1}^2", fallback: "χ²obs<χ²α/2,n−1 或 χ²obs>χ²1−α/2,n−1" },
-  { type: "paragraph", text: "統計量落在左側或右側的極端拒絕域時，代表樣本變異數相對於 H₀ 指定的 σ₀² 過小或過大。若已知母體變異數並用檢定檢查抽樣結果，極端結果也可能表示這批樣本對母體的代表性較低；在品質管理中，則通常直接關心變異是否超過可接受範圍。" }
+  { type: "formula", latex: "F=t^2", fallback: "F=t²" }
 ];
