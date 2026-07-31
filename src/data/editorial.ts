@@ -24,6 +24,10 @@ import { chiSquareIndependence } from "./chi-square-independence";
 import { yatesCorrection } from "./yates-correction";
 import { fishersExactTest } from "./fishers-exact-test";
 import { mcnemarsTest } from "./mcnemars-test";
+import { oneWayAnova } from "./one-way-anova";
+import { postHocComparisons } from "./post-hoc-comparisons";
+import { welchAnova } from "./welch-anova";
+import { twoWayAndManova } from "./two-way-manova";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -206,6 +210,12 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "yates-correction": yatesCorrection,
     "fishers-exact-test": fishersExactTest,
     "mcnemars-test": mcnemarsTest,
+  },
+  "06": {
+    "one-way-anova": oneWayAnova,
+    "post-hoc-comparisons": postHocComparisons,
+    "welch-anova": welchAnova,
+    "two-way-anova-manova": twoWayAndManova,
   },
 };
 

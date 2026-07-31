@@ -50,9 +50,10 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "mcnemars-test", title: "McNemar 檢定", startsAt: "McNemar’s Test", endsBefore: "補充：資料轉換後求平均數及變異數(泰勒展開式一階近似)" },
   ],
   "06": [
-    { slug: "one-way-anova", title: "單因子變異數分析", startsAt: "ANOVA(analysis of variance)單因子獨立樣本變異數分析" },
-    { slug: "post-hoc-comparisons", title: "ANOVA 事後比較", startsAt: "變異數分析的事後比較" },
-    { slug: "anova-and-t-test", title: "ANOVA 與 t 檢定的關係", startsAt: "補充：2組資料求得的F(單因子獨立樣本變異數分析)其實就提t2" },
+    { slug: "one-way-anova", title: "單因子變異數分析（One-way ANOVA）", startsAt: "ANOVA(analysis of variance)單因子獨立樣本變異數分析" },
+    { slug: "post-hoc-comparisons", title: "ANOVA 事後比較", startsAt: "變異數分析的事後比較", endsBefore: "補充：2組資料求得的F(單因子獨立樣本變異數分析)其實就提t2" },
+    { slug: "welch-anova", title: "Welch ANOVA：變異數不同時的平均數比較", startsAt: "__virtual_welch_anova__" },
+    { slug: "two-way-anova-manova", title: "二因子 ANOVA 與 MANOVA", startsAt: "__virtual_two_way_anova_manova__" },
   ],
   "07": [
     { slug: "simple-linear-regression", title: "簡單線性迴歸", startsAt: "簡單迴歸分析(Simple linear Regression)" },
