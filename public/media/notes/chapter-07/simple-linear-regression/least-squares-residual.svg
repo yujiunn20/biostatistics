@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" role="img" aria-labelledby="title desc">
+  <title id="title">Method of Least Squares and a Residual</title>
+  <desc id="desc">Blue points are observed values and the red line is the fitted regression line. At a fixed X_i, the vertical distance between observed Y_i and predicted Y-hat_i is the residual e_i. Least squares selects the line with the smallest sum of squared residuals.</desc>
+  <rect width="1400" height="860" fill="#f7faf8"/>
+  <rect x="126" y="96" width="1160" height="638" rx="8" fill="#ffffff" stroke="#9aaba2" stroke-width="2"/>
+
+  <g stroke="#dce6e1" stroke-width="2">
+    <path d="M180 208H1230M180 322H1230M180 436H1230M180 550H1230M180 664H1230"/>
+    <path d="M350 140V700M560 140V700M770 140V700M980 140V700M1190 140V700"/>
+  </g>
+  <g stroke="#355449" stroke-width="3">
+    <path d="M180 700H1230"/>
+    <path d="M180 700V140"/>
+  </g>
+  <g fill="#263d35" font-family="Arial, 'Noto Sans TC', sans-serif">
+    <text x="705" y="790" text-anchor="middle" font-size="32">Explanatory variable X</text>
+    <text x="48" y="420" text-anchor="middle" font-size="32" transform="rotate(-90 48 420)">Outcome variable Y</text>
+  </g>
+
+  <path d="M205 654L1215 214" fill="none" stroke="#e33c49" stroke-width="7"/>
+  <text x="930" y="225" fill="#b62935" font-family="Arial, 'Noto Sans TC', sans-serif" font-size="27">Fitted line  Ŷ = b₀ + b₁X</text>
+
+  <g fill="#1769aa" stroke="#0f4f86" stroke-width="2">
+    <circle cx="255" cy="620" r="9"/><circle cx="322" cy="650" r="9"/>
+    <circle cx="384" cy="605" r="9"/><circle cx="448" cy="493" r="10"/>
+    <circle cx="528" cy="548" r="9"/><circle cx="610" cy="576" r="9"/>
+    <circle cx="666" cy="443" r="9"/><circle cx="742" cy="376" r="9"/>
+    <circle cx="806" cy="466" r="9"/><circle cx="864" cy="331" r="9"/>
+    <circle cx="915" cy="430" r="9"/><circle cx="986" cy="354" r="9"/>
+    <circle cx="1054" cy="244" r="9"/><circle cx="1064" cy="361" r="9"/>
+    <circle cx="1168" cy="298" r="9"/><circle cx="1223" cy="173" r="9"/>
+  </g>
+
+  <g stroke="#657f98" stroke-width="2.5" stroke-dasharray="9 8">
+    <path d="M448 493H126"/>
+    <path d="M448 548H126"/>
+    <path d="M448 700V493"/>
+  </g>
+  <circle cx="448" cy="548" r="10" fill="#ffffff" stroke="#e33c49" stroke-width="5"/>
+  <path d="M476 498V543" stroke="#e87818" stroke-width="5"/>
+  <path d="M466 507L476 494L486 507M466 534L476 547L486 534" fill="none" stroke="#e87818" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g fill="#263d35" font-family="Arial, 'Noto Sans TC', sans-serif" font-size="23">
+    <text x="111" y="485" text-anchor="end">Observed Yᵢ</text>
+    <text x="111" y="556" text-anchor="end">Predicted Ŷᵢ</text>
+    <text x="448" y="740" text-anchor="middle">Xᵢ</text>
+    <text x="505" y="514" fill="#c15a0c" font-weight="700">Residual  eᵢ = Yᵢ − Ŷᵢ</text>
+  </g>
+
+  <rect x="158" y="24" width="604" height="132" rx="12" fill="#e8f3ee" stroke="#4c7566" stroke-width="2.5"/>
+  <text x="460" y="65" text-anchor="middle" fill="#284c3e" font-family="Arial, 'Noto Sans TC', sans-serif" font-size="26" font-weight="700">Method of Least Squares</text>
+  <text x="460" y="114" text-anchor="middle" fill="#173c30" font-family="Georgia, serif" font-size="27">Choose the line that minimizes  Σeᵢ² = Σ(Yᵢ − Ŷᵢ)²</text>
+
+  <g font-family="Arial, 'Noto Sans TC', sans-serif" font-size="23" fill="#435b52">
+    <circle cx="790" cy="806" r="8" fill="#1769aa"/><text x="810" y="814">Observed</text>
+    <line x1="935" y1="806" x2="986" y2="806" stroke="#e33c49" stroke-width="6"/><text x="1002" y="814">Fitted line</text>
+    <line x1="1170" y1="784" x2="1170" y2="826" stroke="#e87818" stroke-width="5"/><text x="1190" y="814">Residual</text>
+  </g>
+</svg>

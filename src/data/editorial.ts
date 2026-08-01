@@ -28,6 +28,19 @@ import { oneWayAnova } from "./one-way-anova";
 import { postHocComparisons } from "./post-hoc-comparisons";
 import { welchAnova } from "./welch-anova";
 import { twoWayAndManova } from "./two-way-manova";
+import { simpleLinearRegression } from "./simple-linear-regression";
+import { pearsonCorrelation } from "./pearson-correlation";
+import { fisherZTransformation } from "./fisher-z-transformation";
+import { spearmanCorrelation } from "./spearman-correlation";
+import { rSquared } from "./r-squared";
+import { multipleRegression } from "./multiple-regression";
+import { wilcoxonTests } from "./wilcoxon-tests";
+import { medianTest } from "./median-test";
+import { kruskalWallis } from "./kruskal-wallis";
+import { statisticalTestSelection } from "./statistical-test-selection";
+import { conclusion } from "./conclusion";
+import { survivalCurve } from "./survival-curve";
+import { comparingSurvivalCurves } from "./comparing-survival-curves";
 
 export const editorialSections: Record<string, Record<string, any[]>> = {
   "01": {
@@ -217,6 +230,28 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
     "welch-anova": welchAnova,
     "two-way-anova-manova": twoWayAndManova,
   },
+  "07": {
+    "simple-linear-regression": simpleLinearRegression,
+    "pearson-correlation": pearsonCorrelation,
+    "fisher-z-transformation": fisherZTransformation,
+    "spearman-correlation": spearmanCorrelation,
+    "r-squared": rSquared,
+    "multiple-regression": multipleRegression,
+  },
+  "08": {
+    "wilcoxon-tests": wilcoxonTests,
+    "median-test": medianTest,
+    "kruskal-wallis-test": kruskalWallis,
+    "statistical-test-selection": statisticalTestSelection,
+  },
+  "09": {
+    "survival-curve": survivalCurve,
+    "comparing-survival-curves": comparingSurvivalCurves,
+  },
+  "10": {
+    summary: conclusion,
+  },
+
 };
 
 

@@ -128,6 +128,37 @@ export const figures: Record<string, FigureDefinition> = {
     width: 1200,
     height: 760,
   },
+  "least-squares-residual": {
+    src: "/media/notes/chapter-07/simple-linear-regression/least-squares-residual.svg",
+    alt: "最小平方法與殘差示意圖：藍點為觀察值，紅線為估計迴歸線，固定 X_i 時觀察值 Y_i 與預測值 Y-hat_i 的垂直距離為殘差 e_i",
+    caption: "最小平方法選擇使殘差平方和最小的直線；殘差是同一個 X 位置上，觀察值與迴歸線預測值之間的垂直距離。",
+    credit: "本站依原始筆記圖重製",
+    width: 1400,
+    height: 860,
+  },  "age-confounding-wealth-eyesight": {
+    src: "/media/notes/chapter-07/multiple-regression/age-confounding-wealth-eyesight.svg",
+    alt: "年齡干擾財富與視力關係的示意圖：合併年長與年輕族群時呈負向關聯，但各年齡層內沒有明顯關聯",
+    caption: "合併資料時，財富與視力看似呈負向關聯；依年齡分層後，各組內的關聯很弱。年齡同時與財富及視力相關，因此可能造成混淆。",
+    credit: "本站依原始筆記圖重製",
+    width: 1400,
+    height: 820,
+  },
+  "survival-participant-timelines": {
+    src: "/media/notes/chapter-09/survival-curve/participant-timelines.svg",
+    alt: "十位受試者的追蹤時間圖：上圖依實際日曆時間呈現不同入組時間，下圖把每位受試者的入組時間對齊為零；實心圓表示事件，空心圓表示右截尾",
+    caption: "Panel A 顯示 calendar time；Panel B 將每位受試者的入組時間對齊為 t=0。只有實心圓代表事件，空心圓為右截尾。",
+    credit: "本站依原始筆記圖與範例數據重製",
+    width: 1400,
+    height: 1680,
+  },
+  "bone-marrow-survival-comparison": {
+    src: "/media/notes/chapter-09/comparing-survival-curves/bone-marrow-survival-comparison.svg",
+    alt: "自體與異體骨髓移植的 Kaplan–Meier 存活曲線；階梯只在事件時間下降，短直線表示右截尾",
+    caption: "兩組 Kaplan–Meier 估計曲線。Allogeneic 組的樣本存活曲線大多高於 autologous 組；短直線是右截尾標記。",
+    credit: "本站依原始筆記的骨髓移植範例數據重製",
+    width: 1400,
+    height: 900,
+  },
 };
 
 export function getFigure(imageId: string) {

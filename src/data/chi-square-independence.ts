@@ -99,7 +99,9 @@ export const chiSquareIndependence = [
   { type: "callout", tone: "intuition", label: "Poisson 適合度檢定是另一個問題", text: "也可以用卡方適合度檢定判斷某組次數分布是否符合 Poisson 分布；那是在比較一個變項的觀察分布與 Poisson 理論分布，不是檢定兩個類別變項是否獨立。" },
 
   { type: "heading", text: "近似條件與方法選擇" },
-  { type: "paragraph", text: "Pearson 卡方檢定使用大樣本近似，應檢查各格期望次數，而不是只看總樣本數 N。期望次數過小時，χ² 參考分布可能不準確；2×2 表可考慮 Fisher 精確檢定，其他表格則可考慮適當的精確或 Monte Carlo 方法。下一頁會另外說明 Yates 連續性校正。" },
+  { type: "paragraph", text: "Pearson 卡方檢定使用大樣本近似。常見的入門經驗規則是每一格期望次數 Eᵢⱼ 約至少為 5；若某些期望次數太小，離散計數形成的 χ² 統計量可能還沒有充分接近連續的卡方分布，查卡方表得到的 p 值便可能不夠準確。" },
+  { type: "callout", tone: "intuition", label: "為什麼常看到 5？", text: "這個 5 是『卡方近似是否已有足夠資料』的經驗界線，不是 χ² 公式的一部分，也不是任何情況都不能跨越的定理。2×2 表要檢查的是 H₀ 下由列、欄合計算出的期望次數 E_A、E_B、E_C、E_D，不是直接要求觀察到的 A、B、C、D 都至少為 5。" },
+  { type: "paragraph", text: "因此，看到某個觀察格小於 5 可以提醒我們進一步檢查，但不能只憑這個觀察值決定方法。2×2 表若期望次數稀疏，可優先考慮 Fisher 精確檢定；其他 r×c 表則可考慮適當的精確或 Monte Carlo 方法。下一頁會另外說明 Yates 連續性校正。" },
   { type: "callout", tone: "forward", label: "不要把 Yates 與 Fisher 混成同一種方法", text: "Yates 是對 2×2 Pearson 卡方近似所做的連續性校正；Fisher 則是在給定邊際總數下計算離散表格的精確機率。兩者目的都與小樣本近似問題有關，但原理與計算方式不同。" },
 
   { type: "heading", text: "檢定步驟" },

@@ -61,18 +61,20 @@ const sectionDefinitions: Record<string, SectionDefinition[]> = {
     { slug: "fisher-z-transformation", title: "Fisher Z 轉換與相關係數比較", startsAt: "費雪轉換(Fisher’s Z transformation)也是對r進行檢定的方法" },
     { slug: "spearman-correlation", title: "Spearman 等級相關", startsAt: "Spearman’s RHO" },
     { slug: "r-squared", title: "決定係數 R²", startsAt: "R-SQUARE" },
-    { slug: "multiple-regression", title: "多元迴歸分析", startsAt: "多元迴歸分析" },
-    { slug: "regression-derivations", title: "迴歸公式推導", startsAt: "補充一：迴歸曲線一系列公式證明" },
+    { slug: "multiple-regression", title: "多元迴歸分析", startsAt: "多元迴歸分析", endsBefore: "補充一：迴歸曲線一系列公式證明" },
   ],
   "08": [
     { slug: "wilcoxon-tests", title: "Wilcoxon 檢定", startsAt: "Wilcoxon test" },
     { slug: "median-test", title: "中位數檢定", startsAt: "中位數檢定" },
     { slug: "kruskal-wallis-test", title: "Kruskal–Wallis 檢定", startsAt: "Kruskal-Wallis test" },
+    { slug: "statistical-test-selection", title: "附錄：統計方法選擇表", startsAt: "__virtual_statistical_test_selection__" },
   ],
   "09": [
     { slug: "survival-curve", title: "存活曲線估計", startsAt: "存活曲線估計" },
     { slug: "comparing-survival-curves", title: "兩組存活曲線比較", startsAt: "二組數據的存活曲線相比" },
-    { slug: "summary", title: "存活分析結語", startsAt: "結語" },
+  ],
+  "10": [
+    { slug: "summary", title: "結語", startsAt: "結語" },
   ],
 };
 

@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="2360" viewBox="0 0 1900 2360" role="img" aria-labelledby="title desc">
+  <title id="title">Statistical test selection guide</title>
+  <desc id="desc">A flowchart for selecting common statistical tests from the number and type of variables, distribution shape, group relationship, and study design.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334640"/>
+    </marker>
+    <style>
+      .connector{fill:none;stroke:#334640;stroke-width:2.5;marker-end:url(#arrow)}
+      .branch{fill:none;stroke:#334640;stroke-width:2.5}
+      .node{stroke-width:2}
+      .root{fill:#173f35;stroke:#173f35}
+      .category{fill:#dceee8;stroke:#397361}
+      .condition{fill:#eef3f7;stroke:#6e8490}
+      .test{fill:#fff5a6;stroke:#b99f18}
+      .note{fill:#fff9ce;stroke:#c3a900;stroke-dasharray:7 5}
+      .result{fill:#f6f7f7;stroke:#7b8b85}
+      text{font-family:Arial,"Helvetica Neue",sans-serif;fill:#18312a}
+      .title{font-size:40px;font-weight:700}
+      .subtitle{font-size:21px;fill:#5a6e67}
+      .label{font-size:23px;font-weight:700;text-anchor:middle}
+      .body{font-size:21px;text-anchor:middle}
+      .small{font-size:18px;text-anchor:middle}
+      .light{fill:#ffffff}
+    </style>
+  </defs>
+
+  <rect width="1900" height="2360" fill="#fbfcfc"/>
+  <text class="title" x="70" y="64">Statistical Test Selection Guide</text>
+  <text class="subtitle" x="70" y="98">Choose from the data structure, measurement scale, distribution, and study design</text>
+
+  <!-- Main structure -->
+  <path class="branch" d="M220 1245H270V250M270 1245V2230"/>
+  <path class="connector" d="M270 250H320"/>
+  <path class="connector" d="M270 1190H320"/>
+  <path class="connector" d="M270 2230H320"/>
+
+  <!-- One-variable connectors -->
+  <path class="branch" d="M540 250H590V190M590 250V530"/>
+  <path class="connector" d="M590 190H650"/>
+  <path class="connector" d="M590 530H650"/>
+  <path class="branch" d="M890 190H930V125M930 190V315"/>
+  <path class="connector" d="M930 125H990"/>
+  <path class="connector" d="M930 315H990"/>
+  <path class="branch" d="M1270 125H1310V90M1310 125V205"/>
+  <path class="connector" d="M1310 90H1380"/>
+  <path class="connector" d="M1310 205H1380"/>
+  <path class="connector" d="M1270 315H1380"/>
+  <path class="branch" d="M890 530H930V470M930 530V650"/>
+  <path class="connector" d="M930 470H990"/>
+  <path class="connector" d="M930 650H990"/>
+  <path class="connector" d="M1270 470H1380"/>
+  <path class="branch" d="M1565 470H1605V420M1605 470V545"/>
+  <path class="connector" d="M1605 420H1640"/>
+  <path class="connector" d="M1605 545H1640"/>
+  <path class="connector" d="M1270 650H1380"/>
+
+  <g transform="translate(0 160)">
+  <!-- Two-variable branch connectors -->
+  <path class="branch" d="M540 1030H585V790M585 1030V1845"/>
+  <path class="connector" d="M585 790H640"/>
+  <path class="connector" d="M585 1110H640"/>
+  <path class="connector" d="M585 1515H640"/>
+  <path class="connector" d="M585 1845H640"/>
+  <path class="connector" d="M585 1995H640"/>
+
+  <!-- Paired / independent continuous groups -->
+  <path class="branch" d="M900 790H940V720M940 790V885"/>
+  <path class="connector" d="M940 720H990"/>
+  <path class="connector" d="M940 885H990"/>
+  <path class="connector" d="M1310 720H1470"/>
+  <path class="connector" d="M1310 885H1470"/>
+
+  <!-- 2x2 connectors -->
+  <path class="branch" d="M900 1110H940V1040M940 1110V1325"/>
+  <path class="connector" d="M940 1040H990"/>
+  <path class="connector" d="M940 1325H1060"/>
+  <path class="branch" d="M1200 1040H1240V990M1240 1040V1150"/>
+  <path class="connector" d="M1240 990H1290"/>
+  <path class="connector" d="M1240 1150H1290"/>
+  <path class="connector" d="M1530 1150H1580"/>
+  <path class="branch" d="M1580 1150V1080M1580 1150V1240"/>
+  <path class="connector" d="M1580 1080H1620"/>
+  <path class="connector" d="M1580 1240H1620"/>
+
+  <!-- Multi-group connectors -->
+  <path class="branch" d="M920 1515H960V1450M960 1515V1685"/>
+  <path class="connector" d="M960 1450H1030"/>
+  <path class="connector" d="M960 1685H1030"/>
+  <path class="connector" d="M1260 1450H1310"/>
+  <path class="connector" d="M1530 1450H1580"/>
+  <path class="branch" d="M1580 1450V1380M1580 1450V1620"/>
+  <path class="connector" d="M1580 1380H1620"/>
+  <path class="connector" d="M1580 1460H1620"/>
+  <path class="connector" d="M1580 1540H1620"/>
+  <path class="connector" d="M1580 1620H1620"/>
+  <path class="connector" d="M1260 1685H1310"/>
+
+  <!-- Correlation and regression connectors -->
+  <path class="connector" d="M900 1845H980"/>
+  <path class="connector" d="M1210 1845H1280"/>
+  <path class="connector" d="M1500 1845H1570"/>
+  <path class="connector" d="M900 1995H980"/>
+  <path class="connector" d="M1210 1995H1280"/>
+  <path class="connector" d="M1500 1995H1570"/>
+
+  <!-- Multiple-variable connector -->
+  <path class="connector" d="M540 2070H720"/>
+  </g>
+
+  <!-- Root -->
+  <rect class="node root" x="40" y="1205" width="180" height="80" rx="6"/>
+  <text class="label light" x="130" y="1254">Data</text>
+
+  <!-- Main categories -->
+  <rect class="node category" x="320" y="215" width="220" height="70" rx="6"/>
+  <text class="label" x="430" y="258">One Variable (X)</text>
+  <rect class="node category" x="320" y="1155" width="220" height="70" rx="6"/>
+  <text class="label" x="430" y="1198">Two Variables</text>
+  <rect class="node category" x="320" y="2195" width="220" height="70" rx="6"/>
+  <text class="label" x="430" y="2238">Multiple Variables</text>
+
+  <!-- One variable -->
+  <rect class="node condition" x="650" y="155" width="240" height="70" rx="6"/>
+  <text class="label" x="770" y="198">Continuous X</text>
+  <rect class="node condition" x="650" y="495" width="240" height="70" rx="6"/>
+  <text class="label" x="770" y="538">Categorical X</text>
+
+  <rect class="node condition" x="990" y="90" width="280" height="70" rx="6"/>
+  <text class="label" x="1130" y="133">Approximately Normal</text>
+  <rect class="node condition" x="990" y="280" width="280" height="70" rx="6"/>
+  <text class="label" x="1130" y="323">Not Approximately Normal</text>
+
+  <rect class="node result" x="1380" y="45" width="250" height="90" rx="6"/>
+  <text class="body" x="1505" y="78"><tspan x="1505">Population SD known</tspan><tspan x="1505" dy="27">or sample size ≥ 30</tspan></text>
+  <rect class="node test" x="1660" y="55" width="180" height="70" rx="6"/>
+  <text class="label" x="1750" y="98">Z Test</text>
+
+  <rect class="node result" x="1380" y="170" width="250" height="70" rx="6"/>
+  <text class="body" x="1505" y="213">Population SD Unknown</text>
+  <rect class="node test" x="1660" y="170" width="180" height="70" rx="6"/>
+  <text class="label" x="1750" y="213">One-Sample t Test</text>
+
+  <rect class="node test" x="1380" y="265" width="430" height="100" rx="6"/>
+  <text class="label" x="1595" y="307"><tspan x="1595">Wilcoxon Signed-Rank Test</tspan><tspan x="1595" dy="29">or Sign Test</tspan></text>
+
+  <rect class="node condition" x="990" y="435" width="280" height="70" rx="6"/>
+  <text class="label" x="1130" y="478">Two Categories</text>
+  <rect class="node test" x="1380" y="435" width="185" height="70" rx="6"/>
+  <text class="label" x="1472" y="478">Binomial Test</text>
+  <rect class="node note" x="1640" y="372" width="220" height="95" rx="6"/>
+  <text class="small" x="1750" y="402"><tspan x="1750">Normal approximation:</tspan><tspan x="1750" dy="24">n ≥ 20, np ≥ 5,</tspan><tspan x="1750" dy="24">n(1−p) ≥ 5</tspan></text>
+  <rect class="node note" x="1640" y="500" width="220" height="90" rx="6"/>
+  <text class="small" x="1750" y="532"><tspan x="1750">Exact binomial p-value</tspan><tspan x="1750" dy="24">or continuity correction</tspan></text>
+
+  <rect class="node condition" x="990" y="615" width="280" height="70" rx="6"/>
+  <text class="label" x="1130" y="658">More Than Two Categories</text>
+  <rect class="node test" x="1380" y="610" width="430" height="80" rx="6"/>
+  <text class="label" x="1595" y="658">Chi-Square Goodness-of-Fit Test</text>
+
+  <g transform="translate(0 160)">
+  <!-- Two continuous groups -->
+  <rect class="node condition" x="640" y="745" width="260" height="90" rx="6"/>
+  <text class="label" x="770" y="780"><tspan x="770">Two Groups</tspan><tspan x="770" dy="28">Continuous Outcome</tspan></text>
+  <rect class="node condition" x="990" y="680" width="180" height="80" rx="6"/>
+  <text class="label" x="1080" y="729">Paired</text>
+  <rect class="node test" x="1190" y="660" width="320" height="120" rx="6"/>
+  <text class="body" x="1350" y="696"><tspan x="1350">Paired t Test (normal)</tspan><tspan x="1350" dy="30">Wilcoxon Signed-Rank</tspan><tspan x="1350" dy="27">or Sign Test (non-normal)</tspan></text>
+  <rect class="node note" x="1535" y="650" width="325" height="140" rx="6"/>
+  <text class="small" x="1697" y="678"><tspan x="1697">DA note: dependent samples,</tspan><tspan x="1697" dy="23">before-and-after measurements;</tspan><tspan x="1697" dy="23">repeated measures, blocked design,</tspan><tspan x="1697" dy="23">paired, matched, within-subject factor</tspan></text>
+
+  <rect class="node condition" x="990" y="845" width="180" height="80" rx="6"/>
+  <text class="label" x="1080" y="894">Independent</text>
+  <rect class="node test" x="1190" y="825" width="320" height="120" rx="6"/>
+  <text class="body" x="1350" y="861"><tspan x="1350">Independent t Test (normal)</tspan><tspan x="1350" dy="30">Wilcoxon Rank-Sum /</tspan><tspan x="1350" dy="27">Mann-Whitney U (non-normal)</tspan></text>
+  <rect class="node note" x="1535" y="825" width="325" height="120" rx="6"/>
+  <text class="small" x="1697" y="858"><tspan x="1697">DA note: Wilcoxon and</tspan><tspan x="1697" dy="24">Mann-Whitney terminology</tspan><tspan x="1697" dy="24">may differ across references</tspan></text>
+
+  <!-- 2x2 categorical -->
+  <rect class="node condition" x="640" y="1060" width="260" height="100" rx="6"/>
+  <text class="label" x="770" y="1097"><tspan x="770">Two Categories</tspan><tspan x="770" dy="28">2 × 2 Table</tspan></text>
+  <rect class="node condition" x="990" y="1000" width="210" height="80" rx="6"/>
+  <text class="label" x="1095" y="1049">Independent</text>
+  <rect class="node note" x="1290" y="930" width="330" height="120" rx="6"/>
+  <text class="body" x="1455" y="966"><tspan x="1455">Case-Control Study: Odds Ratio</tspan><tspan x="1455" dy="31">Cohort Study: Relative Risk</tspan></text>
+  <rect class="node test" x="1290" y="1090" width="240" height="120" rx="6"/>
+  <text class="label" x="1410" y="1133"><tspan x="1410">Chi-Square Test</tspan><tspan x="1410" dy="29">of Independence</tspan></text>
+  <rect class="node result" x="1585" y="1110" width="270" height="80" rx="6"/>
+  <text class="small" x="1720" y="1140"><tspan x="1720">Sparse data:</tspan><tspan x="1720" dy="24">n ≤ 20 or expected count ≤ 5</tspan></text>
+  <rect class="node test" x="1620" y="1025" width="240" height="80" rx="6"/>
+  <text class="body" x="1740" y="1057"><tspan x="1740">Yates-Corrected</tspan><tspan x="1740" dy="25">Chi-Square</tspan></text>
+  <rect class="node test" x="1620" y="1200" width="240" height="80" rx="6"/>
+  <text class="label" x="1740" y="1248">Fisher's Exact Test</text>
+
+  <rect class="node condition" x="990" y="1285" width="260" height="80" rx="6"/>
+  <text class="body" x="1120" y="1318"><tspan x="1120">Paired Before-and-After</tspan><tspan x="1120" dy="26">Measurements</tspan></text>
+  <rect class="node test" x="1290" y="1285" width="270" height="80" rx="6"/>
+  <text class="label" x="1425" y="1334">McNemar's Test</text>
+
+  <!-- Multiple groups -->
+  <rect class="node condition" x="640" y="1465" width="280" height="100" rx="6"/>
+  <text class="label" x="780" y="1502"><tspan x="780">Categorical X, Continuous Y</tspan><tspan x="780" dy="28">Three or More Groups</tspan></text>
+  <rect class="node condition" x="1030" y="1410" width="180" height="80" rx="6"/>
+  <text class="label" x="1120" y="1459">Normal</text>
+  <rect class="node test" x="1310" y="1410" width="220" height="80" rx="6"/>
+  <text class="label" x="1420" y="1444"><tspan x="1420">One-Way ANOVA</tspan><tspan x="1420" dy="25">Overall Test</tspan></text>
+  <rect class="node result" x="1580" y="1315" width="280" height="95" rx="6"/>
+  <text class="small" x="1720" y="1346"><tspan x="1720">If the overall test is significant,</tspan><tspan x="1720" dy="23">perform planned or post-hoc</tspan><tspan x="1720" dy="23">comparisons with multiplicity control</tspan></text>
+  <rect class="node test" x="1620" y="1420" width="240" height="55" rx="6"/>
+  <text class="body" x="1740" y="1455">Fisher LSD</text>
+  <rect class="node test" x="1620" y="1490" width="240" height="55" rx="6"/>
+  <text class="body" x="1740" y="1525">Bonferroni</text>
+  <rect class="node test" x="1620" y="1560" width="240" height="55" rx="6"/>
+  <text class="body" x="1740" y="1595">Holm / Holm-Sidak</text>
+  <rect class="node test" x="1620" y="1630" width="240" height="55" rx="6"/>
+  <text class="body" x="1740" y="1665">Tukey-Kramer</text>
+  <rect class="node condition" x="1030" y="1645" width="180" height="80" rx="6"/>
+  <text class="label" x="1120" y="1694">Non-Normal</text>
+  <rect class="node test" x="1310" y="1645" width="250" height="80" rx="6"/>
+  <text class="label" x="1435" y="1694">Kruskal-Wallis Test</text>
+
+  <!-- Correlation and regression -->
+  <rect class="node condition" x="640" y="1800" width="260" height="90" rx="6"/>
+  <text class="label" x="770" y="1837"><tspan x="770">Continuous X and Y</tspan><tspan x="770" dy="28">Linear Relationship</tspan></text>
+  <rect class="node result" x="980" y="1805" width="230" height="80" rx="6"/>
+  <text class="label" x="1095" y="1854">Simple Regression</text>
+  <rect class="node test" x="1280" y="1805" width="220" height="80" rx="6"/>
+  <text class="body" x="1390" y="1838"><tspan x="1390">Pearson r</tspan><tspan x="1390" dy="26">and R²</tspan></text>
+  <rect class="node test" x="1570" y="1795" width="290" height="100" rx="6"/>
+  <text class="body" x="1715" y="1831"><tspan x="1715">Correlation Test or</tspan><tspan x="1715" dy="29">Fisher Z Transformation</tspan></text>
+
+  <rect class="node condition" x="640" y="1950" width="260" height="90" rx="6"/>
+  <text class="label" x="770" y="1987"><tspan x="770">Continuous X and Y</tspan><tspan x="770" dy="28">Non-Normal / Monotonic</tspan></text>
+  <rect class="node result" x="980" y="1955" width="230" height="80" rx="6"/>
+  <text class="body" x="1095" y="1988"><tspan x="1095">Rank-Based</tspan><tspan x="1095" dy="26">Regression</tspan></text>
+  <rect class="node test" x="1280" y="1955" width="220" height="80" rx="6"/>
+  <text class="body" x="1390" y="1988"><tspan x="1390">Spearman</tspan><tspan x="1390" dy="26">Correlation ρ</tspan></text>
+  <rect class="node test" x="1570" y="1945" width="290" height="100" rx="6"/>
+  <text class="body" x="1715" y="1981"><tspan x="1715">Correlation Test or</tspan><tspan x="1715" dy="29">Fisher Z Transformation</tspan></text>
+
+  <!-- Multiple variables -->
+  <rect class="node test" x="720" y="2025" width="470" height="90" rx="6"/>
+  <text class="label" x="955" y="2062"><tspan x="955">Multiple Linear Regression</tspan><tspan x="955" dy="28">Consider Potential Confounders</tspan></text>
+  </g>
+</svg>

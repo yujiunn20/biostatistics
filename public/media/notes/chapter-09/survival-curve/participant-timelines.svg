@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1680" viewBox="0 0 1400 1680" role="img" aria-labelledby="title desc">
+  <title id="title">Participant follow-up on calendar time and time since study entry</title>
+  <desc id="desc">Panel A shows ten participants entering a study on different calendar dates. Panel B aligns every participant at study entry time zero. Filled circles mark observed events and open circles with a tick mark censored observations.</desc>
+  <rect width="1400" height="1680" fill="#f7faf8"/>
+
+  <defs>
+    <style>
+      .axis{stroke:#31483f;stroke-width:3}.grid{stroke:#dbe5e0;stroke-width:1.5}.follow{stroke:#17856f;stroke-width:5;stroke-linecap:round}.label{fill:#263d35;font-family:Arial,sans-serif}.muted{fill:#63756d;font-family:Arial,sans-serif}.event{fill:#08735f;stroke:#075c4d;stroke-width:2}.censor{fill:#f7faf8;stroke:#17856f;stroke-width:4}
+    </style>
+  </defs>
+
+  <g class="label">
+    <text x="70" y="72" font-size="32" font-weight="700">A</text>
+    <text x="130" y="72" font-size="30" font-weight="700">Observation on calendar time</text>
+    <text x="70" y="872" font-size="32" font-weight="700">B</text>
+    <text x="130" y="872" font-size="30" font-weight="700">Follow-up aligned at study entry</text>
+  </g>
+
+  <g transform="translate(0 0)">
+    <g class="grid">
+      <path d="M190 130V720M256 130V720M322 130V720M388 130V720M454 130V720M520 130V720M586 130V720M652 130V720M718 130V720M784 130V720M850 130V720M916 130V720M982 130V720M1048 130V720M1114 130V720M1180 130V720"/>
+    </g>
+    <g class="axis"><path d="M190 720H1180"/><path d="M190 130V720"/></g>
+    <g class="label" font-size="25" text-anchor="end">
+      <text x="160" y="174">A</text><text x="160" y="230">B</text><text x="160" y="286">C</text><text x="160" y="342">D</text><text x="160" y="398">E</text>
+      <text x="160" y="454">F</text><text x="160" y="510">G</text><text x="160" y="566">H</text><text x="160" y="622">I</text><text x="160" y="678">J</text>
+    </g>
+    <g class="muted" font-size="22" text-anchor="middle">
+      <text x="190" y="756">0</text><text x="256" y="756">1</text><text x="322" y="756">2</text><text x="388" y="756">3</text><text x="454" y="756">4</text><text x="520" y="756">5</text><text x="586" y="756">6</text><text x="652" y="756">7</text>
+      <text x="718" y="756">8</text><text x="784" y="756">9</text><text x="850" y="756">10</text><text x="916" y="756">11</text><text x="982" y="756">12</text><text x="1048" y="756">13</text><text x="1114" y="756">14</text><text x="1180" y="756">15</text>
+      <text x="685" y="806" class="label" font-size="27">TIME (CALENDAR)</text>
+    </g>
+    <text x="50" y="430" class="label" font-size="27" text-anchor="middle" transform="rotate(-90 50 430)">PARTICIPANT</text>
+
+    <g class="follow">
+      <path d="M190 166H652"/><path d="M190 222H982"/><path d="M322 278H784"/><path d="M388 334H1180"/><path d="M388 390H1114"/>
+      <path d="M586 446H1114"/><path d="M586 502H1180"/><path d="M718 558H1114"/><path d="M718 614H1180"/><path d="M982 670H1114"/>
+    </g>
+    <g class="event">
+      <circle cx="652" cy="166" r="10"/><circle cx="982" cy="222" r="10"/><circle cx="784" cy="278" r="10"/><circle cx="1114" cy="446" r="10"/>
+      <circle cx="1180" cy="502" r="10"/><circle cx="1114" cy="558" r="10"/><circle cx="1114" cy="670" r="10"/>
+    </g>
+    <g class="censor">
+      <circle cx="1180" cy="334" r="10"/><circle cx="1114" cy="390" r="10"/><circle cx="1180" cy="614" r="10"/>
+      <path d="M1174 334H1186M1108 390H1120M1174 614H1186"/>
+    </g>
+  </g>
+
+  <g transform="translate(0 800)">
+    <g class="grid">
+      <path d="M190 130V720M256 130V720M322 130V720M388 130V720M454 130V720M520 130V720M586 130V720M652 130V720M718 130V720M784 130V720M850 130V720M916 130V720M982 130V720M1048 130V720M1114 130V720M1180 130V720"/>
+    </g>
+    <g class="axis"><path d="M190 720H1180"/><path d="M190 130V720"/></g>
+    <g class="label" font-size="25" text-anchor="end">
+      <text x="160" y="174">A</text><text x="160" y="230">B</text><text x="160" y="286">C</text><text x="160" y="342">D</text><text x="160" y="398">E</text>
+      <text x="160" y="454">F</text><text x="160" y="510">G</text><text x="160" y="566">H</text><text x="160" y="622">I</text><text x="160" y="678">J</text>
+    </g>
+    <g class="muted" font-size="22" text-anchor="middle">
+      <text x="190" y="756">0</text><text x="256" y="756">1</text><text x="322" y="756">2</text><text x="388" y="756">3</text><text x="454" y="756">4</text><text x="520" y="756">5</text><text x="586" y="756">6</text><text x="652" y="756">7</text>
+      <text x="718" y="756">8</text><text x="784" y="756">9</text><text x="850" y="756">10</text><text x="916" y="756">11</text><text x="982" y="756">12</text><text x="1048" y="756">13</text><text x="1114" y="756">14</text><text x="1180" y="756">15</text>
+      <text x="685" y="806" class="label" font-size="27">TIME (t) SINCE ENTERING STUDY</text>
+    </g>
+    <text x="50" y="430" class="label" font-size="27" text-anchor="middle" transform="rotate(-90 50 430)">PARTICIPANT</text>
+
+    <g class="follow">
+      <path d="M190 166H652"/><path d="M190 222H982"/><path d="M190 278H652"/><path d="M190 334H982"/><path d="M190 390H916"/>
+      <path d="M190 446H718"/><path d="M190 502H784"/><path d="M190 558H586"/><path d="M190 614H652"/><path d="M190 670H322"/>
+    </g>
+    <g class="event">
+      <circle cx="652" cy="166" r="10"/><circle cx="982" cy="222" r="10"/><circle cx="652" cy="278" r="10"/><circle cx="718" cy="446" r="10"/>
+      <circle cx="784" cy="502" r="10"/><circle cx="586" cy="558" r="10"/><circle cx="322" cy="670" r="10"/>
+    </g>
+    <g class="censor">
+      <circle cx="982" cy="334" r="10"/><circle cx="916" cy="390" r="10"/><circle cx="652" cy="614" r="10"/>
+      <path d="M976 334H988M910 390H922M646 614H658"/>
+    </g>
+  </g>
+
+  <g transform="translate(905 84)" class="label" font-size="22">
+    <circle class="event" cx="0" cy="0" r="9"/><text x="18" y="7">Observed event</text>
+    <circle class="censor" cx="220" cy="0" r="9"/><path class="censor" d="M214 0H226"/><text x="238" y="7">Right-censored</text>
+  </g>
+</svg>

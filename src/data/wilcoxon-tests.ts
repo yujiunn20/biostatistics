@@ -1,0 +1,203 @@
+export const wilcoxonTests = [
+  { type: "paragraph", text: "當資料不適合直接用平均數與常態模型描述時，可以改從符號、次序或等級建立檢定。這類方法通常稱為無母數方法。它們不需要指定完整的母體分配形式，但仍然需要獨立性、成對結構或分配形狀等相應條件，並不是完全沒有假設。" },
+  { type: "table", rows: [
+    ["研究設計", "只使用方向", "方向與距離等級都使用", "對應的 t 檢定"],
+    ["單一樣本或成對樣本", "Sign test", "Wilcoxon signed-rank test", "One-sample 或 paired t-test"],
+    ["兩組獨立樣本", "", "Wilcoxon rank-sum test / Mann–Whitney U test", "Independent-samples t-test"],
+  ] },
+  { type: "callout", tone: "caution", label: "不要只用常態檢定結果選方法", text: "樣本較小、資料偏態、具有離群值或本身是次序資料時，常會考慮等級方法；但方法選擇仍要同時查看研究設計、資料尺度、分布形狀與要檢定的母體命題。" },
+
+  { type: "heading", text: "Sign test：先把數值轉成正號與負號" },
+  { type: "paragraph", text: "Sign test 可用於單一樣本，也可用於成對樣本。單一樣本時，把每個 Xᵢ 與虛無假設指定的中位數 M₀ 比較；成對樣本時，先把同一對的兩次測量相減，再把差值與 0 比較。" },
+  { type: "paragraph", text: "例如，可用單一樣本 Sign test 檢查 1～7 分的住院滿意度中位數是否為 4；也可將同一名病人的飯前與飯後血糖相減，用成對 Sign test 檢查正差與負差是否同樣可能。" },
+  { type: "formulaGroup", formulas: [
+    { label: "單一樣本差值", latex: "D_i=X_i-M_0", fallback: "Dᵢ=Xᵢ−M₀" },
+    { label: "成對樣本差值", latex: "D_i=X_{i,\\mathrm{after}}-X_{i,\\mathrm{before}}", fallback: "Dᵢ=Xᵢ,after−Xᵢ,before" },
+    { label: "只保留符號", latex: "Z_i=\\begin{cases}-1,&D_i<0\\\\0,&D_i=0\\\\1,&D_i>0\\end{cases}", fallback: "Dᵢ<0 記 −1；Dᵢ=0 記 0；Dᵢ>0 記 1" },
+  ] },
+  { type: "paragraph", text: "等於 0 的差值不提供正負方向，所以先移除，再把剩下的有效個數記為 n。令 C 為正差值的個數。若虛無假設成立，正、負方向應各有一半機率，因此 C 服從成功機率 1/2 的二項分配。" },
+  { type: "formulaGroup", formulas: [
+    { label: "雙尾虛無假設", latex: "H_0:p=\\frac12\\qquad H_1:p\\ne\\frac12", fallback: "H₀:p=1/2；H₁:p≠1/2" },
+    { label: "虛無分配", latex: "C\\mid H_0\\sim\\operatorname{Binomial}\\left(n,\\frac12\\right)", fallback: "H₀ 下，C~Binomial(n,1/2)" },
+    { label: "期望值與變異數", latex: "E(C)=\\frac n2,\\qquad\\operatorname{Var}(C)=\\frac n4", fallback: "E(C)=n/2；Var(C)=n/4" },
+  ] },
+  { type: "callout", tone: "intuition", label: "為什麼會接到二項分配？", text: "每一個非零差值在 H₀ 下都像一次正面機率為 1/2 的試驗；C 只是 n 次試驗中出現正差值的次數。原始數值被轉成方向後，問題就成為二項分配的計數問題。" },
+
+  { type: "heading", text: "Sign test 如何計算 p 值？" },
+  { type: "paragraph", text: "依本單元採用的傳統計算界線，有效樣本數 n<20 時，直接使用 Binomial(n,1/2) 計算精確 p 值。若 n=10、觀察到 C=8，雙尾 p 值把與 8 同樣或更偏離 n/2=5 的兩側結果都算入：" },
+  { type: "formula", latex: "p=2P(C\\ge8)=2\\sum_{k=8}^{10}\\binom{10}{k}\\left(\\frac12\\right)^{10}", fallback: "p=2P(C≥8)=2Σ(k=8到10) C(10,k)(1/2)¹⁰" },
+  { type: "callout", tone: "forward", label: "和前面二項分配的公式直接相接", text: "前面二項分配章節的 P(C=c)=C(n,c)pᶜ(1−p)ⁿ⁻ᶜ，在這裡令 p=1/2，就得到 P(C=c)=C(n,c)(1/2)ⁿ。n<20 時直接把觀察值以外同樣或更極端的機率加總；n 較大時，才利用二項分配接近常態分配的結果計算 Z。20 是本單元沿用的經驗界線，實際近似品質仍由二項分配兩端的期望次數決定。" },
+  { type: "paragraph", text: "n 較大時，可利用二項分配的平均數 n/2 與標準差 √(n/4) 作常態近似。因為 C 是離散值而常態分配是連續的，實際計算通常加入 0.5 的連續性校正。" },
+  { type: "formulaGroup", formulas: [
+    { label: "未校正的 Z", latex: "Z=\\frac{C-n/2}{\\sqrt{n/4}}", fallback: "Z=(C−n/2)/√(n/4)" },
+    { label: "雙尾拒絕域", latex: "C>\\frac n2+z_{1-\\alpha/2}\\sqrt{\\frac n4}\\quad\\text{或}\\quad C<\\frac n2-z_{1-\\alpha/2}\\sqrt{\\frac n4}", fallback: "C>n/2+z(1−α/2)√(n/4)，或 C<n/2−z(1−α/2)√(n/4)" },
+  ] },
+  { type: "paragraph", text: "單尾問題必須在看資料前依研究方向寫成 p>1/2 或 p<1/2，並只計算相應尾端的機率；不是得到結果後才選擇尾端。" },
+
+  { type: "heading", text: "Rank-sum test：兩組獨立樣本一起排序" },
+  { type: "paragraph", text: "Wilcoxon rank-sum test 與 Mann–Whitney U test 是同一個兩獨立樣本檢定的兩種等價統計量。它把兩組共 N 筆資料合併排序，再觀察其中一組取得的等級和是否異常偏大或偏小。" },
+  { type: "list", ordered: true, items: [
+    "合併兩組共 N=n+m 筆觀察值，由小到大給予等級 1～N。",
+    "數值相同時，把它們應占名次的平均值分給每一筆。",
+    "選定其中 n 筆的處理組，把其等級相加得到 Wₛ。",
+    "在 H₀ 下，比較目前 Wₛ 與所有可能分組形成的虛無分配。",
+  ] },
+  { type: "formula", latex: "W_s=\\sum_{i\\in\\mathrm{treatment}}R_i", fallback: "Wₛ=處理組等級總和" },
+  { type: "paragraph", text: "若 H₀ 表示兩組來自相同分配，組別標籤便可互換；從 N 個等級任取 n 個放入處理組的 C(N,n) 種方式，在 H₀ 下具有相同機率。這就是精確虛無分配的來源。" },
+
+  { type: "heading", text: "用五個等級建立 rank-sum 的精確分配" },
+  { type: "paragraph", text: "假設 5 位受試者依症狀由嚴重到輕微排成 1～5 級，其中 3 人接受藥物、2 人接受安慰劑。H₀ 表示治療組與對照組的結果分配相同，因此任選 3 個等級作為治療組共有 C(5,3)=10 種等機率配置。" },
+  { type: "table", rows: [
+    ["Treatment ranks", "Control ranks", "Wₛ"],
+    ["1,2,3", "4,5", "6"],
+    ["1,2,4", "3,5", "7"],
+    ["1,2,5", "3,4", "8"],
+    ["1,3,4", "2,5", "8"],
+    ["1,3,5", "2,4", "9"],
+    ["2,3,4", "1,5", "9"],
+    ["1,4,5", "2,3", "10"],
+    ["2,3,5", "1,4", "10"],
+    ["2,4,5", "1,3", "11"],
+    ["3,4,5", "1,2", "12"],
+  ] },
+  { type: "table", rows: [
+    ["w", "6", "7", "8", "9", "10", "11", "12"],
+    ["P(Wₛ=w)", "0.1", "0.1", "0.2", "0.2", "0.2", "0.1", "0.1"],
+  ] },
+  { type: "formula", latex: "P(W_s=w)=\\frac{\\#(w;n,m)}{\\binom{N}{n}}", fallback: "P(Wₛ=w)=等級和為 w 的配置數/C(N,n)" },
+  { type: "paragraph", text: "其中 #(w;n,m) 是 n 筆處理組、m 筆對照組時，處理組等級和等於 w 的配置數。傳統 rank-sum 表格常只列到 n≤10、m≤10；超出表格範圍時，早期計算會改用常態近似。現代統計軟體可在更廣的樣本範圍直接計算精確或排列 p 值，因此應依軟體方法、樣本大小與 ties 情況決定，而不是把 10 當成統計理論的硬門檻。" },
+
+  { type: "heading", text: "Rank-sum 的平均數、變異數與常態近似" },
+  { type: "formulaGroup", formulas: [
+    { label: "虛無期望值", latex: "E(W_s)=\\frac12n(N+1)", fallback: "E(Wₛ)=n(N+1)/2" },
+    { label: "無 ties 時的虛無變異數", latex: "\\operatorname{Var}(W_s)=\\frac1{12}mn(N+1)", fallback: "Var(Wₛ)=mn(N+1)/12" },
+    { label: "常態近似", latex: "Z=\\frac{W_s-E(W_s)}{\\sqrt{\\operatorname{Var}(W_s)}}", fallback: "Z=[Wₛ−E(Wₛ)]/√Var(Wₛ)" },
+  ] },
+  { type: "paragraph", text: "有 ties 時，等級使用平均名次，常態近似的變異數也要加入 ties 修正。連續性校正的方向依所計算的尾端決定；不能固定對所有 Z 都減 1/2。" },
+  { type: "callout", tone: "caution", label: "虛無假設不一定只是中位數相等", text: "rank-sum 的一般虛無假設是兩組分配相同。只有在兩組分配形狀與變異程度相近、主要差異可視為位置平移時，結果才適合進一步解讀為位置或中位數差異。" },
+  { type: "details", label: "補充：推導 rank-sum 等級和的平均數與變異數", children: [
+    { type: "paragraph", text: "令全部 N 個等級為 X₁,X₂,…,X_N，處理組從中任取 n 個，對照組大小 m=N−n。H₀ 下所有 C(N,n) 個配置等機率，因此平均數與變異數都必須從這些可能配置出發。以下先假設沒有 ties。" },
+
+    { type: "heading", text: "平均數：平均所有 C(N,n) 種配置" },
+    { type: "paragraph", text: "先把每一種處理組配置內的 n 個等級相加，再對全部配置取平均。固定任一等級 Xᵢ 後，其他 n−1 個位置可從剩餘 N−1 個等級選取，所以 Xᵢ 會出現在 C(N−1,n−1) 個配置中。" },
+    { type: "formulaGroup", formulas: [
+      { label: "從所有配置的等級和取平均", latex: "E(W_s)=\\frac{\\displaystyle\\sum_{\\mathcal S}\\left(\\sum_{i\\in\\mathcal S}X_i\\right)}{\\binom{N}{n}}", fallback: "E(Wₛ)=所有配置的等級和總和/C(N,n)" },
+      { label: "每個 Xᵢ 都出現 C(N−1,n−1) 次", latex: "E(W_s)=\\frac{\\displaystyle\\sum_{i=1}^{N}X_i\\binom{N-1}{n-1}}{\\binom{N}{n}}", fallback: "E(Wₛ)=ΣXᵢ·C(N−1,n−1)/C(N,n)" },
+      { label: "化簡組合數比例", latex: "E(W_s)=\\frac nN\\sum_{i=1}^{N}X_i", fallback: "E(Wₛ)=(n/N)ΣXᵢ" },
+      { label: "代入 1+2+⋯+N", latex: "E(W_s)=\\frac nN\\frac{N(N+1)}2=\\frac12n(N+1)", fallback: "E(Wₛ)=(n/N)·N(N+1)/2=n(N+1)/2" },
+    ] },
+
+    { type: "heading", text: "變異數：展開每一個配置的等級和平方" },
+    { type: "paragraph", text: "變異數先由 E(Wₛ²)−[E(Wₛ)]² 出發。展開一個配置的 (ΣXᵢ)²，會得到單一等級的平方 Xᵢ²，以及兩個不同等級的交叉項 2XᵢXⱼ。單一 Xᵢ 出現在 C(N−1,n−1) 個配置；指定的 Xᵢ、Xⱼ 同時出現時，剩下 n−2 個位置可從 N−2 個等級選，因此出現在 C(N−2,n−2) 個配置。" },
+    { type: "formulaGroup", formulas: [
+      { label: "由變異數定義開始", latex: "\\operatorname{Var}(W_s)=\\frac{\\displaystyle\\sum_{\\mathcal S}\\left(\\sum_{i\\in\\mathcal S}X_i\\right)^2}{\\binom{N}{n}}-\\left[\\frac12n(N+1)\\right]^2", fallback: "Var(Wₛ)=Σ配置(ΣXᵢ)²/C(N,n)−[n(N+1)/2]²" },
+      { label: "分成平方項與交叉項", latex: "=\\frac{\\displaystyle\\sum_iX_i^2\\binom{N-1}{n-1}+2\\sum_{i<j}X_iX_j\\binom{N-2}{n-2}}{\\binom{N}{n}}-\\frac{n^2(N+1)^2}{4}", fallback: "=[ΣXᵢ²C(N−1,n−1)+2Σ(i<j)XᵢXⱼC(N−2,n−2)]/C(N,n)−n²(N+1)²/4" },
+      { label: "化簡兩個組合數比例", latex: "=\\frac nN\\sum_iX_i^2+\\frac{n(n-1)}{N(N-1)}\\,2\\sum_{i<j}X_iX_j-\\frac{n^2(N+1)^2}{4}", fallback: "=(n/N)ΣXᵢ²+n(n−1)/[N(N−1)]·2Σ(i<j)XᵢXⱼ−n²(N+1)²/4" },
+      { label: "把交叉項改寫成兩個級數", latex: "2\\sum_{i<j}X_iX_j=\\left(\\sum_iX_i\\right)^2-\\sum_iX_i^2", fallback: "2Σ(i<j)XᵢXⱼ=(ΣXᵢ)²−ΣXᵢ²" },
+      { label: "代回變異數", latex: "=\\frac nN\\sum_iX_i^2+\\frac{n(n-1)}{N(N-1)}\\left[\\left(\\sum_iX_i\\right)^2-\\sum_iX_i^2\\right]-\\frac{n^2(N+1)^2}{4}", fallback: "=(n/N)ΣXᵢ²+n(n−1)/[N(N−1)][(ΣXᵢ)²−ΣXᵢ²]−n²(N+1)²/4" },
+      { label: "使用等級級數公式", latex: "\\sum_iX_i=\\frac{N(N+1)}2,\\qquad\\sum_iX_i^2=\\frac{N(N+1)(2N+1)}6", fallback: "ΣXᵢ=N(N+1)/2；ΣXᵢ²=N(N+1)(2N+1)/6" },
+      { label: "代入後保留兩個主要項", latex: "=\\frac{n(N-n)(N+1)(2N+1)}{6(N-1)}-\\frac{n(N+1)^2(N-n)}{4(N-1)}", fallback: "=n(N−n)(N+1)(2N+1)/[6(N−1)]−n(N+1)²(N−n)/[4(N−1)]" },
+      { label: "通分並提出共同因子", latex: "=\\frac{n(N-n)(N+1)(N-1)}{12(N-1)}", fallback: "=n(N−n)(N+1)(N−1)/[12(N−1)]" },
+      { label: "以 m=N−n 表示", latex: "\\operatorname{Var}(W_s)=\\frac1{12}nm(N+1)", fallback: "Var(Wₛ)=nm(N+1)/12" },
+    ] },
+    { type: "callout", tone: "intuition", label: "這段推導為什麼必須保留交叉項？", text: "Wₛ 是 n 個等級的總和，所以 Wₛ² 不只有 ΣXᵢ²，還有所有 2XᵢXⱼ。若直接從 ΣXᵢ² 跳到最後答案，就看不出有限母體中『抽到一個等級會影響其他等級能否被抽到』的相依性，也無法得到 m=N−n 這個因子。" },
+  ] },
+  { type: "heading", text: "Signed-rank test：方向之外也考慮距離" },
+  { type: "paragraph", text: "Wilcoxon signed-rank test 用於單一樣本或成對樣本。Sign test 只記錄差值的正負；signed-rank test 進一步把 |Dᵢ| 排序，所以較大的差值會得到較大的等級。當差值分布合理地近似對稱時，這些大小資訊通常能提供比 Sign test 更多的檢定力。" },
+  { type: "list", ordered: true, items: [
+    "計算每一筆相對 M₀ 的差值，或每一對測量的差值 Dᵢ。",
+    "移除 Dᵢ=0 的資料，將剩餘有效樣本數記為 n。",
+    "對 |Dᵢ| 由小到大排序；相同絕對差使用平均等級。",
+    "把原本的正負號放回等級，分別加總得到正等級和 T⁺ 與負等級和 T⁻。",
+    "雙尾精確檢定可使用較小的 T=min(T⁺,T⁻)，或等價地以 T⁺ 的兩尾虛無分配求 p 值。",
+  ] },
+  { type: "formulaGroup", formulas: [
+    { label: "正等級和", latex: "T^+=\\sum_{D_i>0}R_i", fallback: "T⁺=Σ(Dᵢ>0)Rᵢ" },
+    { label: "負等級和的絕對值", latex: "T^-=\\sum_{D_i<0}R_i", fallback: "T⁻=Σ(Dᵢ<0)Rᵢ" },
+    { label: "等級總和固定", latex: "T^++T^-=1+2+\\cdots+n=\\frac{n(n+1)}2", fallback: "T⁺+T⁻=n(n+1)/2" },
+  ] },
+
+  { type: "heading", text: "用三個成對差值建立 signed-rank 分配" },
+  { type: "paragraph", text: "比較新、舊肥料時，把 3 個草莓園各分成兩半，分別使用新肥料與舊肥料。這是成對設計，因為同一個果園內的兩個收穫量共享相近環境。" },
+  { type: "table", rows: [
+    ["果園", "1", "2", "3"],
+    ["新肥料收穫", "76", "82", "80"],
+    ["舊肥料收穫", "78", "91", "86"],
+    ["D=新−舊", "−2", "−9", "−6"],
+    ["|D| 的等級", "1", "3", "2"],
+  ] },
+  { type: "paragraph", text: "H₀ 下，差值分布以 0 為中心且對稱，因此每個絕對差的等級配置正號或負號的機率各為 1/2。三個等級共有 2³=8 種等機率的正負配置。令 Vₛ=T⁺，只把帶正號的等級相加：" },
+  { type: "table", rows: [
+    ["符號配置", "(−1,−2,−3)", "(+1,−2,−3)", "(−1,+2,−3)", "(−1,−2,+3)", "(+1,+2,−3)", "(+1,−2,+3)", "(−1,+2,+3)", "(+1,+2,+3)"],
+    ["Vₛ=T⁺", "0", "1", "2", "3", "3", "4", "5", "6"],
+  ] },
+  { type: "table", rows: [
+    ["v", "0", "1", "2", "3", "4", "5", "6"],
+    ["P(Vₛ=v)", "0.125", "0.125", "0.125", "0.250", "0.125", "0.125", "0.125"],
+  ] },
+  { type: "paragraph", text: "實際資料三個差值皆為負，因此 T⁺=0、T⁻=6。精確雙尾 p 值為 2P(T⁺≤0)=2×1/8=0.25；這 3 對資料不足以拒絕新、舊肥料效果相同的虛無假設。" },
+
+  { type: "heading", text: "Signed-rank 的平均數、變異數與常態近似" },
+  { type: "paragraph", text: "H₀ 下，每個等級以 1/2 機率進入 T⁺，所以期望正等級和是全部等級總和的一半。無 ties 時，各等級是否帶正號可視為彼此獨立的 Bernoulli(1/2) 指標。" },
+  { type: "formulaGroup", formulas: [
+    { label: "虛無期望值", latex: "E(T^+)=\\frac12(1+2+\\cdots+n)=\\frac{n(n+1)}4", fallback: "E(T⁺)=n(n+1)/4" },
+    { label: "無 ties 時的虛無變異數", latex: "\\operatorname{Var}(T^+)=\\frac14(1^2+2^2+\\cdots+n^2)=\\frac{n(n+1)(2n+1)}{24}", fallback: "Var(T⁺)=n(n+1)(2n+1)/24" },
+    { label: "常態近似", latex: "Z=\\frac{T^+-n(n+1)/4}{\\sqrt{n(n+1)(2n+1)/24}}", fallback: "Z=[T⁺−n(n+1)/4]/√[n(n+1)(2n+1)/24]" },
+  ] },
+  { type: "paragraph", text: "傳統教材常以有效樣本數 n≥20 作為 signed-rank 常態近似的經驗界線，n<20 時則查精確分配表；這是計算上的近似規則，不是定理中的固定分界。現代統計軟體應優先依實際演算法選擇精確法或近似法。使用常態近似時，可依尾端方向加入 0.5 連續性校正；若有相同的 |Dᵢ|，還必須使用 ties 修正後的變異數。" },
+  { type: "callout", tone: "caution", label: "Signed-rank 比 Sign test 多一項對稱假設", text: "Sign test 只使用方向，可直接檢定中位數或成對差的正負機率。Signed-rank 使用差值大小的等級，因此要把它解釋成位置中心檢定，通常還需要差值分布近似對稱。" },
+  { type: "details", label: "補充：推導 signed-rank 正等級和的平均數與變異數", children: [
+    { type: "paragraph", text: "以下的 n 是移除零差值後的有效樣本數。令 Iᵣ 表示第 r 個等級是否帶正號：帶正號時 Iᵣ=1，帶負號時 Iᵣ=0。在 H₀ 下，每個差值取正、負號的機率各為 1/2；沒有 ties 時，正等級和可寫成 T⁺=ΣrIᵣ。" },
+
+    { type: "heading", text: "先由指標變數得到平均數與變異數" },
+    { type: "formulaGroup", formulas: [
+      { label: "正等級和", latex: "T^+=\\sum_{r=1}^{n}rI_r", fallback: "T⁺=ΣrIᵣ" },
+      { label: "每個正號指標", latex: "E(I_r)=\\frac12,\\qquad\\operatorname{Var}(I_r)=\\frac14", fallback: "E(Iᵣ)=1/2；Var(Iᵣ)=1/4" },
+      { label: "逐步推導平均數", latex: "E(T^+)=E\\left(\\sum_{r=1}^{n}rI_r\\right)=\\sum_{r=1}^{n}rE(I_r)=\\frac12\\sum_{r=1}^{n}r=\\frac{n(n+1)}4", fallback: "E(T⁺)=E(ΣrIᵣ)=ΣrE(Iᵣ)=1/2Σr=n(n+1)/4" },
+      { label: "逐步推導變異數", latex: "\\operatorname{Var}(T^+)=\\operatorname{Var}\\left(\\sum_{r=1}^{n}rI_r\\right)=\\sum_{r=1}^{n}r^2\\operatorname{Var}(I_r)=\\frac14\\sum_{r=1}^{n}r^2=\\frac{n(n+1)(2n+1)}{24}", fallback: "Var(T⁺)=Var(ΣrIᵣ)=Σr²Var(Iᵣ)=1/4Σr²=n(n+1)(2n+1)/24" },
+    ] },
+    { type: "paragraph", text: "最後一行能直接相加各項變異數，是因為 H₀ 下各個非零差值的正負號彼此獨立，所以 Cov(Iᵣ,Iₛ)=0。若研究設計本身使各對差值不獨立，這個虛無分配就不能直接使用。" },
+
+    { type: "heading", text: "再從 2ⁿ 種正負配置完整展開" },
+    { type: "paragraph", text: "也可以完全依照精確分配的建立方式推導。令 X₁,X₂,…,Xₙ 為等級 1,2,…,n。每個等級可取正號或負號，因此共有 2ⁿ 種等機率配置；T⁺ 只加總配置中帶正號的等級。固定一個 Xᵢ，它在一半、也就是 2ⁿ⁻¹ 種配置中為正；固定兩個不同等級 Xᵢ、Xⱼ，它們同時為正的配置共有 2ⁿ⁻² 種。" },
+    { type: "formulaGroup", formulas: [
+      { label: "從全部 2ⁿ 種配置取平均", latex: "E(T^+)=\\frac{\\displaystyle\\sum_{\\mathcal A}\\left(\\sum_{i\\in\\mathcal A}X_i\\right)}{2^n}", fallback: "E(T⁺)=所有正等級和的總和/2ⁿ" },
+      { label: "每個 Xᵢ 出現 2ⁿ⁻¹ 次", latex: "E(T^+)=\\frac{2^{n-1}\\sum_iX_i}{2^n}", fallback: "E(T⁺)=2ⁿ⁻¹ΣXᵢ/2ⁿ" },
+      { label: "代入等級總和", latex: "E(T^+)=\\frac12\\sum_iX_i=\\frac12\\frac{n(n+1)}2=\\frac14n(n+1)", fallback: "E(T⁺)=1/2ΣXᵢ=1/2·n(n+1)/2=n(n+1)/4" },
+    ] },
+
+    { type: "heading", text: "由全部配置的二次動差推導變異數" },
+    { type: "formulaGroup", formulas: [
+      { label: "從變異數定義開始", latex: "\\operatorname{Var}(T^+)=\\frac{\\displaystyle\\sum_{\\mathcal A}\\left(\\sum_{i\\in\\mathcal A}X_i\\right)^2}{2^n}-\\left[\\frac14n(n+1)\\right]^2", fallback: "Var(T⁺)=Σ配置(ΣXᵢ)²/2ⁿ−[n(n+1)/4]²" },
+      { label: "計入平方項與交叉項出現次數", latex: "=\\frac{2^{n-1}\\sum_iX_i^2+2^{n-2}\\,2\\sum_{i<j}X_iX_j}{2^n}-\\frac{n^2(n+1)^2}{16}", fallback: "=[2ⁿ⁻¹ΣXᵢ²+2ⁿ⁻²·2Σ(i<j)XᵢXⱼ]/2ⁿ−n²(n+1)²/16" },
+      { label: "約去 2 的次方", latex: "=\\frac12\\sum_iX_i^2+\\frac14\\left[\\left(\\sum_iX_i\\right)^2-\\sum_iX_i^2\\right]-\\frac{n^2(n+1)^2}{16}", fallback: "=1/2ΣXᵢ²+1/4[(ΣXᵢ)²−ΣXᵢ²]−n²(n+1)²/16" },
+      { label: "合併 ΣXᵢ²", latex: "=\\frac14\\sum_iX_i^2+\\frac14\\left(\\sum_iX_i\\right)^2-\\frac{n^2(n+1)^2}{16}", fallback: "=1/4ΣXᵢ²+1/4(ΣXᵢ)²−n²(n+1)²/16" },
+      { label: "代入兩個等級級數", latex: "=\\frac14\\frac{n(n+1)(2n+1)}6+\\frac14\\left[\\frac{n(n+1)}2\\right]^2-\\frac{n^2(n+1)^2}{16}", fallback: "=1/4·n(n+1)(2n+1)/6+1/4[n(n+1)/2]²−n²(n+1)²/16" },
+      { label: "後兩項相消後的結果", latex: "\\operatorname{Var}(T^+)=\\frac1{24}n(n+1)(2n+1)", fallback: "Var(T⁺)=n(n+1)(2n+1)/24" },
+    ] },
+    { type: "callout", tone: "intuition", label: "2ⁿ⁻¹ 與 2ⁿ⁻² 從哪裡來？", text: "固定 Xᵢ 為正後，其餘 n−1 個等級仍可任意取正負，因此有 2ⁿ⁻¹ 種配置；同時固定 Xᵢ、Xⱼ 為正後，只剩 n−2 個等級可自由變化，因此有 2ⁿ⁻² 種配置。這兩個次數正是平均數與交叉項推導的核心。" },
+
+    { type: "heading", text: "若改用帶正負號的等級總和" },
+    { type: "paragraph", text: "另一種記法不是只加正等級，而是直接把正、負等級相加，令 W=T⁺−T⁻。每個等級 r 以相同機率取 +r 或 −r，因此平均數為 0，單一項的變異數為 r²。" },
+    { type: "formulaGroup", formulas: [
+      { label: "帶符號的等級總和", latex: "W=T^+-T^-", fallback: "W=T⁺−T⁻" },
+      { label: "平均數", latex: "E(W)=0", fallback: "E(W)=0" },
+      { label: "變異數", latex: "\\operatorname{Var}(W)=\\sum_{r=1}^{n}r^2=\\frac{n(n+1)(2n+1)}6", fallback: "Var(W)=Σr²=n(n+1)(2n+1)/6" },
+    ] },
+    { type: "paragraph", text: "兩種統計量包含相同資訊，因為 W=2T⁺−n(n+1)/2。閱讀軟體輸出或查表時，必須先確認使用的是 T⁺、較小等級和 T，還是帶符號總和 W。" },
+  ] },
+  { type: "heading", text: "三種方法如何選擇？" },
+  { type: "table", rows: [
+    ["方法", "樣本關係", "使用的資訊", "主要虛無假設"],
+    ["Sign test", "單一或成對", "差值正負", "正差與負差機率各為 1/2"],
+    ["Wilcoxon signed-rank", "單一或成對", "差值方向＋|差值|等級", "差值分布以 0 為中心且對稱"],
+    ["Wilcoxon rank-sum / Mann–Whitney U", "兩組獨立", "合併後的資料等級", "兩組分配相同"],
+  ] },
+  { type: "list", ordered: true, items: [
+    "先判斷資料是單一樣本、成對樣本，還是兩組獨立樣本。",
+    "明確寫出虛無假設是在談正負機率、對稱差值中心，還是兩組完整分配。",
+    "處理零差值與 ties，並在報告中說明有效樣本數及所用修正。",
+    "小樣本優先使用精確或排列方法；使用常態近似時說明連續性校正。",
+    "同時報告統計量、p 值、效果方向與適合的效果量，不只寫顯著或不顯著。",
+  ] },
+];

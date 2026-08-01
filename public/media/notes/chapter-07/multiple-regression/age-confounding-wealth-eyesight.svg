@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Age confounding the association between wealth and eyesight</title>
+  <desc id="desc">Older and younger adults form separate clusters. The pooled regression line shows a negative association between wealth and eyesight, while there is little association within either age group.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#17362b" flood-opacity="0.10"/>
+    </filter>
+    <clipPath id="plot-clip"><rect x="120" y="105" width="820" height="570" rx="4"/></clipPath>
+  </defs>
+
+  <rect width="1400" height="820" rx="20" fill="#f8faf7"/>
+  <text x="72" y="62" fill="#18372c" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">A pooled association can be caused by age confounding</text>
+  <text x="72" y="91" fill="#60736b" font-family="Arial, Helvetica, sans-serif" font-size="17">The overall trend differs from the relationship observed within each age group.</text>
+
+  <rect x="96" y="100" width="870" height="620" rx="12" fill="#ffffff" stroke="#cad8d1" stroke-width="2" filter="url(#shadow)"/>
+  <g stroke="#dfe8e3" stroke-width="1">
+    <line x1="120" y1="215" x2="940" y2="215"/><line x1="120" y1="330" x2="940" y2="330"/>
+    <line x1="120" y1="445" x2="940" y2="445"/><line x1="120" y1="560" x2="940" y2="560"/>
+    <line x1="284" y1="105" x2="284" y2="675"/><line x1="448" y1="105" x2="448" y2="675"/>
+    <line x1="612" y1="105" x2="612" y2="675"/><line x1="776" y1="105" x2="776" y2="675"/>
+  </g>
+  <g stroke="#27493d" stroke-width="3">
+    <line x1="120" y1="105" x2="120" y2="675"/><line x1="120" y1="675" x2="940" y2="675"/>
+  </g>
+  <text x="530" y="764" text-anchor="middle" fill="#18372c" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Eyesight score</text>
+  <text x="35" y="390" transform="rotate(-90 35 390)" text-anchor="middle" fill="#18372c" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Wealth</text>
+  <text x="132" y="702" fill="#718078" font-family="Arial, Helvetica, sans-serif" font-size="14">Lower</text>
+  <text x="885" y="702" fill="#718078" font-family="Arial, Helvetica, sans-serif" font-size="14">Higher</text>
+
+  <g clip-path="url(#plot-clip)">
+    <ellipse cx="380" cy="292" rx="225" ry="118" fill="#d99a3d" fill-opacity="0.09" stroke="#c17d1b" stroke-width="3" stroke-dasharray="10 8"/>
+    <ellipse cx="680" cy="490" rx="225" ry="118" fill="#2b8067" fill-opacity="0.09" stroke="#267159" stroke-width="3" stroke-dasharray="10 8"/>
+
+    <g fill="#c17d1b" stroke="#ffffff" stroke-width="3">
+      <circle cx="225" cy="310" r="9"/><circle cx="270" cy="273" r="9"/><circle cx="315" cy="298" r="9"/>
+      <circle cx="360" cy="260" r="9"/><circle cx="402" cy="310" r="9"/><circle cx="452" cy="278" r="9"/>
+      <circle cx="500" cy="301" r="9"/><circle cx="545" cy="267" r="9"/>
+    </g>
+    <g fill="#267159" stroke="#ffffff" stroke-width="3">
+      <circle cx="515" cy="502" r="9"/><circle cx="560" cy="466" r="9"/><circle cx="610" cy="495" r="9"/>
+      <circle cx="655" cy="461" r="9"/><circle cx="702" cy="507" r="9"/><circle cx="752" cy="473" r="9"/>
+      <circle cx="800" cy="497" r="9"/><circle cx="845" cy="464" r="9"/>
+    </g>
+
+    <line x1="178" y1="197" x2="880" y2="590" stroke="#c84646" stroke-width="6" stroke-linecap="round"/>
+    <line x1="220" y1="289" x2="544" y2="289" stroke="#c17d1b" stroke-width="5" stroke-linecap="round"/>
+    <line x1="516" y1="484" x2="846" y2="484" stroke="#267159" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="215" y="142" width="185" height="40" rx="5" fill="#fff8ed" stroke="#c17d1b"/>
+    <circle cx="237" cy="162" r="7" fill="#c17d1b"/><text x="253" y="169" fill="#7b521c" font-size="19" font-weight="700">Older group</text>
+    <rect x="697" y="584" width="205" height="40" rx="5" fill="#eef8f4" stroke="#267159"/>
+    <circle cx="719" cy="604" r="7" fill="#267159"/><text x="735" y="611" fill="#205c49" font-size="19" font-weight="700">Younger group</text>
+    <rect x="535" y="350" width="226" height="42" rx="5" fill="#fff3f2" stroke="#c84646"/>
+    <line x1="552" y1="371" x2="585" y2="371" stroke="#c84646" stroke-width="5"/>
+    <text x="596" y="378" fill="#9b3434" font-size="18" font-weight="700">Pooled association</text>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="1002" y="122" width="330" height="544" rx="12" fill="#ffffff" stroke="#cad8d1" stroke-width="2" filter="url(#shadow)"/>
+    <text x="1040" y="174" fill="#18372c" font-size="22" font-weight="700">Ignoring age</text>
+    <text x="1040" y="216" fill="#60736b" font-size="17">Pooled data suggest:</text>
+    <text x="1040" y="263" fill="#c84646" font-size="25" font-weight="700">β₁ ≠ 0</text>
+    <text x="1040" y="300" fill="#c84646" font-size="21" font-weight="700">p &lt; 0.05</text>
+    <line x1="1040" y1="336" x2="1294" y2="336" stroke="#d8e2dd" stroke-width="2"/>
+    <text x="1040" y="382" fill="#18372c" font-size="22" font-weight="700">Stratifying by age</text>
+    <text x="1040" y="425" fill="#60736b" font-size="17">Within each group:</text>
+    <text x="1040" y="464" fill="#267159" font-size="20" font-weight="700">Little association</text>
+    <text x="1040" y="493" fill="#60736b" font-size="16">between wealth and eyesight</text>
+    <rect x="1038" y="536" width="258" height="86" rx="7" fill="#eaf4ef" stroke="#98b9aa"/>
+    <text x="1167" y="572" text-anchor="middle" fill="#205d49" font-size="17" font-weight="700">AGE IS A CONFOUNDER</text>
+    <text x="1167" y="600" text-anchor="middle" fill="#45675a" font-size="14">It is related to both variables.</text>
+  </g>
+</svg>
