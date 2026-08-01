@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Shell from "../components/Shell.astro";
+import StatisticalMethodNavigator from "../components/StatisticalMethodNavigator.astro";
 import { chapters, chapterTitle, locales, ui, type Locale } from "../lib/site";
 
 const locale: Locale = "zh-Hant";
@@ -18,6 +19,7 @@ const alternates = Object.fromEntries(locales.map(lang => [lang, `/${lang}/`])) 
       <header><div><p class="eyebrow">LEARNING PATH</p><h2>{t.chapters}</h2></div><span>{locale === "zh-Hant" ? "依原始學習筆記整理" : "9 structured topics"}</span></header>
       <div>{chapters.map((chapter,index) => <a class="card" href={`/${locale}/chapter/${chapter.id}/`}><em>{chapter.id}</em><small>{index<3?"FOUNDATIONS":index<6?"INFERENCE":index<9?"MODELING":"CONCLUSION"}</small><h3>{chapterTitle(chapter,locale)}</h3>{locale === "zh-Hant" && <ul>{chapter.blocks.filter(block => block.type === "heading").slice(0,3).map(block => <li>{"text" in block ? block.text : ""}</li>)}</ul>}<b>↗</b></a>)}</div>
     </section>
+    <StatisticalMethodNavigator locale={locale} />
     <aside class="notice">{t.notice}</aside>
   </Shell>
 </Base>
