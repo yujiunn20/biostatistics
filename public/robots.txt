@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biostatistics.yuchunlab.com/sitemap-index.xml

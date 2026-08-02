@@ -60,5 +60,5 @@ export const exponentialDistribution = [
   { type: "heading", text: "與存活分析的關係" },
   { type: "paragraph", text: "在存活分析中，指數分配相當於危險率固定為 λ 的模型。危險率表示已存活到時間 x 的條件下，接下來一小段時間內發生事件的瞬時速率。" },
   { type: "formula", latex: "h(x)=\\frac{f(x)}{S(x)}=\\lambda", fallback: "h(x)=f(x)/S(x)=λ" },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "指數分配把事件次數、等待時間與固定危險率連在一起。後續學習卜瓦松分配、存活分析及時間到事件資料時，這三種觀點會反覆出現。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "指數分配把事件次數、等待時間與固定危險率連在一起。後續學習卜瓦松分配、存活分析及時間到事件資料時，這三種觀點會反覆出現。", related: ["02/poisson-distribution", "09/survival-curve"] },
 ];

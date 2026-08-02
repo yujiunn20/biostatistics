@@ -1,0 +1,87 @@
+export const introductionEn = [
+  { type: "paragraph", text: "Statistics is a system of methods for extracting information from data. We collect data not merely to inspect numbers, but to answer questions about where observations concentrate, how much they vary, whether groups differ, and whether one variable can help explain or predict another." },
+  { type: "callout", tone: "intuition", label: "In one sentence", text: "Data do not explain themselves. Statistics gives us tools to organize, compare, infer, and draw meaningful conclusions from them." },
+  { type: "heading", text: "Descriptive statistics: organizing and presenting data" },
+  { type: "paragraph", text: "Descriptive statistics summarize, organize, and visualize the data actually observed so that their main features are easier to understand." },
+  { type: "list", items: ["Present data in tables and graphs", "Describe the center with a mean or median", "Describe variability with a range, variance, or standard deviation", "Inspect distribution shape and possible outliers"] },
+  { type: "paragraph", text: "Appropriate summaries and displays depend on the type of data. Identifying the measurement type and distribution is therefore an essential step before choosing a statistical method." },
+  { type: "callout", tone: "intuition", label: "The key question", text: "What do the data currently in front of us look like?" },
+  { type: "heading", text: "Inferential statistics: learning about a population from a sample" },
+  { type: "paragraph", text: "In most studies we cannot observe an entire population. A census may be too expensive, too slow, or even destructive. We therefore select a sample and use its information to infer features of the population. This is inferential statistics." },
+  { type: "list", items: ["What is a plausible value for the population mean?", "Is there evidence that two populations differ?", "Are two variables associated in the population?", "Could the observed result arise from sampling variation alone?"] },
+  { type: "callout", tone: "intuition", label: "The key question", text: "What can this sample tell us about a population we have not fully observed?" },
+  { type: "heading", text: "Why sampling matters" },
+  { type: "paragraph", text: "Different random samples from the same population generally produce different means, proportions, and other statistics. Inference must therefore evaluate not only a sample estimate but also its uncertainty." },
+  { type: "callout", tone: "forward", label: "This returns later", text: "Sampling variation reappears as sampling distributions, standard errors, confidence intervals, and p-values. It is the foundation of the methods in later chapters." },
+  { type: "heading", text: "How inference handles uncertainty" },
+  { type: "list", items: ["Point estimation: estimate a population parameter with a sample statistic", "Interval estimation: give a range of plausible parameter values", "Hypothesis testing: assess compatibility between data and a statistical hypothesis", "Prediction: use observed data to predict unobserved outcomes", "Statistical modeling: describe relationships among variables"] },
+  { type: "heading", text: "Why learn hypothesis testing?" },
+  { type: "paragraph", text: "Many later methods—t tests, chi-square tests, analysis of variance, and regression—share the hypothesis-testing framework." },
+  { type: "list", ordered: true, items: ["State a null and an alternative hypothesis", "Compute a test statistic from the data", "Evaluate how unusual the result would be if the null hypothesis were true", "Interpret the p-value together with confidence intervals, effect sizes, and study context"] },
+  { type: "callout", tone: "forward", label: "The thread running through this book", text: "What type of data do we have? How are the samples related? What exactly is the null hypothesis? How large is the observed difference relative to ordinary sampling variation?" },
+];
+
+export const dataTypesEn = [
+  { type: "paragraph", text: "Before choosing a statistical method, identify the type of data. Data type determines which operations are meaningful and which summaries, graphics, and analyses are appropriate." },
+  { type: "callout", tone: "intuition", label: "A practical sequence", text: "First ask whether a value is a category or a quantity. Then ask whether categories are ordered, whether equal differences are meaningful, and whether zero represents a true absence." },
+  { type: "heading", text: "Categorical data" },
+  { type: "paragraph", text: "Categorical, or qualitative, data classify observations by a characteristic. Their values represent group membership rather than quantities that can be added or divided." },
+  { type: "list", items: ["Nominal scale: categories have no inherent order, such as blood type, nationality, species, or treatment arm", "Ordinal scale: categories have an order, but gaps between adjacent levels need not be equal, such as pain severity, disease stage, or satisfaction"] },
+  { type: "callout", tone: "intuition", label: "Numbers can still be labels", text: "If 1 denotes group A and 2 denotes group B, the numbers are codes. Their average and arithmetic difference do not acquire a meaningful quantitative interpretation." },
+  { type: "heading", text: "Numerical data" },
+  { type: "paragraph", text: "Numerical, or quantitative, data are counts or measurements for which magnitude and differences carry substantive meaning." },
+  { type: "list", items: ["Discrete data arise from counting and usually take separated values, such as admissions, cases, or number of children", "Continuous data arise from measurement and can in principle take arbitrarily fine values within a range, such as height, weight, blood pressure, or temperature"] },
+  { type: "heading", text: "Levels of measurement" },
+  { type: "table", rows: [["Scale", "Order", "Equal differences", "Meaningful zero", "Examples"], ["Nominal", "No", "No", "Not applicable", "Blood type, nationality"], ["Ordinal", "Yes", "Not necessarily", "Not applicable", "Pain grade, disease stage"], ["Interval", "Yes", "Yes", "Relative zero", "Temperature in °C"], ["Ratio", "Yes", "Yes", "Absolute zero", "Height, weight, elapsed time"]] },
+  { type: "callout", tone: "intuition", label: "Interval versus ratio", text: "0°C does not mean an absence of temperature, so 20°C is not twice as hot as 10°C. A weight of 0 kg represents no weight, so 80 kg can meaningfully be described as twice 40 kg." },
+  { type: "heading", text: "Why data type matters" },
+  { type: "paragraph", text: "Categorical variables are often summarized with counts and proportions. Continuous variables may be summarized with a mean and standard deviation or a median and interquartile range, depending on their distribution and the purpose of the analysis." },
+  { type: "callout", tone: "forward", label: "Connection to later methods", text: "Choosing among t tests, chi-square tests, ANOVA, and rank-based methods begins with the outcome and grouping-variable types, then considers distributional assumptions and sample dependence." },
+];
+
+export const descriptiveStatisticsEn = [
+  { type: "paragraph", text: "Descriptive statistics organize, summarize, and display data. They help us understand what a sample contains, where its center lies, how widely it varies, whether its distribution is symmetric, and whether unusual observations are present." },
+  { type: "callout", tone: "intuition", label: "The central question", text: "What do the data we collected actually look like?" },
+  { type: "heading", text: "Start with the data type" },
+  { type: "table", rows: [["Data type", "Typical summaries", "Typical displays"], ["Categorical", "Counts and proportions", "Frequency table, bar chart"], ["Numerical", "Mean and SD, or median and IQR", "Histogram, box plot, density plot"]] },
+  { type: "heading", text: "Central tendency" },
+  { type: "paragraph", text: "The mode is the most frequent value and may be used for categorical or numerical data. The median is the middle ordered value and is resistant to extreme observations. The arithmetic mean uses every observation and is highly useful for inference, but is more sensitive to outliers." },
+  { type: "formulaGroup", formulas: [
+    { label: "Median position for odd n", latex: "\\frac{n+1}{2}", fallback: "(n+1)/2" },
+    { label: "Median for even n", latex: "\\operatorname{Median}=\\frac{x_{(n/2)}+x_{(n/2+1)}}2", fallback: "average of the two middle ordered values" },
+    { label: "Arithmetic mean", latex: "\\bar x=\\frac1n\\sum_{i=1}^{n}x_i", fallback: "x̄=Σxᵢ/n" }
+  ] },
+  { type: "callout", tone: "intuition", label: "Choosing a summary", text: "For a roughly symmetric distribution without influential outliers, report the mean and standard deviation. For a strongly skewed distribution or important outliers, the median and interquartile range are often more informative. This is a judgment based on the data and purpose, not a mechanical normality-test rule." },
+  { type: "heading", text: "Trimmed and geometric means" },
+  { type: "paragraph", text: "A trimmed mean removes a fixed proportion from both tails before averaging, providing a compromise between the mean and median. The geometric mean is appropriate for positive multiplicative quantities such as growth factors, ratios, and some log-normal measurements." },
+  { type: "formulaGroup", formulas: [
+    { label: "Product form", latex: "G=\\left(\\prod_{i=1}^{n}x_i\\right)^{1/n},\\quad x_i>0", fallback: "G=(x₁×⋯×xₙ)^(1/n)" },
+    { label: "Log form", latex: "G=\\exp\\!\\left(\\frac1n\\sum_{i=1}^{n}\\ln x_i\\right)", fallback: "G=exp[mean(ln x)]" }
+  ] },
+  { type: "paragraph", text: "A logarithm compresses large positive values and may make a right-skewed distribution more symmetric. Ordinary log transformation and the geometric mean are not directly defined when observations include zero or negative values." },
+  { type: "heading", text: "Variability: how different are the observations?" },
+  { type: "formulaGroup", formulas: [
+    { label: "Range", latex: "\\text{Range}=x_{\\max}-x_{\\min}", fallback: "maximum−minimum" },
+    { label: "Interquartile range", latex: "\\operatorname{IQR}=Q_3-Q_1", fallback: "IQR=Q₃−Q₁" }
+  ] },
+  { type: "paragraph", text: "The range uses only the extremes and is sensitive to outliers. The IQR describes the middle 50% of observations and pairs naturally with the median." },
+  { type: "heading", text: "Variance and standard deviation" },
+  { type: "formulaGroup", formulas: [
+    { label: "Population", latex: "\\sigma^2=\\frac1N\\sum_{i=1}^{N}(x_i-\\mu)^2,\\qquad\\sigma=\\sqrt{\\sigma^2}", fallback: "population variance and SD" },
+    { label: "Sample", latex: "s^2=\\frac1{n-1}\\sum_{i=1}^{n}(x_i-\\bar x)^2,\\qquad s=\\sqrt{s^2}", fallback: "sample variance and SD" }
+  ] },
+  { type: "paragraph", text: "Variance averages squared distances from the mean. The standard deviation takes the square root and therefore returns to the original measurement unit. The n−1 denominator in sample variance reflects degrees of freedom and unbiased estimation." },
+  { type: "heading", text: "Coefficient of variation" },
+  { type: "formula", latex: "\\operatorname{CV}=\\frac{s}{\\bar x}\\times100\\%", fallback: "CV=s/x̄×100%" },
+  { type: "paragraph", text: "The CV expresses standard deviation relative to the mean. It is useful for positive ratio-scale measurements with meaningful zeroes, but is unstable or difficult to interpret when the mean is near zero or negative." },
+  { type: "heading", text: "Distribution shape: skewness and kurtosis" },
+  { type: "paragraph", text: "Skewness describes asymmetry. Its sign follows the longer tail: a long left tail gives negative skewness, while a long right tail gives positive skewness." },
+  { type: "formula", latex: "\\gamma_1=E\\!\\left[\\left(\\frac{X-\\mu}{\\sigma}\\right)^3\\right]=\\frac{\\mu_3}{\\sigma^3}", fallback: "standardized third central moment" },
+  { type: "paragraph", text: "The third power preserves direction, allowing the sign to distinguish left from right skew." },
+  { type: "paragraph", text: "Kurtosis is better understood as sensitivity to tail weight and extreme observations than simply as the sharpness of a peak." },
+  { type: "formula", latex: "\\beta_2=E\\!\\left[\\left(\\frac{X-\\mu}{\\sigma}\\right)^4\\right],\\qquad\\gamma_2=\\beta_2-3", fallback: "kurtosis and excess kurtosis" },
+  { type: "paragraph", text: "Normal-distribution kurtosis β₂ is 3 and excess kurtosis γ₂ is 0. Software may report either definition, so always verify the convention." },
+  { type: "heading", text: "A complete descriptive report" },
+  { type: "list", ordered: true, items: ["Identify the data type and measurement scale", "Report counts and proportions for categorical variables", "Report both center and variability for numerical variables", "Inspect plots and outliers before choosing mean/SD or median/IQR", "Use shape statistics and graphs when helpful, without judging a distribution from one number alone"] },
+  { type: "callout", tone: "forward", label: "Connection to inference", text: "Descriptive analysis is not merely the first table in a report. It guides method selection, reveals assumption violations, and provides the context needed to interpret inferential results." },
+];

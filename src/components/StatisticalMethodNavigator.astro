@@ -1,5 +1,6 @@
 ---
 import { navigatorCopy, navigatorPanels } from "../data/statistical-method-navigator";
+import { articlePath } from "../data/article-relations";
 import type { Locale } from "../lib/site";
 
 interface Props {
@@ -65,7 +66,7 @@ const copy = navigatorCopy;
                   <p>{branch.condition[locale]}</p>
                   <div class="method-links">
                     {branch.methods.map(method => (
-                      <a href={method.href} lang="en">
+                      <a href={articlePath(method.key, locale)} lang="en">
                         <span>{method.label}</span>
                         <b aria-hidden="true">↗</b>
                       </a>

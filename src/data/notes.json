@@ -1123,12 +1123,6 @@
               "text": "："
             },
             {
-              "fallback": "",
-              "type": "inlineFormula",
-              "latex": "",
-              "conversionFailed": true
-            },
-            {
               "type": "text",
               "text": " "
             },
@@ -16986,6 +16980,6 @@
   "generatedAt": "2026-07-26",
   "formulas": {
     "converted": 799,
-    "failed": 1
+    "failed": 0
   }
 }

@@ -1,0 +1,35 @@
+---
+import { localizedSectionsForChapter } from "../lib/localized-content";
+import { articlePath, articleRelations, type ArticleKey } from "../data/article-relations";
+import type { Locale } from "../lib/site";
+
+interface Props { currentKey: ArticleKey; locale?: Locale; }
+const { currentKey, locale = "zh-Hant" } = Astro.props;
+const relation = articleRelations[currentKey];
+const copy = {
+  "zh-Hant": { title: "延伸閱讀", prerequisite: "閱讀前建議先了解", next: "接著閱讀", related: "相關或替代方法", action: "前往閱讀" },
+  en: { title: "Further Reading", prerequisite: "Recommended Prerequisites", next: "Read Next", related: "Related or Alternative Methods", action: "Read article" },
+  ja: { title: "関連学習", prerequisite: "先に読んでおきたい記事", next: "次に読む", related: "関連・代替手法", action: "記事を読む" },
+}[locale];
+const groups = relation ? [
+  { label: copy.prerequisite, keys: relation.prerequisites ?? [] },
+  { label: copy.next, keys: relation.next ?? [] },
+  { label: copy.related, keys: relation.related ?? [] },
+].map(group => ({
+  ...group,
+  items: group.keys.flatMap(key => {
+    const [chapterId, slug] = key.split("/");
+    const topic = localizedSectionsForChapter(locale, chapterId).find(item => item.slug === slug);
+    return topic ? [{ key, topic }] : [];
+  }),
+})).filter(group => group.items.length > 0) : [];
+---
+{groups.length > 0 && <aside class="related-reading" aria-labelledby="related-reading-title">
+  <header><p class="eyebrow">LEARNING CONNECTIONS</p><h2 id="related-reading-title">{copy.title}</h2></header>
+  <div class="related-reading__groups">
+    {groups.map(group => <section>
+      <h3>{group.label}</h3>
+      <div>{group.items.map(({ key, topic }) => <a href={articlePath(key, locale)}><small>CHAPTER {topic.chapterId}</small><strong>{topic.title}</strong><span>{copy.action} →</span></a>)}</div>
+    </section>)}
+  </div>
+</aside>}

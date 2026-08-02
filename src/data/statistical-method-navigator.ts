@@ -1,10 +1,11 @@
 import type { Locale } from "../lib/site";
+import type { ArticleKey } from "./article-relations";
 
 type LocalizedText = Record<Locale, string>;
 
 export type MethodLink = {
   label: string;
-  href: string;
+  key: ArticleKey;
 };
 
 export type DecisionBranch = {
@@ -29,8 +30,6 @@ const text = (zh: string, en: string, ja: string): LocalizedText => ({
   en,
   ja,
 });
-
-const article = (chapter: string, slug: string) => `/zh-Hant/chapter/${chapter}/${slug}/`;
 
 export const navigatorCopy = {
   eyebrow: "METHOD NAVIGATOR",
@@ -63,15 +62,15 @@ export const navigatorPanels: NavigatorPanel[] = [
         branches: [
           {
             condition: text("母體標準差已知；或在適當條件下使用常態近似", "Population SD known, or a justified normal approximation", "母標準偏差が既知、または妥当な正規近似を使用"),
-            methods: [{ label: "Z test", href: article("04", "z-test") }],
+            methods: [{ label: "Z test", key: "04/z-test" }],
           },
           {
             condition: text("母體標準差未知，並以樣本標準差估計", "Population SD unknown and estimated from the sample", "母標準偏差が未知で、標本から推定"),
-            methods: [{ label: "One-sample t-test", href: article("04", "one-sample-t-test") }],
+            methods: [{ label: "One-sample t-test", key: "04/one-sample-t-test" }],
           },
           {
             condition: text("次序資料，或希望以符號／等級分析位置", "Ordinal data, or a location analysis based on signs or ranks", "順序データ、または符号・順位に基づく位置の分析"),
-            methods: [{ label: "Sign test / Wilcoxon signed-rank", href: article("08", "wilcoxon-tests") }],
+            methods: [{ label: "Sign test / Wilcoxon signed-rank", key: "08/wilcoxon-tests" }],
           },
         ],
       },
@@ -80,11 +79,11 @@ export const navigatorPanels: NavigatorPanel[] = [
         branches: [
           {
             condition: text("二元結果；檢定成功機率是否等於指定值", "Binary outcome; test whether the event probability equals a specified value", "二値結果で、事象確率が指定値に等しいかを検定"),
-            methods: [{ label: "Binomial test", href: article("05", "binomial-test") }],
+            methods: [{ label: "Binomial test", key: "05/binomial-test" }],
           },
           {
             condition: text("三個以上類別；觀察次數與指定比例比較", "Three or more categories; observed counts versus specified proportions", "3カテゴリ以上で、観測度数と指定比率を比較"),
-            methods: [{ label: "Chi-square goodness-of-fit test", href: article("05", "chi-square-goodness-of-fit") }],
+            methods: [{ label: "Chi-square goodness-of-fit test", key: "05/chi-square-goodness-of-fit" }],
           },
         ],
       },
@@ -101,16 +100,16 @@ export const navigatorPanels: NavigatorPanel[] = [
           {
             condition: text("同一受試者前後測量或成對配對；分析差值", "Repeated or matched observations; analyze within-pair differences", "同一対象の反復測定またはマッチドペア；差を分析"),
             methods: [
-              { label: "Paired t-test", href: article("04", "paired-t-test") },
-              { label: "Wilcoxon signed-rank / Sign test", href: article("08", "wilcoxon-tests") },
+              { label: "Paired t-test", key: "04/paired-t-test" },
+              { label: "Wilcoxon signed-rank / Sign test", key: "08/wilcoxon-tests" },
             ],
           },
           {
             condition: text("兩組受試者彼此獨立；比較平均數或分布位置", "Independent participants; compare means or distributional locations", "独立した2群で、平均値または分布の位置を比較"),
             methods: [
-              { label: "Independent-samples t-test", href: article("04", "independent-t-test") },
-              { label: "Mann–Whitney U / Wilcoxon rank-sum", href: article("08", "wilcoxon-tests") },
-              { label: "Median test", href: article("08", "median-test") },
+              { label: "Independent-samples t-test", key: "04/independent-t-test" },
+              { label: "Mann–Whitney U / Wilcoxon rank-sum", key: "08/wilcoxon-tests" },
+              { label: "Median test", key: "08/median-test" },
             ],
           },
         ],
@@ -121,18 +120,18 @@ export const navigatorPanels: NavigatorPanel[] = [
           {
             condition: text("不同受試者、觀察值獨立；檢定兩個類別變量是否獨立", "Independent observations; test whether the categorical variables are independent", "独立観測で、2つのカテゴリ変数の独立性を検定"),
             methods: [
-              { label: "Chi-square test of independence", href: article("05", "chi-square-independence") },
-              { label: "Fisher's exact test (sparse expected counts)", href: article("05", "fishers-exact-test") },
-              { label: "Yates correction (2 × 2 option)", href: article("05", "yates-correction") },
+              { label: "Chi-square test of independence", key: "05/chi-square-independence" },
+              { label: "Fisher's exact test (sparse expected counts)", key: "05/fishers-exact-test" },
+              { label: "Yates correction (2 × 2 option)", key: "05/yates-correction" },
             ],
           },
           {
             condition: text("同一受試者前後測量或配對的二元結果", "Paired binary outcomes or before-and-after measurements", "対応のある二値結果または前後測定"),
-            methods: [{ label: "McNemar's test", href: article("05", "mcnemars-test") }],
+            methods: [{ label: "McNemar's test", key: "05/mcnemars-test" }],
           },
           {
             condition: text("病例對照研究估計勝算比；世代研究估計相對風險", "Estimate an odds ratio in case-control data or relative risk in cohort data", "症例対照研究のオッズ比、コホート研究の相対リスクを推定"),
-            methods: [{ label: "2 × 2 contingency table", href: article("05", "contingency-table") }],
+            methods: [{ label: "2 × 2 contingency table", key: "05/contingency-table" }],
           },
         ],
       },
@@ -142,18 +141,18 @@ export const navigatorPanels: NavigatorPanel[] = [
           {
             condition: text("線性關係；描述相關或以 X 解釋 Y", "Linear relationship; describe correlation or explain Y with X", "線形関係で、相関を記述またはXでYを説明"),
             methods: [
-              { label: "Pearson correlation", href: article("07", "pearson-correlation") },
-              { label: "Simple linear regression", href: article("07", "simple-linear-regression") },
-              { label: "Coefficient of determination R²", href: article("07", "r-squared") },
+              { label: "Pearson correlation", key: "07/pearson-correlation" },
+              { label: "Simple linear regression", key: "07/simple-linear-regression" },
+              { label: "Coefficient of determination R²", key: "07/r-squared" },
             ],
           },
           {
             condition: text("單調但未必線性，或以等級處理次序資料與離群值", "Monotonic but not necessarily linear, or rank-based analysis", "単調だが必ずしも線形でない、または順位に基づく分析"),
-            methods: [{ label: "Spearman rank correlation", href: article("07", "spearman-correlation") }],
+            methods: [{ label: "Spearman rank correlation", key: "07/spearman-correlation" }],
           },
           {
             condition: text("檢定相關係數，或比較兩個獨立樣本的相關係數", "Test a correlation or compare correlations from independent samples", "相関係数の検定、または独立2標本の相関係数を比較"),
-            methods: [{ label: "Fisher Z transformation", href: article("07", "fisher-z-transformation") }],
+            methods: [{ label: "Fisher Z transformation", key: "07/fisher-z-transformation" }],
           },
         ],
       },
@@ -162,7 +161,7 @@ export const navigatorPanels: NavigatorPanel[] = [
         branches: [
           {
             condition: text("包含設限資料；比較兩組完整存活曲線", "Censored observations are present; compare the full survival curves", "打ち切りを含み、2群の生存曲線全体を比較"),
-            methods: [{ label: "Kaplan–Meier curves / Log-rank test", href: article("09", "comparing-survival-curves") }],
+            methods: [{ label: "Kaplan–Meier curves / Log-rank test", key: "09/comparing-survival-curves" }],
           },
         ],
       },
@@ -179,17 +178,17 @@ export const navigatorPanels: NavigatorPanel[] = [
           {
             condition: text("比較組平均數，且組內變異數可視為相同", "Compare group means with a common within-group variance", "群平均を比較し、群内分散を共通とみなせる"),
             methods: [
-              { label: "One-way ANOVA", href: article("06", "one-way-anova") },
-              { label: "Post-hoc comparisons", href: article("06", "post-hoc-comparisons") },
+              { label: "One-way ANOVA", key: "06/one-way-anova" },
+              { label: "Post-hoc comparisons", key: "06/post-hoc-comparisons" },
             ],
           },
           {
             condition: text("比較組平均數，但組間變異數不同", "Compare group means when variances differ", "群間で分散が異なる場合の平均比較"),
-            methods: [{ label: "Welch ANOVA", href: article("06", "welch-anova") }],
+            methods: [{ label: "Welch ANOVA", key: "06/welch-anova" }],
           },
           {
             condition: text("以等級檢定多組分布；次序資料或母數模型不合適", "Rank-based comparison when ordinal data or a parametric model is unsuitable", "順序データ、または母数モデルが不適切な場合の順位比較"),
-            methods: [{ label: "Kruskal–Wallis test", href: article("08", "kruskal-wallis-test") }],
+            methods: [{ label: "Kruskal–Wallis test", key: "08/kruskal-wallis-test" }],
           },
         ],
       },
@@ -198,11 +197,11 @@ export const navigatorPanels: NavigatorPanel[] = [
         branches: [
           {
             condition: text("一個連續結果，同時檢查兩個類別因子與交互作用", "One numerical outcome with two categorical factors and their interaction", "1つの連続結果に対し、2因子と交互作用を検討"),
-            methods: [{ label: "Two-way ANOVA", href: article("06", "two-way-anova-manova") }],
+            methods: [{ label: "Two-way ANOVA", key: "06/two-way-anova-manova" }],
           },
           {
             condition: text("同時分析多個彼此相關的連續結果變量", "Analyze several correlated numerical outcomes jointly", "相関する複数の連続結果を同時に分析"),
-            methods: [{ label: "MANOVA", href: article("06", "two-way-anova-manova") }],
+            methods: [{ label: "MANOVA", key: "06/two-way-anova-manova" }],
           },
         ],
       },
@@ -211,7 +210,7 @@ export const navigatorPanels: NavigatorPanel[] = [
         branches: [
           {
             condition: text("連續結果；估計各變量在控制其他變量後的迴歸係數", "Numerical outcome; estimate each coefficient while adjusting for other predictors", "連続結果で、他の説明変数を調整した各回帰係数を推定"),
-            methods: [{ label: "Multiple linear regression", href: article("07", "multiple-regression") }],
+            methods: [{ label: "Multiple linear regression", key: "07/multiple-regression" }],
           },
         ],
       },

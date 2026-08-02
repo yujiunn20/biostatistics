@@ -85,7 +85,7 @@ export const fDistribution = [
   { type: "callout", tone: "forward", label: "為什麼同一份資料會同時看到 t 與 F？", text: "只有一個效果、分子自由度為 1 時，兩者滿足 F=t²，會得到相同的雙尾 p 值。比較多組或同時檢定多個參數時，F 適合先做整體判斷；若要知道差異的方向與發生在哪些組別，仍需要 t 統計量、對比或事後比較。" },
   { type: "heading", text: "F 分配常用在哪裡？" },
   { type: "list", items: ["比較兩個母體變異數", "ANOVA 中比較組間變異與組內變異", "檢定迴歸模型整體是否具有解釋力", "比較巢狀模型增加參數後是否顯著改善配適", "建立部分變異數相關的信賴區間或檢定"] },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "第六章的 ANOVA 會把組間均方放在分子、組內均方放在分母形成 F 統計量；第七章的迴歸分析也會利用相同的變異分解與比值概念。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "第六章的 ANOVA 會把組間均方放在分子、組內均方放在分母形成 F 統計量；第七章的迴歸分析也會利用相同的變異分解與比值概念。", related: ["06/one-way-anova", "07/simple-linear-regression"] },
 ];
 
 

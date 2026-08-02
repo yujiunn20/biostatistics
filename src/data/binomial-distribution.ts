@@ -107,7 +107,7 @@ export const binomialDistribution = [
   { type: "formula", latex: "P(X\\le k)\\approx P(Y\\le k+0.5),\\qquad Y\\sim N\\!\\left(np,np(1-p)\\right)", fallback: "P(X≤k) 約等於 P(Y≤k+0.5)" },
   { type: "heading", text: "和其他分配的關係" },
   { type: "list", items: ["伯努利分配：n=1 的二項分配就是一次成功／失敗試驗", "多項分配：當每次試驗不只兩種結果時，可視為二項分配向多類別的推廣", "卜瓦松分配：n 很大、p 很小且 np 保持適中時，可用參數 λ=np 的卜瓦松分配近似", "常態分配：np 與 n(1-p) 足夠大時，可用平均數 np、變異數 np(1-p) 的常態分配近似"] },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配會成為二項檢定、兩比例比較及部分 2×2 表方法的基礎；常態近似與連續性校正則會在大樣本檢定中再次出現。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配會成為二項檢定、兩比例比較及部分 2×2 表方法的基礎；常態近似與連續性校正則會在大樣本檢定中再次出現。", related: ["05/binomial-test", "05/contingency-table", "05/yates-correction"] },
 ];
 
 

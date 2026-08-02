@@ -55,7 +55,12 @@ function Get-RichParts($node, $ns, $transform) {
     if ($item.NamespaceURI -eq 'http://schemas.openxmlformats.org/wordprocessingml/2006/main') {
       if ($item.InnerText) { $parts += @{ type = 'text'; text = $item.InnerText } }
     } else {
-      $parts += @{ type = 'inlineFormula'; mathml = (Convert-OmmlToMathMl $item $transform); fallback = (Get-NodeText $item $ns) }
+      $fallback = Get-NodeText $item $ns
+      # Word occasionally leaves an empty OMML object next to a real formula.
+      # It has no visible content and should not be counted as a failed formula.
+      if ($fallback) {
+        $parts += @{ type = 'inlineFormula'; mathml = (Convert-OmmlToMathMl $item $transform); fallback = $fallback }
+      }
     }
   }
   return $parts

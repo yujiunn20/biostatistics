@@ -155,7 +155,7 @@ export const sampling = [
     { type: "callout", tone: "intuition", label: "母體變異數的分母慣例", text: "若把有限母體變異數定義成 S²=Σ(xᵢ−μ)²/(N−1)，則 E(s²)=S² 是精確結果；若把它定義成 σ²=Σ(xᵢ−μ)²/N，便會多出 N/(N−1) 的有限母體差異。你原本推導中的 (N−1)/N 正是在處理這件事，不應被省略。" },
     { type: "paragraph", text: "所以正文中的根號公式是樣本標準差 s；而推估母體變異數的核心是先證明樣本變異數 s²在相應定義下具有不偏性。" }
   ] },
-  { type: "callout", tone: "forward", label: "和自由度頁的連結", text: "這裡的 n−1 不是額外規定，而是估計 X̄ 後產生一個線性限制。前面自由度頁提到的『限制後仍能獨立變動的資訊量』，在樣本變異數中正式出現。" },
+  { type: "callout", tone: "forward", label: "和自由度頁的連結", text: "這裡的 n−1 不是額外規定，而是估計 X̄ 後產生一個線性限制。前面自由度頁提到的『限制後仍能獨立變動的資訊量』，在樣本變異數中正式出現。", related: ["02/degrees-of-freedom"] },
   { type: "heading", text: "樣本數如何影響標準誤？" },
   { type: "paragraph", text: "標準誤和 √n 成反比，因此增加樣本數會讓樣本平均數的抽樣分配更集中，但改善並非線性。若希望把標準誤減半，樣本數必須增加為原來的四倍。" },
   { type: "formula", latex: "\\operatorname{SE}(\\bar X)\\propto\\frac{1}{\\sqrt n}", fallback: "SE(X̄) 與 1/√n 成正比" },

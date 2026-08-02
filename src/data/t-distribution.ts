@@ -53,7 +53,7 @@ export const tDistribution = [
     ] },
     { type: "paragraph", text: "在 t 分配的密度函數中，Gamma 函數主要出現在前方的常數係數，用來依自由度調整曲線，並確保整條密度曲線下的總面積等於 1。理解 t 分配時不必手動計算 Gamma 函數，但知道它的角色，就不會把 Γ 當成沒有意義的裝飾符號。" }
   ] },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "第四章會把這裡的分配概念放進實際檢定流程，分別介紹單一樣本 t 檢定、配對 t 檢定與兩獨立樣本 t 檢定。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "第四章會把這裡的分配概念放進實際檢定流程，分別介紹單一樣本 t 檢定、配對 t 檢定與兩獨立樣本 t 檢定。", related: ["04/one-sample-t-test", "04/paired-t-test", "04/independent-t-test"] },
 ];
 
 

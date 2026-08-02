@@ -25,7 +25,7 @@ const binomialDerivation = [
   ] },
   { type: "table", rows: [["變異數推導的符號", "代表意義"], ["Var(X)", "X 的變異數"], ["σ²", "二項分配的母體變異數"], ["E(X²)", "X 平方後的期望值"], ["E[X(X−1)]", "X 的二階階乘動差；方便利用二項係數整理"], ["1−p", "每一次試驗失敗的機率"], ["n(n−1)", "依序選出兩次不同試驗的方式數"]] },
   { type: "callout", tone: "intuition", label: "結果如何判讀？", text: "當 p 接近 0 或 1 時，結果多半集中在相近的成功次數，變異較小；p 接近 0.5 時，單次試驗的不確定性較大，因此成功總次數通常也較分散。" },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配的平均數 np 與變異數 np(1−p)，會在二項分布檢定、比例的標準誤，以及用常態分布近似二項分布時再次出現。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "二項分配的平均數 np 與變異數 np(1−p)，會在二項分布檢定、比例的標準誤，以及用常態分布近似二項分布時再次出現。", related: ["05/binomial-test", "05/yates-correction"] },
 ];
 
 type SymbolRow = [string, string];

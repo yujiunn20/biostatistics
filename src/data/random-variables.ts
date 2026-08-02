@@ -15,7 +15,7 @@ export const randomVariables = [
   { type: "callout", tone: "intuition", label: "不要混在一起", text: "正正、正反等是試驗結果；X 是把結果轉成數值的規則；實際得到的 0、1 或 2，則是 X 的一個實現值。" },
   { type: "heading", text: "統計量也可能是隨機變數" },
   { type: "paragraph", text: "樣本平均數以及 t、χ²、F 等統計量，都是由樣本資料計算而來。在抽樣之前，樣本尚未確定，這些統計量也會隨抽到的樣本而改變，因此可以視為隨機變數。" },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "重複抽樣後，t、χ² 與 F 統計量會形成各自的機率分配。後續統計檢定會先把資料轉換成檢定統計量，再利用其分配計算 p 值。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "重複抽樣後，t、χ² 與 F 統計量會形成各自的機率分配。後續統計檢定會先把資料轉換成檢定統計量，再利用其分配計算 p 值。", related: ["02/t-distribution", "02/chi-square-distribution", "02/f-distribution", "03/hypothesis-testing"] },
   { type: "heading", text: "離散型與連續型隨機變數" },
   { type: "paragraph", text: "依照可能值能否逐一列出，隨機變數可以分成離散型與連續型。這個差異也決定我們要用哪一種函數描述機率。" },
   { type: "table", rows: [["類型", "特性", "例子", "描述方式"], ["離散型", "可能值可以逐一列出", "成功次數、病例數、住院次數", "機率質量函數（PMF）"], ["連續型", "在範圍內可以取任意精細的數值", "身高、體重、血壓、存活時間", "機率密度函數（PDF）"]] },

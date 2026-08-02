@@ -118,6 +118,7 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
         tone: "forward",
         label: "後面會再次用到",
         text: "抽樣造成的變動，會在後續以抽樣分配、標準誤、信賴區間與 p 值等概念呈現。這也是為什麼抽樣是後續統計方法的重要基礎。",
+        related: ["03/sampling", "03/hypothesis-testing"],
       },
       {
         type: "heading",
@@ -187,7 +188,7 @@ export const editorialSections: Record<string, Record<string, any[]>> = {
       { type: "callout", tone: "intuition", label: "區間尺度與比例尺度的差別", text: "攝氏零度不代表完全沒有溫度，因此不能說 20°C 是 10°C 的兩倍熱；體重零公斤則代表沒有重量，所以 80 公斤可以說是 40 公斤的兩倍。" },
       { type: "heading", text: "為什麼資料型態很重要？" },
       { type: "paragraph", text: "資料型態會影響我們如何呈現資料、選擇代表性的統計量，以及使用哪一種統計方法。例如，類別資料常以次數與比例摘要；連續型資料則可能使用平均數、標準差、中位數或四分位距。" },
-      { type: "callout", tone: "forward", label: "後面會再次用到", text: "後續選擇 t 檢定、卡方檢定、ANOVA 或無母數方法時，都要先判斷依變數與分組變數的資料型態，並進一步考慮資料分布及樣本之間是否獨立。" },
+      { type: "callout", tone: "forward", label: "後面會再次用到", text: "後續選擇 t 檢定、卡方檢定、ANOVA 或無母數方法時，都要先判斷依變數與分組變數的資料型態，並進一步考慮資料分布及樣本之間是否獨立。", related: ["08/statistical-test-selection", "04/t-test", "05/chi-square-independence", "06/one-way-anova"] },
     ],
     "descriptive-statistics": descriptiveStatistics,
   },

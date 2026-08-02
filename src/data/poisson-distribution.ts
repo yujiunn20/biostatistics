@@ -71,5 +71,5 @@ export const poissonDistribution = [
   { type: "heading", text: "獨立 Poisson 次數可以相加" },
   { type: "paragraph", text: "若不同來源的事件次數彼此獨立，總事件數仍服從 Poisson 分配，參數等於各來源參數相加。這讓不同時間區段、地區或事件來源的計數可以自然合併。" },
   { type: "formula", latex: "X_i\\sim\\operatorname{Poisson}(\\lambda_i)\\text{ independently}\\quad\\Longrightarrow\\quad\\sum_{i=1}^{m}X_i\\sim\\operatorname{Poisson}\\!\\left(\\sum_{i=1}^{m}\\lambda_i\\right)", fallback: "獨立 Poisson 變數相加後，參數也相加" },
-  { type: "callout", tone: "forward", label: "後面會再次用到", text: "Poisson 分配會用在事件率、發生次數及列聯表的模型中；它與指數等待時間、二項稀有事件近似及 Poisson 迴歸也具有直接關係。" },
+  { type: "callout", tone: "forward", label: "後面會再次用到", text: "Poisson 分配會用在事件率、發生次數及列聯表的模型中；它與指數等待時間、二項稀有事件近似及 Poisson 迴歸也具有直接關係。", related: ["02/binomial-distribution", "02/exponential-distribution"] },
 ];

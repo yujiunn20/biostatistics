@@ -2,17 +2,25 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { getFigure, type FigureDefinition } from "../data/figures";
+import { localizedSectionsForChapter } from "../lib/localized-content";
+import type { ArticleKey } from "../data/article-relations";
+import type { Locale } from "../lib/site";
 import Formula from "./Formula.astro";
 import RichText from "./RichText.astro";
 interface RichPart { type: "text" | "inlineFormula"; text?: string; latex?: string; fallback?: string }
 interface TableCell { text?: string; parts?: RichPart[] }
 interface FormulaItem { label?: string; latex: string; fallback?: string }
-interface Props { block: { type: string; text?: string; label?: string; tone?: string; ordered?: boolean; items?: string[]; latex?: string; fallback?: string; formulas?: FormulaItem[]; parts?: RichPart[]; rows?: (string | TableCell)[][]; children?: Props["block"][]; imageId?: string; src?: string; alt?: string; caption?: string; credit?: string; sourceUrl?: string; license?: string; width?: number; height?: number } }
-const { block } = Astro.props;
+interface Props { block: { type: string; text?: string; label?: string; tone?: string; ordered?: boolean; items?: string[]; latex?: string; fallback?: string; formulas?: FormulaItem[]; parts?: RichPart[]; rows?: (string | TableCell)[][]; children?: Props["block"][]; related?: ArticleKey[]; imageId?: string; src?: string; alt?: string; caption?: string; credit?: string; sourceUrl?: string; license?: string; width?: number; height?: number }; headingId?: string; locale?: Locale }
+const { block, headingId, locale = "zh-Hant" } = Astro.props;
 const ListTag = block.ordered ? "ol" : "ul";
+const relatedTopics = (block.related ?? []).flatMap(key => {
+  const [chapterId, slug] = key.split("/");
+  const topic = localizedSectionsForChapter(locale, chapterId).find(item => item.slug === slug);
+  return topic ? [{ key, topic }] : [];
+});
 let figure: FigureDefinition | undefined;
 if (block.type === "image") {
-  figure = block.imageId ? getFigure(block.imageId) : block.src ? {
+  figure = block.imageId ? getFigure(block.imageId, locale) : block.src ? {
     src: block.src,
     alt: block.alt ?? "",
     caption: block.caption,
@@ -28,15 +36,15 @@ if (block.type === "image") {
   }
 }
 ---
-{block.type === "heading" && <h2>{block.parts ? <RichText parts={block.parts} /> : block.text}</h2>}
+{block.type === "heading" && <h2 id={headingId}>{block.parts ? <RichText parts={block.parts} /> : block.text}{headingId && <a class="heading-anchor" href={`#${headingId}`} aria-label={locale === "ja" ? `「${block.text ?? "この節"}」へのリンク` : locale === "en" ? `Link to “${block.text ?? "this section"}”` : `連結到「${block.text ?? "本節"}」`}>#</a>}</h2>}
 {block.type === "paragraph" && <p>{block.text}</p>}
 {block.type === "richText" && block.parts && <p><RichText parts={block.parts} /></p>}
 {block.type === "list" && block.items && <ListTag class="article-list">{block.items.map(item => <li>{item}</li>)}</ListTag>}
-{block.type === "callout" && <aside class:list={["article-callout", block.tone]}><strong>{block.label}</strong><p>{block.text}</p></aside>}
-{block.type === "details" && block.children && <details class="article-details"><summary>{block.label}</summary><div class="article-details__content">{block.children.map(child => <Astro.self block={child} />)}</div></details>}
+{block.type === "callout" && <aside class:list={["article-callout", block.tone]}><strong>{block.label}</strong><p>{block.text}</p>{relatedTopics.length > 0 && <nav class="callout-links" aria-label={locale === "ja" ? "関連記事" : locale === "en" ? "Related articles" : "相關文章"}>{relatedTopics.map(({ key, topic }) => <a href={`/${locale}/chapter/${key}/`}>{topic.title}<span>→</span></a>)}</nav>}</aside>}
+{block.type === "details" && block.children && <details class="article-details"><summary>{block.label}</summary><div class="article-details__content">{block.children.map(child => <Astro.self block={child} locale={locale} />)}</div></details>}
 {block.type === "formula" && block.latex && <div class="formula-block"><Formula latex={block.latex} fallback={block.fallback} display /></div>}
 {block.type === "formulaGroup" && block.formulas && <div class="formula-block formula-group">{block.formulas.map(item => <div class="formula-group__item">{item.label && <strong>{item.label}</strong>}<Formula latex={item.latex} fallback={item.fallback} display /></div>)}</div>}
 {block.type === "table" && block.rows && <div class="tablewrap"><table><tbody>{block.rows.map(row => <tr>{row.map(cell => <td>{typeof cell === "string" ? cell : cell.parts ? <RichText parts={cell.parts} /> : cell.text}</td>)}</tr>)}</tbody></table></div>}
-{block.type === "image" && figure && <figure class="article-figure"><img src={figure.src} alt={figure.alt} width={figure.width} height={figure.height} loading="lazy" decoding="async" />{(figure.caption || figure.credit) && <figcaption><span>{figure.caption}</span>{figure.credit && <small>{figure.sourceUrl ? <a href={figure.sourceUrl} target="_blank" rel="noopener noreferrer">來源：{figure.credit}</a> : `來源：${figure.credit}`}{figure.license && ` · ${figure.license}`}</small>}</figcaption>}</figure>}
+{block.type === "image" && figure && <figure class="article-figure"><img src={figure.src} alt={figure.alt} width={figure.width} height={figure.height} loading="lazy" decoding="async" />{(figure.caption || figure.credit) && <figcaption><span>{figure.caption}</span>{figure.credit && <small>{figure.sourceUrl ? <a href={figure.sourceUrl} target="_blank" rel="noopener noreferrer">{locale === "ja" ? "出典：" : locale === "en" ? "Source: " : "來源："}{figure.credit}</a> : `${locale === "ja" ? "出典：" : locale === "en" ? "Source: " : "來源："}${figure.credit}`}{figure.license && ` · ${figure.license}`}</small>}</figcaption>}</figure>}
 
 

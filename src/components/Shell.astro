@@ -1,9 +1,35 @@
 ---
 import { chapters, chapterTitle, localeLabels, locales, ui, type Locale } from "../lib/site";
-interface Props { locale: Locale; activeId?: string; }
-const { locale, activeId = "" } = Astro.props;
+import { hasLocalizedTopic } from "../lib/localized-content";
+interface Props { locale: Locale; activeId?: string; sectionSlug?: string; }
+const { locale, activeId = "", sectionSlug = "" } = Astro.props;
 const t = ui[locale];
-const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/${activeId}/` : `/${nextLocale}/`;
+const languagePath = (nextLocale: Locale) => {
+  if (activeId && sectionSlug && hasLocalizedTopic(nextLocale, activeId, sectionSlug)) {
+    return `/${nextLocale}/chapter/${activeId}/${sectionSlug}/`;
+  }
+  return activeId ? `/${nextLocale}/chapter/${activeId}/` : `/${nextLocale}/`;
+};
+const footerCopy = {
+  "zh-Hant": {
+    label: "作者與聯絡",
+    contact: "如果對內容有疑問、發現錯誤或有修正建議，歡迎透過電子郵件聯絡；作者將視情況回覆並持續校訂內容。",
+    disclaimer: "本網站為個人學習筆記，內容僅供學習參考；研究與臨床決策仍應查閱正式教材及原始文獻。",
+    website: "個人網站",
+  },
+  en: {
+    label: "Author & Contact",
+    contact: "Questions, corrections, and suggestions are welcome by email. The author will review messages and revise the notes when appropriate.",
+    disclaimer: "These personal study notes are for educational reference only. Consult formal textbooks and original literature for research or clinical decisions.",
+    website: "Personal site",
+  },
+  ja: {
+    label: "著者・お問い合わせ",
+    contact: "内容に関する質問、誤りの指摘、修正の提案は、メールでお知らせください。内容を確認し、必要に応じて回答・改訂します。",
+    disclaimer: "本サイトは個人の学習ノートであり、学習上の参考情報です。研究や臨床上の判断には、正式な教科書と原著論文を確認してください。",
+    website: "個人サイト",
+  },
+}[locale];
 ---
 <header class="topbar">
   <button class="hamb" type="button" aria-label="Menu">☰</button>
@@ -22,11 +48,27 @@ const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/
 <aside class="sidebar">
   <div class="mobile-head"><strong>{t.chapters}</strong><button class="menu-close" type="button">×</button></div>
   <p class="side-label">{t.chapters}</p>
-  <nav>{chapters.map(chapter => <a class={activeId === chapter.id ? "active" : ""} href={`/${locale}/chapter/${chapter.id}/`}><i>{chapter.id}</i><span>{chapterTitle(chapter, locale)}</span></a>)}</nav>
+  <nav>{chapters.map(chapter => <a class:list={[{ active: activeId === chapter.id, conclusion: chapter.id === "10" }]} href={`/${locale}/chapter/${chapter.id}/`}>{chapter.id !== "10" && <i>{chapter.id}</i>}<span>{chapterTitle(chapter, locale)}</span></a>)}</nav>
   <footer><b>9</b><span>{locale === "zh-Hant" ? "個核心主題" : locale === "en" ? "core topics" : "主要テーマ"}</span></footer>
 </aside>
 <button class="scrim" type="button" aria-label="Close"></button>
 <main><slot /></main>
+<footer class="site-footer">
+  <div>
+    <section>
+      <p class="eyebrow">{footerCopy.label}</p>
+      <p>{footerCopy.contact}</p>
+      <div class="site-footer__links">
+        <a href="mailto:yj.apps.devs@gmail.com?subject=%E7%94%9F%E7%89%A9%E7%B5%B1%E8%A8%88%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98%EF%BC%8D%E5%85%A7%E5%AE%B9%E5%95%8F%E9%A1%8C">yj.apps.devs@gmail.com</a>
+        <a href="https://yuchunlab.com" target="_blank" rel="noopener noreferrer">{footerCopy.website}：yuchunlab.com ↗</a>
+      </div>
+    </section>
+    <section class="site-footer__legal">
+      <p>{footerCopy.disclaimer}</p>
+      <small>© 2026 CHANG YU-CHUN. All rights reserved.</small>
+    </section>
+  </div>
+</footer>
 <div class="backdrop" hidden>
   <section class="searchbox" role="dialog" aria-modal="true">
     <div><b>⌕</b><input type="search" placeholder={t.placeholder} /><button class="search-close" type="button">×</button></div>
@@ -61,8 +103,8 @@ const languagePath = (nextLocale: Locale) => activeId ? `/${nextLocale}/chapter/
   input.addEventListener('input', async () => {
     const query = input.value.trim().toLocaleLowerCase(); results.innerHTML = ''; if (!query) return;
     indexData ||= await fetch('/search-index.json').then(response => response.json());
-    indexData.filter(item => item.text.toLocaleLowerCase().includes(query)).slice(0,18).forEach(item => {
-      const link = document.createElement('a'); link.href = `/${locale}/chapter/${item.id}/${item.slug}/`;
+    indexData.filter(item => item.locale === locale && item.text.toLocaleLowerCase().includes(query)).slice(0,18).forEach(item => {
+      const link = document.createElement('a'); link.href = `/${item.locale}/chapter/${item.id}/${item.slug}/`;
       const strong = document.createElement('b'); strong.textContent = `${item.id} · ${item.chapter} · ${item.title}`;
       const span = document.createElement('span'); span.textContent = item.text;
       link.append(strong, span); results.append(link);

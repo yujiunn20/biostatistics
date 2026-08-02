@@ -26,7 +26,7 @@ export const wilcoxonTests = [
   { type: "heading", text: "Sign test 如何計算 p 值？" },
   { type: "paragraph", text: "依本單元採用的傳統計算界線，有效樣本數 n<20 時，直接使用 Binomial(n,1/2) 計算精確 p 值。若 n=10、觀察到 C=8，雙尾 p 值把與 8 同樣或更偏離 n/2=5 的兩側結果都算入：" },
   { type: "formula", latex: "p=2P(C\\ge8)=2\\sum_{k=8}^{10}\\binom{10}{k}\\left(\\frac12\\right)^{10}", fallback: "p=2P(C≥8)=2Σ(k=8到10) C(10,k)(1/2)¹⁰" },
-  { type: "callout", tone: "forward", label: "和前面二項分配的公式直接相接", text: "前面二項分配章節的 P(C=c)=C(n,c)pᶜ(1−p)ⁿ⁻ᶜ，在這裡令 p=1/2，就得到 P(C=c)=C(n,c)(1/2)ⁿ。n<20 時直接把觀察值以外同樣或更極端的機率加總；n 較大時，才利用二項分配接近常態分配的結果計算 Z。20 是本單元沿用的經驗界線，實際近似品質仍由二項分配兩端的期望次數決定。" },
+  { type: "callout", tone: "forward", label: "和前面二項分配的公式直接相接", text: "前面二項分配章節的 P(C=c)=C(n,c)pᶜ(1−p)ⁿ⁻ᶜ，在這裡令 p=1/2，就得到 P(C=c)=C(n,c)(1/2)ⁿ。n<20 時直接把觀察值以外同樣或更極端的機率加總；n 較大時，才利用二項分配接近常態分配的結果計算 Z。20 是本單元沿用的經驗界線，實際近似品質仍由二項分配兩端的期望次數決定。", related: ["02/binomial-distribution"] },
   { type: "paragraph", text: "n 較大時，可利用二項分配的平均數 n/2 與標準差 √(n/4) 作常態近似。因為 C 是離散值而常態分配是連續的，實際計算通常加入 0.5 的連續性校正。" },
   { type: "formulaGroup", formulas: [
     { label: "未校正的 Z", latex: "Z=\\frac{C-n/2}{\\sqrt{n/4}}", fallback: "Z=(C−n/2)/√(n/4)" },

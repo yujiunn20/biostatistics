@@ -1,0 +1,130 @@
+.on-page-toc a {
+  border-bottom: 1px solid transparent;
+}
+
+.on-page-toc a:hover {
+  border-bottom-color: var(--green);
+  color: var(--green);
+}
+
+.prose h2 {
+  scroll-margin-top: 96px;
+}
+
+.heading-anchor {
+  margin-left: .45em;
+  color: var(--muted);
+  font: 500 .65em/1 ui-monospace;
+  opacity: 0;
+  transition: .15s;
+}
+
+.prose h2:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.callout-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.callout-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--green) 28%, var(--line));
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.callout-links a:hover {
+  border-color: var(--green);
+}
+
+.related-reading {
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+}
+
+.related-reading h2 {
+  margin: 0;
+  font: 600 32px Georgia, "Noto Serif TC", serif;
+}
+
+.related-reading__groups {
+  display: grid;
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.related-reading__groups h3 {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: .05em;
+}
+
+.related-reading__groups section > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.related-reading__groups a {
+  display: flex;
+  min-height: 128px;
+  flex-direction: column;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  transition: .18s;
+}
+
+.related-reading__groups a:hover {
+  transform: translateY(-2px);
+  border-color: var(--green);
+}
+
+.related-reading__groups small {
+  color: var(--muted);
+  font: 700 10px ui-monospace;
+  letter-spacing: .08em;
+}
+
+.related-reading__groups strong {
+  margin-top: 9px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.related-reading__groups span {
+  margin-top: auto;
+  padding-top: 12px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .heading-anchor {
+    opacity: .65;
+  }
+
+  .related-reading__groups section > div {
+    grid-template-columns: 1fr;
+  }
+
+  .related-reading__groups a {
+    min-height: 105px;
+  }
+}
