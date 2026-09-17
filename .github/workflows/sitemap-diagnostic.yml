@@ -1,0 +1,25 @@
+name: Sitemap diagnostic
+
+on:
+  push:
+    branches:
+      - diag/sitemap-20260917
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Inspect generated sitemap
+        run: |
+          echo '--- sitemap-index.xml ---'
+          cat dist/sitemap-index.xml
+          echo
+          echo '--- sitemap files ---'
+          find dist -maxdepth 1 -type f -name 'sitemap*.xml' -print -exec sh -c 'echo URL_COUNT=$(grep -o "<url>" "$1" | wc -l)' _ {} \;
