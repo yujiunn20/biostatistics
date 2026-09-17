@@ -1,0 +1,92 @@
+name: One-time SEO indexing validation
+
+on:
+  push:
+    branches:
+      - fix/search-indexing-20260917
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Validate generated SEO signals
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import xml.etree.ElementTree as ET
+
+          base = 'https://biostatistics.yuchunlab.com'
+
+          def read(path):
+              p = Path(path)
+              if not p.exists():
+                  raise SystemExit(f'Missing generated file: {path}')
+              return p.read_text(encoding='utf-8')
+
+          root = read('dist/index.html')
+          if f'<link rel="canonical" href="{base}/zh-Hant/"' not in root:
+              raise SystemExit('Root canonical does not point to /zh-Hant/')
+
+          zh = read('dist/zh-Hant/index.html')
+          if f'<link rel="canonical" href="{base}/zh-Hant/"' not in zh:
+              raise SystemExit('zh-Hant homepage self-canonical missing')
+          for lang, url in {
+              'zh-Hant': f'{base}/zh-Hant/',
+              'en': f'{base}/en/',
+              'ja': f'{base}/ja/',
+              'x-default': f'{base}/zh-Hant/',
+          }.items():
+              if f'hreflang="{lang}" href="{url}"' not in zh:
+                  raise SystemExit(f'Homepage hreflang missing: {lang}')
+
+          article_candidates = sorted(Path('dist/en/chapter').glob('*/*/index.html'))
+          if not article_candidates:
+              raise SystemExit('No generated English topic articles found')
+          article = article_candidates[0].read_text(encoding='utf-8')
+          if not re.search(r'<link rel="canonical" href="https://biostatistics\.yuchunlab\.com/en/chapter/[^\"]+/[^\"]+/"', article):
+              raise SystemExit('Topic article self-canonical missing')
+          for lang in ('zh-Hant', 'en', 'ja', 'x-default'):
+              if f'hreflang="{lang}"' not in article:
+                  raise SystemExit(f'Topic article hreflang missing: {lang}')
+          if re.search(r'hreflang="(?:zh-Hant|en|ja|x-default)" href="/', article):
+              raise SystemExit('Relative hreflang URL remains in generated article')
+
+          sitemap_index = Path('dist/sitemap-index.xml')
+          if not sitemap_index.exists():
+              raise SystemExit('sitemap-index.xml missing')
+          ET.parse(sitemap_index)
+          sitemap_files = sorted(Path('dist').glob('sitemap-*.xml'))
+          if not sitemap_files:
+              raise SystemExit('No sitemap child files generated')
+          for sitemap in sitemap_files:
+              ET.parse(sitemap)
+          combined = '\n'.join(p.read_text(encoding='utf-8') for p in sitemap_files)
+          if f'<loc>{base}/</loc>' in combined:
+              raise SystemExit('Duplicate root homepage should remain excluded from sitemap')
+          for required in (f'<loc>{base}/zh-Hant/</loc>', f'<loc>{base}/en/</loc>', f'<loc>{base}/ja/</loc>'):
+              if required not in combined:
+                  raise SystemExit(f'Missing sitemap URL: {required}')
+
+          print(f'Validated canonical/hreflang output and {len(sitemap_files)} sitemap file(s).')
+          PY
+      - name: Remove one-time workflow
+        if: success()
+        run: |
+          git rm .github/workflows/seo-indexing-validation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: remove one-time SEO validation workflow"
+          git push origin HEAD:fix/search-indexing-20260917
