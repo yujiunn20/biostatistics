@@ -6,7 +6,7 @@ import RelatedReading from "../../../../components/RelatedReading.astro";
 import { allTopicSections } from "../../../../lib/content";
 import { allEnglishTopicSections, allJapaneseTopicSections, localizedSectionsForChapter } from "../../../../lib/localized-content";
 import type { ArticleKey } from "../../../../data/article-relations";
-import { chapters, chapterTitle, ui, type Locale } from "../../../../lib/site";
+import { chapters, chapterTitle, locales, ui, type Locale } from "../../../../lib/site";
 export function getStaticPaths(){ return [
   ...allTopicSections.map(section => ({ params: { locale: "zh-Hant", id: section.chapterId, section: section.slug } })),
   ...allEnglishTopicSections.map(section => ({ params: { locale: "en", id: section.chapterId, section: section.slug } })),
@@ -33,8 +33,13 @@ const internalHeadings = section.blocks.flatMap((block, blockIndex) => {
 });
 const headingIds = new Map(internalHeadings.map(item => [item.blockIndex, item.id]));
 const t = ui[locale];
+const alternates = Object.fromEntries(locales.flatMap(lang => {
+  const localizedSections = localizedSectionsForChapter(lang, id);
+  const peer = localizedSections.find(item => item.slug === slug) ?? localizedSections[sectionIndex];
+  return peer ? [[lang, `/${lang}/chapter/${id}/${peer.slug}/`]] : [];
+})) as Partial<Record<Locale, string>>;
 ---
-<Base locale={locale} title={`${section.title} | ${chapterTitle(chapter, locale)} | ${t.site}`} description={section.summary}>
+<Base locale={locale} title={`${section.title} | ${chapterTitle(chapter, locale)} | ${t.site}`} description={section.summary} alternates={alternates}>
   <Shell locale={locale} activeId={id} sectionSlug={slug}>
     <article class="topic-article">
       <nav class="breadcrumbs" aria-label={locale === "ja" ? "パンくずリスト" : locale === "en" ? "Breadcrumb" : "麵包屑"}><a href={`/${locale}/`}>{locale === "ja" ? "ホーム" : locale === "en" ? "Home" : "首頁"}</a><span>/</span><a href={`/${locale}/chapter/${id}/`}>{chapterTitle(chapter, locale)}</a><span>/</span><span>{section.title}</span></nav>

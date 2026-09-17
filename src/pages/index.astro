@@ -8,7 +8,7 @@ const locale: Locale = "zh-Hant";
 const t = ui[locale];
 const alternates = Object.fromEntries(locales.map(lang => [lang, `/${lang}/`])) as Record<Locale,string>;
 ---
-<Base locale={locale} title={t.site} description={t.intro} alternates={alternates}>
+<Base locale={locale} title={t.site} description={t.intro} alternates={alternates} canonical="/zh-Hant/">
   <Shell locale={locale}>
     <section class="hero">
       <p class="eyebrow">BIOSTATISTICS · STUDY NOTES</p><h1>{t.hero}</h1><p>{t.intro}</p>
